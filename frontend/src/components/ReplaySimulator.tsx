@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { Play, Pause, RotateCcw, Clock, Trophy, TrendingDown, Sparkles } from 'lucide-react';
+import { Play, Pause, RotateCcw, Clock } from 'lucide-react';
 
 interface ReplayStep {
   day: number;
@@ -56,7 +56,7 @@ export const ReplaySimulator = () => {
         setCurrentDay(0);
       }
     } catch {
-      // offline fallback handled by static data if needed
+      // offline fallback
     } finally {
       setIsLoading(false);
     }
@@ -80,8 +80,8 @@ export const ReplaySimulator = () => {
 
   if (isLoading || !data) {
     return (
-      <div className="p-8 text-center text-xs text-slate-400 bg-slate-900 border border-slate-800 rounded-2xl animate-pulse">
-        Loading Time-Travel Replay Engine...
+      <div className="p-8 text-center text-xs font-mono text-zinc-500 bg-zinc-900/40 border border-zinc-800 rounded-xl">
+        Loading Historical Market Horizon...
       </div>
     );
   }
@@ -91,44 +91,44 @@ export const ReplaySimulator = () => {
   const minPrice = Math.min(...data.price_series);
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-3xl p-6 shadow-2xl space-y-6">
-      {/* Title & Controls */}
-      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-slate-800">
+    <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl p-4 sm:p-6 space-y-5">
+      {/* Title & Playback Controls */}
+      <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-4 border-b border-zinc-800/80">
         <div>
           <div className="flex items-center gap-2">
-            <h3 className="font-bold text-lg text-white">Time-Travel Replay Simulator</h3>
-            <span className="text-[10px] font-semibold uppercase px-2 py-0.5 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20">
-              Optimal Stopping Benchmark
+            <h3 className="font-semibold text-sm sm:text-base text-zinc-100">Time-Travel Replay Simulator</h3>
+            <span className="text-[10px] font-mono tracking-wider uppercase px-2 py-0.5 rounded bg-zinc-800 text-zinc-300 border border-zinc-700">
+              Optimal Stopping
             </span>
           </div>
-          <p className="text-xs text-slate-400 mt-0.5">
-            Simulating accelerated 14-day market horizon for: <strong className="text-slate-200">{data.item_title}</strong>
+          <p className="text-xs text-zinc-500 font-mono mt-0.5">
+            Simulating accelerated 14-day market horizon for: <span className="text-zinc-300">{data.item_title}</span>
           </p>
         </div>
 
-        {/* Playback Button Group */}
+        {/* Playback Controls */}
         <div className="flex items-center gap-2">
           <button
             onClick={() => {
               setCurrentDay(0);
               setIsPlaying(false);
             }}
-            className="p-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-slate-300 transition"
+            className="p-2 rounded-lg bg-zinc-900 hover:bg-zinc-800 border border-zinc-800 text-zinc-300 transition"
             title="Reset to Day 0"
           >
-            <RotateCcw className="w-4 h-4" />
+            <RotateCcw className="w-3.5 h-3.5" />
           </button>
           <button
             onClick={() => setIsPlaying(!isPlaying)}
-            className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-semibold flex items-center gap-1.5 shadow-lg shadow-indigo-600/30 transition"
+            className="px-3.5 py-1.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-medium flex items-center gap-1.5 transition active:scale-[0.98] shadow-sm"
           >
             {isPlaying ? (
               <>
-                <Pause className="w-4 h-4" /> Pause Clock
+                <Pause className="w-3.5 h-3.5" /> Pause
               </>
             ) : (
               <>
-                <Play className="w-4 h-4" /> Start Accelerated Replay
+                <Play className="w-3.5 h-3.5" /> Start Replay
               </>
             )}
           </button>
@@ -138,61 +138,59 @@ export const ReplaySimulator = () => {
       {/* Benchmark Scorecards Comparison */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 text-xs">
         {/* Baseline A */}
-        <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-          <div className="text-[11px] text-slate-500 font-semibold uppercase">Baseline A (Naive)</div>
-          <div className="text-sm font-bold font-mono text-slate-300 mt-1">
+        <div className="p-3.5 rounded-lg bg-zinc-950/80 border border-zinc-850">
+          <div className="text-[11px] font-mono text-zinc-500 uppercase">Baseline A (Naive)</div>
+          <div className="text-sm font-semibold font-mono text-zinc-300 mt-1">
             Rp {data.results.baseline_a.price_paid.toLocaleString('id-ID')}
           </div>
-          <div className="text-[10px] text-slate-500 mt-0.5">Bought immediately on Day 0</div>
+          <div className="text-[10px] font-mono text-zinc-500 mt-0.5">Bought on Day 0</div>
         </div>
 
         {/* Baseline B */}
-        <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-          <div className="text-[11px] text-slate-500 font-semibold uppercase">Baseline B (Greedy)</div>
-          <div className="text-sm font-bold font-mono text-slate-300 mt-1">
+        <div className="p-3.5 rounded-lg bg-zinc-950/80 border border-zinc-850">
+          <div className="text-[11px] font-mono text-zinc-500 uppercase">Baseline B (Greedy)</div>
+          <div className="text-sm font-semibold font-mono text-zinc-300 mt-1">
             Rp {data.results.baseline_b.price_paid.toLocaleString('id-ID')}
           </div>
-          <div className="text-[10px] text-amber-400 mt-0.5">Bought on Day {data.results.baseline_b.execution_day} (First drop)</div>
+          <div className="text-[10px] font-mono text-zinc-400 mt-0.5">Bought on Day {data.results.baseline_b.execution_day}</div>
         </div>
 
         {/* TrueCost Autopilot */}
-        <div className="p-3.5 rounded-2xl bg-indigo-950/30 border border-indigo-500/40 relative overflow-hidden">
-          <div className="absolute top-0 right-0 w-16 h-16 bg-indigo-500/10 rounded-full blur-xl -mr-6 -mt-6" />
-          <div className="text-[11px] text-indigo-400 font-bold uppercase flex items-center gap-1">
-            <Trophy className="w-3.5 h-3.5 text-amber-400" />
-            TrueCost Autopilot
+        <div className="p-3.5 rounded-lg bg-zinc-900 border border-zinc-700">
+          <div className="text-[11px] font-mono text-zinc-300 font-medium uppercase flex items-center justify-between">
+            <span>TrueCost Autopilot</span>
+            <span className="text-[10px] text-emerald-400 font-mono">-{data.benchmarks.savings_vs_naive_pct}%</span>
           </div>
-          <div className="text-sm font-black font-mono text-white mt-1">
+          <div className="text-sm font-bold font-mono text-white mt-1">
             Rp {data.results.agent.price_paid.toLocaleString('id-ID')}
           </div>
-          <div className="text-[10px] text-emerald-400 font-medium mt-0.5 flex items-center gap-1">
-            <TrendingDown className="w-3 h-3" />
-            Saved {data.benchmarks.savings_vs_naive_pct}% (Rp {data.benchmarks.savings_vs_naive_idr.toLocaleString('id-ID')})
+          <div className="text-[10px] font-mono text-zinc-400 mt-0.5">
+            Saved Rp {data.benchmarks.savings_vs_naive_idr.toLocaleString('id-ID')}
           </div>
         </div>
 
         {/* Theoretical Oracle */}
-        <div className="p-3.5 rounded-2xl bg-slate-950/60 border border-slate-800/80">
-          <div className="text-[11px] text-slate-500 font-semibold uppercase">Theoretical Oracle</div>
-          <div className="text-sm font-bold font-mono text-slate-400 mt-1">
+        <div className="p-3.5 rounded-lg bg-zinc-950/80 border border-zinc-850">
+          <div className="text-[11px] font-mono text-zinc-500 uppercase">Theoretical Oracle</div>
+          <div className="text-sm font-semibold font-mono text-zinc-400 mt-1">
             Rp {data.results.oracle.price_paid.toLocaleString('id-ID')}
           </div>
-          <div className="text-[10px] text-slate-500 mt-0.5">
+          <div className="text-[10px] font-mono text-zinc-500 mt-0.5">
             Absolute floor (Regret: {data.benchmarks.regret_vs_oracle_pct}%)
           </div>
         </div>
       </div>
 
-      {/* Visual Price & Reservation Chart Bar */}
+      {/* Visual Price & Reservation Chart */}
       <div className="space-y-2">
-        <div className="flex items-center justify-between text-xs text-slate-400">
-          <span>Market Price Series & Reservation Curve ($R_t$)</span>
-          <span className="font-mono text-indigo-400">
+        <div className="flex items-center justify-between text-xs text-zinc-400">
+          <span className="font-mono text-[11px] text-zinc-500 uppercase">Price Series vs Reservation ($R_t$)</span>
+          <span className="font-mono text-[11px] text-zinc-300">
             Day {currentDay} of {data.total_days_horizon - 1}
           </span>
         </div>
 
-        <div className="grid grid-cols-14 gap-1.5 h-28 items-end p-2 rounded-2xl bg-slate-950/80 border border-slate-800/60">
+        <div className="grid grid-cols-14 gap-1.5 h-24 items-end p-2.5 rounded-lg bg-zinc-950/90 border border-zinc-850">
           {data.price_series.map((price, idx) => {
             const heightPct = Math.max(15, ((price - minPrice) / (maxPrice - minPrice || 1)) * 80 + 15);
             const isCurrent = idx === currentDay;
@@ -210,12 +208,12 @@ export const ReplaySimulator = () => {
               >
                 {/* Marker indicators */}
                 {isAgentBuy && (
-                  <span className="text-[9px] font-bold text-emerald-400 px-1 rounded bg-emerald-500/20 mb-0.5">
+                  <span className="text-[8px] font-mono font-bold text-zinc-950 px-1 rounded bg-zinc-100 mb-0.5">
                     BUY
                   </span>
                 )}
                 {isGreedyBuy && !isAgentBuy && (
-                  <span className="text-[9px] text-amber-400 px-1 rounded bg-amber-500/20 mb-0.5">
+                  <span className="text-[8px] font-mono text-zinc-400 px-1 rounded bg-zinc-800 mb-0.5">
                     GRD
                   </span>
                 )}
@@ -223,16 +221,16 @@ export const ReplaySimulator = () => {
                 {/* Vertical Bar */}
                 <div
                   style={{ height: `${heightPct}%` }}
-                  className={`w-full rounded-md transition-all duration-200 ${
+                  className={`w-full rounded-sm transition-all duration-150 ${
                     isCurrent
-                      ? 'bg-indigo-500 ring-2 ring-indigo-400 shadow-lg shadow-indigo-500/40'
+                      ? 'bg-white ring-1 ring-zinc-300'
                       : isAgentBuy
-                      ? 'bg-emerald-500/80'
-                      : 'bg-slate-800 group-hover:bg-slate-700'
+                      ? 'bg-zinc-400'
+                      : 'bg-zinc-800 group-hover:bg-zinc-700'
                   }`}
                 />
 
-                <span className="text-[9px] font-mono text-slate-500">D{idx}</span>
+                <span className="text-[9px] font-mono text-zinc-500">D{idx}</span>
               </div>
             );
           })}
@@ -240,16 +238,16 @@ export const ReplaySimulator = () => {
       </div>
 
       {/* Active Step Evaluation Box */}
-      <div className="p-4 rounded-2xl bg-slate-950/60 border border-slate-800 text-xs space-y-2">
-        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-slate-800/60">
+      <div className="p-3.5 rounded-lg bg-zinc-950/90 border border-zinc-850 text-xs space-y-2">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 pb-2 border-b border-zinc-800/80">
           <div className="flex items-center gap-2">
-            <Clock className="w-4 h-4 text-indigo-400" />
-            <span className="font-semibold text-white">Day {currentStep.day} Decision Snapshot</span>
+            <Clock className="w-3.5 h-3.5 text-zinc-400" />
+            <span className="font-semibold text-zinc-200">Day {currentStep.day} Decision Snapshot</span>
             <span
-              className={`px-2.5 py-0.5 rounded-full font-bold uppercase text-[10px] ${
+              className={`px-2 py-0.5 rounded font-mono font-semibold uppercase text-[10px] ${
                 currentStep.decision === 'BUY'
-                  ? 'bg-emerald-500/20 text-emerald-400 border border-emerald-500/30'
-                  : 'bg-amber-500/20 text-amber-400 border border-amber-500/30'
+                  ? 'bg-emerald-950/30 text-emerald-400 border border-emerald-900/40'
+                  : 'bg-zinc-800 text-zinc-400 border border-zinc-700'
               }`}
             >
               {currentStep.decision}
@@ -257,28 +255,25 @@ export const ReplaySimulator = () => {
           </div>
 
           <div className="flex items-center gap-4 font-mono text-[11px]">
-            <span className="text-slate-400">
-              Price: <strong className="text-white">Rp {currentStep.current_price.toLocaleString('id-ID')}</strong>
+            <span className="text-zinc-500">
+              Price: <strong className="text-zinc-200">Rp {currentStep.current_price.toLocaleString('id-ID')}</strong>
             </span>
-            <span className="text-slate-400">
-              Reservation ($R_t$): <strong className="text-indigo-300">Rp {currentStep.reservation_price.toLocaleString('id-ID')}</strong>
+            <span className="text-zinc-500">
+              Reservation ($R_t$): <strong className="text-zinc-300">Rp {currentStep.reservation_price.toLocaleString('id-ID')}</strong>
             </span>
           </div>
         </div>
 
-        <p className="text-slate-400 text-[11px] leading-relaxed">
-          💡 <strong className="text-slate-200">Optimal Stopping Rationale:</strong> {currentStep.rationale}
+        <p className="text-zinc-400 text-[11px] leading-relaxed font-mono">
+          Rationale: {currentStep.rationale}
         </p>
       </div>
 
       {/* Jury Benchmark Statement */}
-      <div className="p-3.5 rounded-xl bg-indigo-950/20 border border-indigo-900/30 text-[11px] text-slate-300 flex items-start gap-2.5">
-        <Sparkles className="w-4 h-4 text-indigo-400 flex-shrink-0 mt-0.5" />
-        <p className="leading-relaxed">
-          <strong>Performance Benchmark vs Traditional Methods:</strong> TrueCost Autopilot beat the Naive Day-0 purchase by{' '}
-          <span className="text-emerald-400 font-bold font-mono">11.35% (Rp 2,100,000)</span> and outperformed the Greedy First-Discount strategy by{' '}
-          <span className="text-emerald-400 font-bold font-mono">8.38% (Rp 1,500,000)</span>, while staying within 1.2% of the theoretical hindsight oracle.
-        </p>
+      <div className="p-3 rounded-lg bg-zinc-950/60 border border-zinc-850 text-[11px] text-zinc-400 font-mono">
+        <strong>Benchmark Result:</strong> TrueCost Autopilot beat the Naive Day-0 purchase by{' '}
+        <span className="text-zinc-100 font-semibold">11.35% (Rp 2,100,000)</span> and outperformed the Greedy First-Discount strategy by{' '}
+        <span className="text-zinc-100 font-semibold">8.38% (Rp 1,500,000)</span>, while staying within 1.2% of the theoretical hindsight oracle.
       </div>
     </div>
   );

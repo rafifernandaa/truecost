@@ -1,6 +1,6 @@
+import type React from 'react';
 import { useState } from 'react';
-import { ArrowRight, ChevronDown, ChevronUp, Clock, CreditCard, Sparkles, ShieldCheck } from 'lucide-react';
-
+import { ArrowRight, ChevronDown, ChevronUp, Clock, CreditCard, ShieldCheck } from 'lucide-react';
 
 interface OneNumberCardProps {
   itemTitle: string;
@@ -55,31 +55,31 @@ export const OneNumberCard: React.FC<OneNumberCardProps> = ({
   const diff = trueCost - stickerPrice;
 
   return (
-    <div className="bg-slate-900 border border-slate-800 rounded-2xl overflow-hidden shadow-xl transition-all duration-300 hover:border-slate-700/80">
+    <div className="bg-zinc-900/40 border border-zinc-800 rounded-xl overflow-hidden transition-all duration-200 hover:border-zinc-700">
       {/* Top Header */}
-      <div className="p-5 border-b border-slate-800/80 bg-slate-900/40 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
-        <div>
-          <div className="flex items-center gap-2">
-            <span className="text-xs font-medium text-indigo-400 bg-indigo-500/10 px-2.5 py-0.5 rounded-full border border-indigo-500/20">
+      <div className="p-4 sm:p-5 border-b border-zinc-800/80 bg-zinc-900/60 flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div className="space-y-1">
+          <div className="flex flex-wrap items-center gap-2">
+            <span className="text-[11px] font-mono text-zinc-300 bg-zinc-800/80 px-2 py-0.5 rounded border border-zinc-700/60">
               {merchantName}
             </span>
             {optimalStopping && (
-              <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
+              <span className={`text-[11px] font-mono px-2 py-0.5 rounded border ${
                 optimalStopping.decision === 'BUY'
-                  ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20'
-                  : 'bg-amber-500/10 text-amber-400 border border-amber-500/20'
+                  ? 'bg-emerald-950/30 text-emerald-400 border-emerald-900/40'
+                  : 'bg-zinc-800 text-zinc-400 border-zinc-700'
               }`}>
-                {optimalStopping.decision === 'BUY' ? 'Optimal Buy Window' : 'Advise: Wait for Dip'}
+                {optimalStopping.decision === 'BUY' ? 'Optimal Buy Window' : 'Hold: Wait for Price Drop'}
               </span>
             )}
           </div>
-          <h3 className="font-bold text-base text-white mt-1.5">{itemTitle}</h3>
+          <h3 className="font-semibold text-sm sm:text-base text-zinc-100">{itemTitle}</h3>
         </div>
 
-        {/* Execution Status Button */}
+        {/* Action Button */}
         <div>
           {isSettled ? (
-            <div className="flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 text-xs font-semibold">
+            <div className="inline-flex items-center gap-1.5 px-3 py-2 rounded-lg bg-emerald-950/30 text-emerald-400 border border-emerald-900/40 text-xs font-mono">
               <ShieldCheck className="w-4 h-4" />
               Settled via Disposable Token
             </div>
@@ -87,112 +87,126 @@ export const OneNumberCard: React.FC<OneNumberCardProps> = ({
             <button
               onClick={onExecutePurchase}
               disabled={isExecuting}
-              className="w-full sm:w-auto px-4 py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-500 disabled:bg-slate-800 text-white text-xs font-semibold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition"
+              className="w-full sm:w-auto px-4 py-2 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-medium flex items-center justify-center gap-2 transition active:scale-[0.98] disabled:opacity-50 disabled:cursor-not-allowed shadow-sm"
             >
-              <Sparkles className="w-4 h-4 text-indigo-200" />
-              {isExecuting ? 'Verifying & Executing...' : 'Execute Buy via Mandate'}
+              {isExecuting ? (
+                <>
+                  <span className="w-3.5 h-3.5 border-2 border-zinc-900 border-t-transparent rounded-full animate-spin" />
+                  Verifying & Executing...
+                </>
+              ) : (
+                'Execute Purchase via Mandate'
+              )}
             </button>
           )}
         </div>
       </div>
 
-      {/* The One Number Reveal Section */}
-      <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-6 items-center">
-        {/* Left: Sticker vs TrueCost */}
-        <div className="flex items-center justify-between sm:justify-start gap-4 p-4 rounded-xl bg-slate-800/40 border border-slate-700/40">
+      {/* The One Number Comparison Section */}
+      <div className="p-4 sm:p-6 grid grid-cols-1 md:grid-cols-2 gap-4 sm:gap-6 items-center">
+        {/* Left: Advertised Sticker vs Net TrueCost */}
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 p-4 rounded-lg bg-zinc-950/80 border border-zinc-800/80">
           <div>
-            <div className="text-xs text-slate-400 uppercase tracking-wider font-semibold">Advertised Sticker</div>
-            <div className="text-xl font-bold font-mono text-slate-300 mt-1">
+            <div className="text-[11px] text-zinc-500 uppercase tracking-wider font-mono">Advertised Sticker</div>
+            <div className="text-lg font-mono font-medium text-zinc-400 mt-0.5">
               {stickerCurrency} {stickerPrice.toLocaleString()}
             </div>
-            <div className="text-[11px] text-slate-500">Nominal store listing</div>
+            <div className="text-[11px] text-zinc-600 font-mono">Nominal retail listing</div>
           </div>
 
-          <div className="w-8 h-8 rounded-full bg-slate-700/60 flex items-center justify-center text-slate-400">
-            <ArrowRight className="w-4 h-4" />
+          <div className="hidden sm:flex w-7 h-7 rounded-md bg-zinc-900 border border-zinc-800 items-center justify-center text-zinc-500">
+            <ArrowRight className="w-3.5 h-3.5" />
           </div>
 
           <div>
-            <div className="text-xs text-emerald-400 uppercase tracking-wider font-semibold flex items-center gap-1">
-              TrueCost (Net)
-              <span className="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-ping" />
+            <div className="text-[11px] text-zinc-400 uppercase tracking-wider font-mono flex items-center gap-1.5">
+              <span>The TrueCost</span>
+              <span className="w-1.5 h-1.5 rounded-full bg-zinc-400" />
             </div>
-            <div className="text-2xl font-black font-mono text-white mt-0.5">
+            <div className="text-2xl font-mono font-bold text-white tracking-tight mt-0.5">
               {targetCurrency} {trueCost.toLocaleString('id-ID')}
             </div>
-            <div className="text-[11px] text-slate-400">
-              {diff > 0 ? `+${diff.toLocaleString()} hidden friction` : 'Full true cost accounted'}
+            <div className="text-[11px] text-zinc-400 font-mono">
+              {diff > 0 ? `+${diff.toLocaleString()} net duties & spreads` : 'All frictions accounted'}
             </div>
           </div>
         </div>
 
-        {/* Right: Quick Highlights */}
+        {/* Right: Key Quantitative Indices */}
         <div className="grid grid-cols-2 gap-3 text-xs">
-          <div className="p-3 rounded-xl bg-slate-800/30 border border-slate-700/30">
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <CreditCard className="w-3.5 h-3.5 text-indigo-400" />
-              <span>Effective APR:</span>
+          <div className="p-3.5 rounded-lg bg-zinc-950/60 border border-zinc-850">
+            <div className="flex items-center gap-1.5 text-zinc-400">
+              <CreditCard className="w-3.5 h-3.5 text-zinc-500" />
+              <span className="text-[11px] font-mono uppercase tracking-wider">Effective APR</span>
             </div>
-            <div className="font-bold font-mono text-white text-sm mt-1">
-              {bnplBreakdown ? `${(bnplBreakdown.effectiveAnnualRate * 100).toFixed(1)}%` : '0.0%'}
+            <div className="font-semibold font-mono text-zinc-100 text-sm mt-1">
+              {bnplBreakdown ? `${(bnplBreakdown.effectiveAnnualRate * 100).toFixed(1)}% EAR` : '0.0%'}
             </div>
-            <div className="text-[10px] text-slate-400 mt-0.5">
-              {bnplBreakdown?.isPredatory ? '⚠️ Hidden Surcharges' : 'Verified Fair'}
+            <div className="text-[11px] text-zinc-500 mt-0.5 font-mono">
+              {bnplBreakdown?.isPredatory ? 'Warning: Hidden charges' : 'Zero predatory fees'}
             </div>
           </div>
 
-          <div className="p-3 rounded-xl bg-slate-800/30 border border-slate-700/30">
-            <div className="flex items-center gap-1.5 text-slate-400">
-              <Clock className="w-3.5 h-3.5 text-amber-400" />
-              <span>Optimal Timing:</span>
+          <div className="p-3.5 rounded-lg bg-zinc-950/60 border border-zinc-850">
+            <div className="flex items-center gap-1.5 text-zinc-400">
+              <Clock className="w-3.5 h-3.5 text-zinc-500" />
+              <span className="text-[11px] font-mono uppercase tracking-wider">Buy Timing</span>
             </div>
-            <div className="font-bold font-mono text-white text-sm mt-1">
-              {optimalStopping?.decision === 'BUY' ? 'Strong Buy' : 'Hold / Wait'}
+            <div className="font-semibold font-mono text-zinc-100 text-sm mt-1">
+              {optimalStopping?.decision === 'BUY' ? 'Execute Now' : 'Hold / Wait'}
             </div>
-            <div className="text-[10px] text-slate-400 mt-0.5">
-              {optimalStopping ? `${optimalStopping.daysLeft} days left in mandate` : 'In target band'}
+            <div className="text-[11px] text-zinc-500 mt-0.5 font-mono">
+              {optimalStopping ? `${optimalStopping.daysLeft}d left in horizon` : 'Within budget band'}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Expandable Mathematical Evidence Drawer */}
-      <div className="border-t border-slate-800/80 bg-slate-900/60">
+      {/* Expandable Mathematical & Policy Breakdown Drawer */}
+      <div className="border-t border-zinc-800 bg-zinc-900/30">
         <button
           onClick={() => setIsDrawerOpen(!isDrawerOpen)}
-          className="w-full py-2.5 px-6 flex items-center justify-between text-xs font-semibold text-slate-400 hover:text-white transition"
+          className="w-full py-2.5 px-4 sm:px-6 flex items-center justify-between text-xs font-medium text-zinc-400 hover:text-zinc-200 transition"
         >
-          <span>Mathematical & Policy Audit Evidence</span>
-          <div className="flex items-center gap-1 text-indigo-400">
-            <span>{isDrawerOpen ? 'Collapse Details' : 'Inspect Quant Breakdown'}</span>
-            {isDrawerOpen ? <ChevronUp className="w-4 h-4" /> : <ChevronDown className="w-4 h-4" />}
+          <span className="font-mono text-[11px] tracking-wider uppercase text-zinc-500">
+            Audit Ledger & Quantitative Breakdown
+          </span>
+          <div className="flex items-center gap-1 text-zinc-300 font-mono text-[11px]">
+            <span>{isDrawerOpen ? 'Hide Audit Proof' : 'Inspect Math Proof'}</span>
+            {isDrawerOpen ? <ChevronUp className="w-3.5 h-3.5" /> : <ChevronDown className="w-3.5 h-3.5" />}
           </div>
         </button>
 
         {isDrawerOpen && (
-          <div className="p-6 border-t border-slate-800/60 bg-slate-950/40">
+          <div className="p-4 sm:p-6 border-t border-zinc-800 bg-zinc-950/60 space-y-4">
             {/* Drawer Tabs */}
-            <div className="flex items-center gap-2 mb-4 border-b border-slate-800 pb-2 text-xs">
+            <div className="flex flex-wrap items-center gap-1.5 border-b border-zinc-800 pb-3 text-xs">
               <button
                 onClick={() => setActiveTab('bnpl')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition ${
-                  activeTab === 'bnpl' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
+                  activeTab === 'bnpl'
+                    ? 'bg-zinc-100 text-zinc-950'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
                 }`}
               >
                 BNPL Lie Detector
               </button>
               <button
                 onClick={() => setActiveTab('landed')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition ${
-                  activeTab === 'landed' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
+                  activeTab === 'landed'
+                    ? 'bg-zinc-100 text-zinc-950'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
                 }`}
               >
                 Cross-Border Taxes & FX
               </button>
               <button
                 onClick={() => setActiveTab('timing')}
-                className={`px-3 py-1.5 rounded-lg font-medium transition ${
-                  activeTab === 'timing' ? 'bg-indigo-600 text-white' : 'text-slate-400 hover:text-slate-200'
+                className={`px-3 py-1.5 rounded-md text-xs font-medium transition ${
+                  activeTab === 'timing'
+                    ? 'bg-zinc-100 text-zinc-950'
+                    : 'text-zinc-400 hover:text-zinc-200 hover:bg-zinc-900'
                 }`}
               >
                 Optimal Stopping Curve
@@ -201,77 +215,77 @@ export const OneNumberCard: React.FC<OneNumberCardProps> = ({
 
             {/* Tab 1: BNPL Lie Detector */}
             {activeTab === 'bnpl' && bnplBreakdown && (
-              <div className="space-y-3 text-xs text-slate-300">
+              <div className="space-y-3 text-xs text-zinc-300">
                 <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Advertised Plan:</span>
-                    <p className="font-semibold text-white mt-0.5">{bnplBreakdown.tenorMonths} Monthly Installments</p>
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">Advertised Schedule</span>
+                    <p className="font-medium text-zinc-200 mt-1">{bnplBreakdown.tenorMonths} Monthly Installments</p>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Hidden Finance Charge:</span>
-                    <p className="font-semibold text-amber-400 mt-0.5 font-mono">
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">Hidden Finance Charge</span>
+                    <p className="font-semibold text-zinc-200 mt-1 font-mono">
                       Rp {bnplBreakdown.totalFinanceCharge.toLocaleString('id-ID')}
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Effective Annual Rate (EAR):</span>
-                    <p className="font-semibold text-red-400 mt-0.5 font-mono">
-                      {(bnplBreakdown.effectiveAnnualRate * 100).toFixed(2)}% APR
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">Effective Annual Rate</span>
+                    <p className="font-semibold text-zinc-100 mt-1 font-mono">
+                      {(bnplBreakdown.effectiveAnnualRate * 100).toFixed(2)}% EAR
                     </p>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-400 leading-relaxed">
-                  💡 <strong>Audit Engine Rationale:</strong> While promoted as 0% interest, upfront administrative charges and monthly service add-ons yield a compounded annual rate of {(bnplBreakdown.effectiveAnnualRate * 100).toFixed(1)}%. TrueCost routes direct debit to save Rp {bnplBreakdown.totalFinanceCharge.toLocaleString()}.
+                <p className="text-[11px] text-zinc-400 leading-relaxed font-mono">
+                  Analysis: While advertised as 0% interest, administrative fees yield a true compounded rate of {(bnplBreakdown.effectiveAnnualRate * 100).toFixed(1)}%. TrueCost Autopilot routes direct payment to save Rp {bnplBreakdown.totalFinanceCharge.toLocaleString()}.
                 </p>
               </div>
             )}
 
             {/* Tab 2: Landed Cost Breakdown */}
             {activeTab === 'landed' && landedCostBreakdown && (
-              <div className="space-y-3 text-xs text-slate-300">
+              <div className="space-y-3 text-xs text-zinc-300">
                 <div className="grid grid-cols-1 sm:grid-cols-4 gap-3">
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Spot FX vs Effective:</span>
-                    <p className="font-semibold text-white mt-0.5 font-mono">
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">FX Spot vs Card</span>
+                    <p className="font-medium text-zinc-200 mt-1 font-mono">
                       {landedCostBreakdown.spotFxRate.toFixed(0)} → {landedCostBreakdown.effectiveFxRate.toFixed(0)}
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Card FX Spread Cost:</span>
-                    <p className="font-semibold text-amber-400 mt-0.5 font-mono">
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">Bank FX Spread</span>
+                    <p className="font-medium text-zinc-200 mt-1 font-mono">
                       Rp {landedCostBreakdown.fxMarkupCost.toLocaleString('id-ID')}
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Customs Import Taxes:</span>
-                    <p className="font-semibold text-white mt-0.5 font-mono">
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">Customs & PPN</span>
+                    <p className="font-medium text-zinc-200 mt-1 font-mono">
                       Rp {landedCostBreakdown.totalCustomsTaxes.toLocaleString('id-ID')}
                     </p>
                   </div>
-                  <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
-                    <span className="text-slate-400">Tourist TRS Refund:</span>
-                    <p className="font-semibold text-emerald-400 mt-0.5 font-mono">
+                  <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
+                    <span className="text-[11px] font-mono text-zinc-500 uppercase">Tourist TRS Refund</span>
+                    <p className="font-semibold text-emerald-400 mt-1 font-mono">
                       -Rp {landedCostBreakdown.touristTaxRefund.toLocaleString('id-ID')}
                     </p>
                   </div>
                 </div>
-                <p className="text-[11px] text-slate-400">
-                  Customs calculated under Indonesian Bea Cukai passenger de minimis allowance ($500 USD), with 0% WTO ITA duty, 11% PPN, and 7.5% PPh with NPWP tax identity.
+                <p className="text-[11px] text-zinc-400 font-mono">
+                  Indonesian Bea Cukai personal de minimis allowance applied ($500 USD threshold), 0% WTO ITA duty, 11% PPN, and 7.5% PPh with NPWP registration.
                 </p>
               </div>
             )}
 
             {/* Tab 3: Optimal Stopping Timing */}
             {activeTab === 'timing' && optimalStopping && (
-              <div className="space-y-3 text-xs text-slate-300">
-                <div className="p-3 rounded-lg bg-slate-900 border border-slate-800">
+              <div className="space-y-3 text-xs text-zinc-300">
+                <div className="p-3 rounded-lg bg-zinc-900/90 border border-zinc-800">
                   <div className="flex items-center justify-between">
-                    <span className="text-slate-400">Decision Engine:</span>
-                    <span className="font-bold text-white font-mono">
+                    <span className="text-[11px] font-mono text-zinc-400 uppercase">Backward Induction Decision:</span>
+                    <span className="font-semibold text-zinc-100 font-mono">
                       {optimalStopping.decision} (Percentile {optimalStopping.percentileRank}%)
                     </span>
                   </div>
-                  <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
+                  <p className="text-[11px] text-zinc-400 mt-1.5 leading-relaxed font-mono">
                     {optimalStopping.rationale}
                   </p>
                 </div>

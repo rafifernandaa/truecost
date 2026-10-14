@@ -7,9 +7,7 @@ import { MandateModal } from './components/MandateModal';
 import { AuditTrailView } from './components/AuditTrailView';
 import { ReplaySimulator } from './components/ReplaySimulator';
 import { getOrCreateUserKeyPair, type UserKeyPair, toHexString } from './lib/crypto';
-import { Sparkles, ShieldAlert, KeyRound } from 'lucide-react';
-
-
+import { ShieldCheck, ShieldAlert, KeyRound } from 'lucide-react';
 
 export function App() {
   const [keyPair, setKeyPair] = useState<UserKeyPair | null>(null);
@@ -169,7 +167,7 @@ export function App() {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          listing_price: 3990000.0, // extreme low price
+          listing_price: 3990000.0,
           market_prices: [16000000, 16800000, 17200000, 17500000, 18500000],
           seller_feedback_score: 55.0,
           seller_review_count: 2,
@@ -188,54 +186,54 @@ export function App() {
   };
 
   return (
-    <div className="min-h-screen bg-slate-950 text-slate-100 flex flex-col font-sans">
+    <div className="min-h-screen bg-zinc-950 text-zinc-100 flex flex-col font-sans selection:bg-zinc-800 selection:text-white">
       <Navbar
         checkingBalance={checkingBalance}
         potBalance={potBalance}
         userPublicKey={keyPair ? keyPair.publicKeyHex : '...'}
       />
 
-      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-8">
-        {/* Hero & Quick Participatory Controls */}
-        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-6 p-6 rounded-3xl bg-gradient-to-r from-slate-900 via-indigo-950/40 to-slate-900 border border-slate-800 shadow-2xl">
+      <main className="flex-1 max-w-7xl w-full mx-auto p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8">
+        {/* Hero & Quick Action Bar */}
+        <div className="flex flex-col lg:flex-row lg:items-center justify-between gap-5 p-5 sm:p-6 rounded-xl bg-zinc-900/40 border border-zinc-800">
           <div className="space-y-2 max-w-2xl">
-            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-indigo-500/10 text-indigo-400 border border-indigo-500/20 text-xs font-semibold">
-              <Sparkles className="w-3.5 h-3.5" />
-              Autonomous Financial Participant (AP2 Verifiable Mandates)
+            <div className="inline-flex items-center gap-1.5 px-2 py-0.5 rounded bg-zinc-800/80 text-zinc-300 border border-zinc-700/80 text-[10px] font-mono tracking-wider uppercase">
+              <ShieldCheck className="w-3.5 h-3.5 text-zinc-300" />
+              Autonomous Financial Participant · AP2 Verifiable Mandates
             </div>
-            <h2 className="text-2xl sm:text-3xl font-extrabold text-white tracking-tight">
+            <h2 className="text-xl sm:text-2xl font-bold text-white tracking-tight">
               Pre-Purchase Financial Co-Pilot
             </h2>
-            <p className="text-sm text-slate-400 leading-relaxed">
-              TrueCost Autopilot monitors market price distributions, decodes hidden BNPL interest rates, computes cross-border landed costs, and safely executes purchases using single-use disposable cards.
+            <p className="text-xs sm:text-sm text-zinc-400 leading-relaxed font-mono">
+              Monitors market price distributions, exposes predatory BNPL rates via IRR/EAR, computes Indonesian customs landed cost, and executes purchases within signed Ed25519 bounds.
             </p>
           </div>
 
           {/* Quick Action Button Group */}
-          <div className="flex flex-col sm:flex-row items-stretch lg:items-center gap-3">
+          <div className="flex flex-col sm:flex-row items-stretch lg:items-center gap-2.5">
             <button
               onClick={() => setIsMandateModalOpen(true)}
-              className="px-5 py-3 rounded-2xl bg-indigo-600 hover:bg-indigo-500 text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg shadow-indigo-600/30 transition"
+              className="px-4 py-2.5 rounded-lg bg-zinc-100 hover:bg-white text-zinc-950 text-xs font-medium flex items-center justify-center gap-2 transition active:scale-[0.98] shadow-sm"
             >
-              <KeyRound className="w-4 h-4 text-indigo-200" />
+              <KeyRound className="w-4 h-4 text-zinc-900" />
               {activeMandate ? 'Active Mandate (Signed)' : 'Sign Intent Mandate'}
             </button>
             <button
               onClick={handleTriggerScamSimulation}
-              className="px-5 py-3 rounded-2xl bg-slate-800 hover:bg-slate-700 border border-slate-700 text-red-300 hover:text-red-200 text-xs font-semibold flex items-center justify-center gap-2 transition"
+              className="px-4 py-2.5 rounded-lg bg-zinc-900 hover:bg-zinc-850 border border-zinc-800 hover:border-zinc-700 text-zinc-300 text-xs font-mono flex items-center justify-center gap-2 transition"
             >
-              <ShieldAlert className="w-4 h-4 text-red-400" />
-              Test Scam Intervention
+              <ShieldAlert className="w-4 h-4 text-zinc-400" />
+              Simulate Outlier Scam
             </button>
           </div>
         </div>
 
         {/* Section 1: The One Number Reveal (Pre-Purchase Financial Comparison) */}
-        <section className="space-y-4">
+        <section className="space-y-3">
           <div className="flex items-center justify-between">
             <div>
-              <h3 className="font-bold text-lg text-white">Market Monitoring & Financial TrueCost</h3>
-              <p className="text-xs text-slate-400">Live evaluation against pre-authorized Intent Mandate</p>
+              <h3 className="font-semibold text-sm sm:text-base text-zinc-100">Live Product Evaluation</h3>
+              <p className="text-[11px] font-mono text-zinc-500">Autonomous evaluation against signed Intent Mandate</p>
             </div>
           </div>
 
@@ -287,6 +285,15 @@ export function App() {
           />
         </section>
 
+        {/* Minimalist Footer */}
+        <footer className="pt-6 pb-8 border-t border-zinc-850 flex flex-col sm:flex-row items-center justify-between gap-3 text-[11px] font-mono text-zinc-500">
+          <div>
+            TrueCost Autopilot · FinTechathon 2026 International AI Track (Topic A)
+          </div>
+          <div>
+            Deterministic Quant Math + Ed25519 Verifiable Mandates
+          </div>
+        </footer>
       </main>
 
       {/* Modals */}
