@@ -9,8 +9,10 @@ from app.engine.landed_cost import compute_landed_cost
 from app.engine.scam_detector import analyze_scam_risk
 from app.engine.optimal_stopping import evaluate_buy_timing
 from app.engine.topsis import rank_alternatives_topsis
+from app.engine.replay_simulator import run_time_travel_simulation
 
 router = APIRouter()
+
 
 # ----------------- BANK & LEDGER ROUTES -----------------
 
@@ -136,3 +138,24 @@ def api_topsis_rank(req: TopsisRequest):
         criteria_weights=req.criteria_weights,
         criteria_types=req.criteria_types
     )
+
+class ReplaySimulateRequest(BaseModel):
+    price_series: Optional[List[float]] = None
+    total_days_horizon: int = 14
+    item_title: str = "Lenovo ThinkPad T14s Gen 4"
+
+@router.post("/replay/simulate")
+def api_replay_simulate(req: ReplaySimulateRequest):
+    # Default benchmark price series if none provided
+    series = req.price_series or [
+        18500000.0, 18200000.0, 17900000.0, 18100000.0,
+        17500000.0, 16400000.0, 17000000.0, 17300000.0,
+        16200000.0, 16800000.0, 17400000.0, 17900000.0,
+        18200000.0, 18600000.0
+    ]
+    return run_time_travel_simulation(
+        price_series=series,
+        total_days_horizon=req.total_days_horizon,
+        item_title=req.item_title
+    )
+

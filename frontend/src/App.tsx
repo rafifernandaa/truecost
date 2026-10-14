@@ -5,8 +5,10 @@ import { OneNumberCard } from './components/OneNumberCard';
 import { ScamInterventionModal } from './components/ScamInterventionModal';
 import { MandateModal } from './components/MandateModal';
 import { AuditTrailView } from './components/AuditTrailView';
+import { ReplaySimulator } from './components/ReplaySimulator';
 import { getOrCreateUserKeyPair, type UserKeyPair, toHexString } from './lib/crypto';
 import { Sparkles, ShieldAlert, KeyRound } from 'lucide-react';
+
 
 
 export function App() {
@@ -271,7 +273,12 @@ export function App() {
           />
         </section>
 
-        {/* Section 2: Immutable Audit & Banking Trail */}
+        {/* Section 2: Time-Travel Replay Simulator & Benchmarking */}
+        <section>
+          <ReplaySimulator />
+        </section>
+
+        {/* Section 3: Immutable Audit & Banking Trail */}
         <section>
           <AuditTrailView
             transactions={transactions}
@@ -279,6 +286,7 @@ export function App() {
             disposableCards={disposableCards}
           />
         </section>
+
       </main>
 
       {/* Modals */}
