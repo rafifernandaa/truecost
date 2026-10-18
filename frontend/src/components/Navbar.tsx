@@ -105,7 +105,7 @@ export const Navbar: React.FC<NavbarProps> = ({
             <button
               onClick={onOpenLocationModal}
               className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/90 hover:bg-white border border-black/8 shadow-2xs text-[#141726] transition cursor-pointer"
-              title={`Current Location Hub: ${activeHub.city}, ${activeHub.country} (${activeHub.storeName})`}
+              title={`Current Location Hub: ${activeHub.city}, ${activeHub.country} (${activeHub.currency})`}
             >
               <MapPin className="w-3.5 h-3.5 text-[#2B44E8]" />
               <span className="text-xs font-mono font-bold">{activeHub.city}</span>

@@ -462,7 +462,7 @@
     }
 
     /* Apple Scroll-Driven Compression (.toolbarCompressionBehavior) */
-    body.bars-compressed .morph-dock-shell {
+    body.bars-compressed #floating-island-dock {
       transform: translateX(-50%) translateY(6px) scale(0.92);
       opacity: 0.92;
     }
@@ -471,13 +471,21 @@
     }
 
     /* Apple "Raise the bar with iPhone Duo" (2y6xvya0b8M) Adaptive Vertical Bar Mode */
-    body.duo-vertical-bar .morph-dock-shell {
+    body.duo-vertical-bar #floating-island-dock {
       left: 14px;
       bottom: 50%;
       transform: translateY(50%);
       width: 64px;
       padding: 8px 6px;
       border-radius: 34px;
+    }
+
+    .dock-sheet-glass {
+      background: rgba(255, 255, 255, 0.92);
+      backdrop-filter: blur(28px) saturate(180%);
+      -webkit-backdrop-filter: blur(28px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.95);
+      box-shadow: 0 16px 36px -8px rgba(20, 23, 38, 0.22), 0 0 0 1px rgba(0, 0, 0, 0.04);
     }
     body.duo-vertical-bar #dock-mode-morph {
       flex-direction: column;
@@ -1003,23 +1011,6 @@
             <span class="text-[9px] font-mono text-[#2B44E8] font-bold mt-1" id="home-goal-status">Ready</span>
           </div>
         </div>
-      </div>
-
-      <!-- NEAREST VERIFIED STORE & TAX EXEMPTION INTELLIGENCE TILE -->
-      <div onclick="openLocationModal()" id="nearest-store-tile" class="rounded-[22px] soma-glass p-3 flex items-center justify-between cursor-pointer tactile-press border border-white/70">
-        <div class="flex items-center gap-2.5 min-w-0">
-          <div class="w-8 h-8 rounded-full bg-[#2B44E8]/12 text-[#2B44E8] flex items-center justify-center shrink-0">
-            <span class="material-symbols-outlined text-[16px]">storefront</span>
-          </div>
-          <div class="min-w-0">
-            <div class="flex items-center gap-1.5">
-              <span class="text-[11px] font-bold text-[#141726] truncate" id="home-store-name">iBox Grand Indonesia West Mall</span>
-              <span class="text-[9px] font-mono text-[#5A5E72] shrink-0" id="home-store-dist">· 600 m away</span>
-            </div>
-            <div class="text-[9px] font-mono text-[#10B981] font-semibold truncate" id="home-store-benefit">0% Domestic Import Tariff · Official Warranty</div>
-          </div>
-        </div>
-        <span class="px-2 py-0.5 rounded-full bg-white/80 border border-black/5 text-[9px] font-mono font-bold text-[#2B44E8] shrink-0">Change ▾</span>
       </div>
 
       <!-- =================================================================== -->
@@ -1747,8 +1738,8 @@
           <div class="flex items-center gap-2.5">
             <span class="material-symbols-outlined text-[18px] text-[#2B44E8]">location_on</span>
             <div>
-              <div class="text-xs font-bold text-[#141726]">Shopping Location &amp; Nearest Store</div>
-              <div class="text-[10px] text-[#5A5E72]" id="settings-loc-sub">Tokyo · Bic Camera Shinjuku East</div>
+              <div class="text-xs font-bold text-[#141726]">Shopping Location &amp; Regional Hub</div>
+              <div class="text-[10px] text-[#5A5E72]" id="settings-loc-sub">Jakarta, Indonesia · IDR</div>
             </div>
           </div>
           <span class="text-[10px] font-mono font-bold text-[#2B44E8]" id="settings-loc-badge">Change ▾</span>
@@ -2048,7 +2039,7 @@
   <div id="expansion-scrim" class="fixed inset-0 bg-[#131522]/30 backdrop-blur-[2px] z-40 opacity-0 pointer-events-none transition-opacity duration-300" onclick="closeExpansionSheet()"></div>
 
   <!-- Pop-Up Autonomy Status & Scenario Sheet -->
-  <div id="expansion-sheet" class="fixed bottom-[86px] left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-w-[366px] rounded-[30px] p-3.5 morph-dock-shell z-50 transform translate-y-[130%] opacity-0 spring-sheet pointer-events-none select-none" style="bottom: 88px;">
+  <div id="expansion-sheet" class="fixed bottom-[86px] left-1/2 -translate-x-1/2 w-[calc(100%-20px)] max-w-[366px] rounded-[30px] p-3.5 dock-sheet-glass z-50 transform translate-y-[130%] opacity-0 spring-sheet pointer-events-none select-none" style="bottom: 88px;">
     <div class="px-2 pt-0.5 pb-2 flex items-center justify-between">
       <span class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#5A5E72]">Protection Mode</span>
       <span class="text-[10px] font-mono px-2 py-0.5 rounded-full bg-[#2B44E8]/12 text-[#2B44E8] font-bold">Verified</span>
@@ -2184,7 +2175,6 @@
     // =========================================================================
     // MULTI-CURRENCY & LOCATION INTELLIGENCE ENGINE
     // =========================================================================
-    let userBaseCurrency = localStorage.getItem('tc_user_currency') || 'IDR';
     const FX_TO_IDR = {
       AUD: 10400.0,
       IDR: 1.0,
@@ -2196,16 +2186,29 @@
     };
 
     const LOCATION_HUBS = {
+      jakarta: {
+        id: 'jakarta',
+        city: 'Jakarta',
+        country: 'Indonesia',
+        flag: 'ID',
+        currency: 'IDR',
+        hubName: 'Jakarta Domestic Hub',
+        ruleTitle: '0% Domestic Import Tariff',
+        ruleDesc: 'Official warranty & IMEI registered. Official domestic consumer protection.',
+        taxBackPct: 0,
+        badge: 'IMEI Verified',
+        lat: -6.1951,
+        lon: 106.8209
+      },
       tokyo: {
         id: 'tokyo',
         city: 'Tokyo',
         country: 'Japan',
         flag: 'JP',
         currency: 'JPY',
-        storeName: 'Bic Camera Shinjuku East',
-        distance: '1.2 km away',
+        hubName: 'Tokyo Regional Hub',
         ruleTitle: '10% Tourist Tax Exemption Active',
-        ruleDesc: 'Tax-Free Counter 7F · Passport required at checkout for instant exemption.',
+        ruleDesc: 'Tax-Free shopping · Passport required at checkout for instant exemption.',
         taxBackPct: 10,
         badge: 'Tax-Free Passport',
         lat: 35.6938,
@@ -2217,8 +2220,7 @@
         country: 'Australia',
         flag: 'AU',
         currency: 'AUD',
-        storeName: 'Apple Sydney George St',
-        distance: '850 m away',
+        hubName: 'Sydney Regional Hub',
         ruleTitle: '10% TRS GST Refund Active',
         ruleDesc: 'Tourist Refund Scheme claimable at Kingsford Smith Airport (SYD T1).',
         taxBackPct: 10,
@@ -2226,31 +2228,15 @@
         lat: -33.8688,
         lon: 151.2093
       },
-      jakarta: {
-        id: 'jakarta',
-        city: 'Jakarta',
-        country: 'Indonesia',
-        flag: 'ID',
-        currency: 'IDR',
-        storeName: 'iBox Grand Indonesia West Mall',
-        distance: '600 m away',
-        ruleTitle: '0% Domestic Import Tariff',
-        ruleDesc: 'Official warranty & IMEI registered. $500 passenger exemption on inbound travel.',
-        taxBackPct: 0,
-        badge: 'IMEI Verified',
-        lat: -6.1951,
-        lon: 106.8209
-      },
       singapore: {
         id: 'singapore',
         city: 'Singapore',
         country: 'Singapore',
         flag: 'SG',
         currency: 'SGD',
-        storeName: 'Apple Orchard Road',
-        distance: '400 m away',
+        hubName: 'Singapore Regional Hub',
         ruleTitle: 'eTRS 9% GST Refund Active',
-        ruleDesc: 'Electronic Tourist Refund kiosks available at Changi Airport (SIN T1-T4).',
+        ruleDesc: 'Electronic Tourist Refund kiosks available at Changi Airport.',
         taxBackPct: 9,
         badge: 'eTRS Ready',
         lat: 1.3036,
@@ -2262,10 +2248,9 @@
         country: 'United States',
         flag: 'US',
         currency: 'USD',
-        storeName: 'B&H Photo Video 9th Ave',
-        distance: '1.4 km away',
-        ruleTitle: 'Export / Out-of-State Tax Exempt',
-        ruleDesc: 'Eligible for direct escrow clearance and cross-border export purchase.',
+        hubName: 'New York Regional Hub',
+        ruleTitle: 'Export / Cross-Border Exemption',
+        ruleDesc: 'Eligible for direct escrow clearance and cross-border verified purchase.',
         taxBackPct: 8.875,
         badge: 'Direct Escrow',
         lat: 40.7532,
@@ -2277,8 +2262,7 @@
         country: 'United Kingdom',
         flag: 'GB',
         currency: 'GBP',
-        storeName: 'Currys Oxford Street',
-        distance: '750 m away',
+        hubName: 'London Regional Hub',
         ruleTitle: 'Global Blue Tax-Free Export',
         ruleDesc: 'Certified export receipt provided for airport customs verification.',
         taxBackPct: 12,
@@ -2289,6 +2273,10 @@
     };
 
     let userLocation = localStorage.getItem('tc_user_location') || 'jakarta';
+    let userBaseCurrency = localStorage.getItem('tc_user_currency') || 'IDR';
+    if (!localStorage.getItem('tc_user_currency') || userLocation === 'jakarta') {
+      userBaseCurrency = 'IDR';
+    }
 
     function convertFromAud(amountAud, targetCurrency) {
       const cur = (targetCurrency || userBaseCurrency || 'IDR').toUpperCase();
@@ -2361,20 +2349,14 @@
     }
 
     function updateLocationUI() {
-      const hub = LOCATION_HUBS[userLocation] || LOCATION_HUBS['tokyo'];
+      const hub = LOCATION_HUBS[userLocation] || LOCATION_HUBS['jakarta'];
       const topLocName = document.getElementById('top-location-name');
       const topBadge = document.getElementById('top-currency-badge');
-      const storeName = document.getElementById('home-store-name');
-      const storeDist = document.getElementById('home-store-dist');
-      const storeBenefit = document.getElementById('home-store-benefit');
       const setLocSub = document.getElementById('settings-loc-sub');
 
       if (topLocName) topLocName.textContent = hub.city;
       if (topBadge) topBadge.textContent = userBaseCurrency || hub.currency;
-      if (storeName) storeName.textContent = hub.storeName;
-      if (storeDist) storeDist.textContent = `· ${hub.distance}`;
-      if (storeBenefit) storeBenefit.textContent = hub.ruleTitle;
-      if (setLocSub) setLocSub.textContent = `${hub.city} · ${hub.storeName}`;
+      if (setLocSub) setLocSub.textContent = `${hub.city}, ${hub.country} · ${hub.currency}`;
 
       renderLocationHubs();
     }
@@ -2412,7 +2394,7 @@
               </div>
               <div class="min-w-0">
                 <div class="text-xs font-bold truncate">${hub.city}, ${hub.country}</div>
-                <div class="text-[10px] ${isSelected ? 'text-white/70' : 'text-[#5A5E72]'} truncate">${hub.storeName} (${hub.distance})</div>
+                <div class="text-[10px] ${isSelected ? 'text-white/70' : 'text-[#5A5E72]'} truncate">${hub.currency} Currency Zone · ${hub.hubName}</div>
                 <div class="text-[9px] font-mono ${isSelected ? 'text-[#10B981]' : 'text-[#065F46]'} font-semibold truncate">${hub.ruleTitle}</div>
               </div>
             </div>
@@ -2436,7 +2418,7 @@
           pos => {
             const userLat = pos.coords.latitude;
             const userLon = pos.coords.longitude;
-            let closestKey = 'tokyo';
+            let closestKey = 'jakarta';
             let minDistance = Infinity;
 
             for (const [key, hub] of Object.entries(LOCATION_HUBS)) {
@@ -2453,17 +2435,17 @@
             }, 500);
           },
           err => {
-            if (statusText) statusText.textContent = 'Location defaulted to Tokyo Hub';
+            if (statusText) statusText.textContent = 'Location defaulted to Jakarta Hub';
             setTimeout(() => {
-              setUserLocation('tokyo', true);
+              setUserLocation('jakarta', true);
               if (statusText) statusText.textContent = 'Detect My Current Location';
             }, 600);
           },
           { timeout: 4000 }
         );
       } else {
-        if (statusText) statusText.textContent = 'Defaulted to Tokyo Hub';
-        setUserLocation('tokyo', true);
+        if (statusText) statusText.textContent = 'Defaulted to Jakarta Hub';
+        setUserLocation('jakarta', true);
       }
     }
 
@@ -3079,10 +3061,16 @@
           shProb.className = 'text-2xl font-black font-mono text-[#EB7951]';
         }
         if (shDesc) {
-          shDesc.textContent = `This ${rc.itemName} listing (${formatStickerLabel(rc.foreignPrice, rc.currency)}) is priced far below normal retail (${formatInBaseCurrency(rc.hedonicFairAud)}) and asks for an unverified direct bank transfer outside escrow.`;
+          const isDom = rc.currency === 'IDR' || userBaseCurrency === 'IDR';
+          const refStr = isDom ? formatStickerLabel(rc.stickerPriceIdr * 2.5, 'IDR') : formatInBaseCurrency(rc.hedonicFairAud);
+          shDesc.textContent = `This ${rc.itemName} listing (${formatStickerLabel(rc.foreignPrice, rc.currency)}) is priced far below normal retail (${refStr}) and asks for an unverified direct bank transfer outside escrow.`;
         }
         if (sig1Title) sig1Title.textContent = 'Extreme Price Outlier';
-        if (sig1Desc) sig1Desc.textContent = `Priced far below verified stores (${formatInBaseCurrency(rc.hedonicFairAud)} typical).`;
+        if (sig1Desc) {
+          const isDom = rc.currency === 'IDR' || userBaseCurrency === 'IDR';
+          const refStr = isDom ? formatStickerLabel(rc.stickerPriceIdr * 2.5, 'IDR') : formatInBaseCurrency(rc.hedonicFairAud);
+          sig1Desc.textContent = `Priced far below verified stores (${refStr} typical).`;
+        }
         if (sig2Title) sig2Title.textContent = 'Direct Wire Asked';
         if (sig2Desc) sig2Desc.textContent = 'Seller asks to bypass buyer escrow protection.';
       } else {
@@ -3092,7 +3080,12 @@
           shProb.className = 'text-2xl font-black font-mono text-[#10B981]';
         }
         if (shDesc) {
-          shDesc.textContent = `${rc.itemName} (${formatStickerLabel(rc.foreignPrice, rc.currency)}) matches normal retail pricing (${formatInBaseCurrency(rc.hedonicFairAud)}) from ${rc.merchantName} with full escrow protection.`;
+          const isDom = rc.currency === 'IDR' || userBaseCurrency === 'IDR';
+          if (isDom) {
+            shDesc.textContent = `${rc.itemName} (${formatStickerLabel(rc.foreignPrice, 'IDR')}) matches normal retail pricing from ${rc.merchantName} with full escrow protection.`;
+          } else {
+            shDesc.textContent = `${rc.itemName} (${formatStickerLabel(rc.foreignPrice, rc.currency)}) matches normal retail pricing (${formatInBaseCurrency(rc.hedonicFairAud)}) from ${rc.merchantName} with full escrow protection.`;
+          }
         }
         if (sig1Title) sig1Title.textContent = 'Fair Market Price';
         if (sig1Desc) sig1Desc.textContent = `Consistent with verified ${rc.currency} retail benchmarks.`;
@@ -3791,13 +3784,17 @@
         resolvedItem = 'Samsung Galaxy A57 5G';
         merchant = cur === 'IDR' ? 'Samsung Official Store Indonesia' : 'Samsung Official Store';
         resolvedPrice = cur === 'IDR' ? 5999000 : 549;
+      } else if (qLower.includes('oppo') || qLower.includes('find x')) {
+        resolvedItem = 'OPPO Find X9 Ultra';
+        merchant = cur === 'IDR' ? 'OPPO Official Store Indonesia' : 'OPPO Official Store';
+        resolvedPrice = cur === 'IDR' ? 19999000 : 1249;
       } else if (qLower.includes('iphone') || qLower.includes('apple')) {
         resolvedItem = 'Apple iPhone 16 (128GB)';
-        merchant = cur === 'IDR' ? 'iBox Official Indonesia' : 'Apple Store';
+        merchant = cur === 'IDR' ? 'Apple Official Store Indonesia' : 'Apple Store';
         resolvedPrice = cur === 'IDR' ? 16499000 : 1499;
       } else if (qLower.includes('macbook')) {
         resolvedItem = 'MacBook Air 13" M3';
-        merchant = cur === 'IDR' ? 'iBox Official Indonesia' : 'Apple Store';
+        merchant = cur === 'IDR' ? 'Apple Official Store Indonesia' : 'Apple Store';
         resolvedPrice = cur === 'IDR' ? 18999000 : 1799;
       } else if (qLower.includes('sony') || qLower.includes('xm5') || qLower.includes('headphone')) {
         resolvedItem = 'Sony WH-1000XM5 Wireless Headphones';
@@ -4304,7 +4301,7 @@
       initFriendlyGreeting();
       const savedLoc = localStorage.getItem('tc_user_location') || 'jakarta';
       userLocation = savedLoc;
-      userBaseCurrency = localStorage.getItem('tc_user_currency') || (savedLoc === 'jakarta' ? 'IDR' : 'USD');
+      userBaseCurrency = (savedLoc === 'jakarta') ? 'IDR' : (localStorage.getItem('tc_user_currency') || 'IDR');
       updateLocationUI();
       applyFreshUserStateDOM();
       updateFriendlyGreetingCurrency();

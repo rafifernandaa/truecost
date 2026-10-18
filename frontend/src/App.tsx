@@ -632,7 +632,7 @@ export function App() {
               <div className="min-w-0">
                 <div className="flex items-center gap-2">
                   <span className="text-xs font-bold text-[#141726] truncate">
-                    Nearest Store: {activeHub.storeName}
+                    {activeHub.storeName}
                   </span>
                   <span className="text-[10px] font-mono text-[#5A5E72] whitespace-nowrap">
                     · {activeHub.distance}

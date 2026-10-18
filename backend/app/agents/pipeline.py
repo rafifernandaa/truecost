@@ -492,14 +492,28 @@ OFFLINE_PRODUCT_CATALOG: Dict[str, Dict[str, Any]] = {
         "name": "Apple iPhone 16 (128GB)",
         "category": "Smartphone",
         "prices": {"IDR": 16499000.0, "AUD": 1599.0, "USD": 899.0, "SGD": 1399.0, "JPY": 139800.0, "EUR": 999.0, "GBP": 899.0},
-        "merchants": {"IDR": "iBox Official Store", "AUD": "Apple Store Sydney", "USD": "Apple Store Fifth Ave", "SGD": "Apple Orchard", "JPY": "Apple Ginza"},
+        "merchants": {"IDR": "Apple Official Store Indonesia", "AUD": "Apple Store Sydney", "USD": "Apple Store Fifth Ave", "SGD": "Apple Orchard", "JPY": "Apple Ginza"},
         "is_domestic_idr": True,
     },
     "macbook air": {
         "name": "Apple MacBook Air 13\" M3",
         "category": "Laptop",
         "prices": {"IDR": 18499000.0, "AUD": 1799.0, "USD": 1099.0, "SGD": 1599.0, "JPY": 164800.0, "EUR": 1199.0, "GBP": 1099.0},
-        "merchants": {"IDR": "iBox Official Store", "AUD": "Apple Store Sydney", "USD": "Apple Store", "SGD": "Apple Orchard", "JPY": "Apple Ginza"},
+        "merchants": {"IDR": "Apple Official Store Indonesia", "AUD": "Apple Store Sydney", "USD": "Apple Store", "SGD": "Apple Orchard", "JPY": "Apple Ginza"},
+        "is_domestic_idr": True,
+    },
+    "oppo": {
+        "name": "OPPO Find X9 Ultra",
+        "category": "Smartphone",
+        "prices": {"IDR": 19999000.0, "AUD": 1940.0, "USD": 1249.0, "SGD": 1699.0, "JPY": 192000.0, "EUR": 1249.0, "GBP": 1099.0},
+        "merchants": {"IDR": "OPPO Official Store Indonesia", "AUD": "OPPO Official Store Australia", "USD": "OPPO Official Store", "SGD": "OPPO Singapore", "JPY": "OPPO Japan"},
+        "is_domestic_idr": True,
+    },
+    "oppo find x9 ultra": {
+        "name": "OPPO Find X9 Ultra",
+        "category": "Smartphone",
+        "prices": {"IDR": 19999000.0, "AUD": 1940.0, "USD": 1249.0, "SGD": 1699.0, "JPY": 192000.0, "EUR": 1249.0, "GBP": 1099.0},
+        "merchants": {"IDR": "OPPO Official Store Indonesia", "AUD": "OPPO Official Store Australia", "USD": "OPPO Official Store", "SGD": "OPPO Singapore", "JPY": "OPPO Japan"},
         "is_domestic_idr": True,
     },
     "thinkpad": {
@@ -520,7 +534,7 @@ OFFLINE_PRODUCT_CATALOG: Dict[str, Dict[str, Any]] = {
         "name": "Apple iPad 10th Gen (64GB Wi-Fi)",
         "category": "Tablet",
         "prices": {"IDR": 6499000.0, "AUD": 649.0, "USD": 349.0, "SGD": 499.0, "JPY": 58800.0, "EUR": 439.0, "GBP": 349.0},
-        "merchants": {"IDR": "iBox Official Store", "AUD": "Apple Store Sydney", "USD": "Apple Store", "SGD": "Apple Orchard", "JPY": "Apple Ginza"},
+        "merchants": {"IDR": "Apple Official Store Indonesia", "AUD": "Apple Store Sydney", "USD": "Apple Store", "SGD": "Apple Orchard", "JPY": "Apple Ginza"},
         "is_domestic_idr": True,
     },
     "ps5": {
@@ -880,13 +894,19 @@ def run_full_agent_pipeline(
     )
 
     # Step 4: PlannerAgent (DeepSeek V3 or Deterministic Synthesizer)
-    deterministic_template = (
-        f"Verified TrueCost for {intake_meta['item_name']} is IDR {landed['final_landed_cost']:,.0f} "
-        f"(typical market price AUD {hedonic['hedonic_fair_price_aud']:.2f}, "
-        f"36m ownership cost AUD {tco['net_tco_36m_npv_aud']:.2f}). "
-        f"Installment plan adds {bnpl['effective_annual_rate'] * 100:.1f}% yearly fee; "
-        f"60d minimum cash buffer remains AUD {cashflow['projected_min_balance_60d_aud']:.2f}."
-    )
+    if is_domestic or foreign_currency == "IDR" or user_currency == "IDR":
+        deterministic_template = (
+            f"Verified TrueCost for {intake_meta['item_name']} is IDR {landed['final_landed_cost']:,.0f} "
+            f"from {intake_meta['merchant_name']} with full escrow protection."
+        )
+    else:
+        deterministic_template = (
+            f"Verified TrueCost for {intake_meta['item_name']} is IDR {landed['final_landed_cost']:,.0f} "
+            f"(typical market price AUD {hedonic['hedonic_fair_price_aud']:.2f}, "
+            f"36m ownership cost AUD {tco['net_tco_36m_npv_aud']:.2f}). "
+            f"Installment plan adds {bnpl['effective_annual_rate'] * 100:.1f}% yearly fee; "
+            f"60d minimum cash buffer remains AUD {cashflow['projected_min_balance_60d_aud']:.2f}."
+        )
 
     planner_model_id = "deterministic-template-synthesizer"
     planner_latency_ms = 1.8

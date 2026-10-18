@@ -101,6 +101,28 @@ def test_dynamic_product_pricing_samsung_a57_without_placeholders():
     assert res_aud["intake_extracted"]["foreign_price"] == 549.0  # Real AUD price, NOT 1580!
 
 
+def test_dynamic_product_pricing_oppo_find_x9_ultra():
+    res = run_full_agent_pipeline(
+        raw_query="OPPO Find X9 Ultra",
+        user_currency="IDR",
+        user_location="Jakarta",
+        use_live_llm=False,
+    )
+    intake = res["intake_extracted"]
+    landed = res["quant_verdict"]["landed_cost"]
+    audit = res["audit_report"]
+
+    assert "OPPO Find X9 Ultra" in intake["item_name"]
+    assert intake["currency"] == "IDR"
+    assert intake["foreign_price"] == 19999000.0
+    assert landed["final_landed_cost"] == 19999000.0
+    assert "OPPO Official Store Indonesia" in intake["merchant_name"]
+    assert "IDR 19,999,000" in audit["verified_narrative"]
+    assert "AUD" not in audit["verified_narrative"]
+    assert "USD" not in audit["verified_narrative"]
+
+
+
 
 
 
