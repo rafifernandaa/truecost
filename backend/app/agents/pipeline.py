@@ -431,7 +431,7 @@ def parse_real_user_query(
     if len(clean_title) < 2:
         clean_title = "Verified Item"
     else:
-        clean_title = clean_title[:56].strip()
+        clean_title = clean_title[:90].strip()
 
     merchant_map = {
         "AUD": "Official Store Australia · Cross-Border",
@@ -582,6 +582,27 @@ OFFLINE_PRODUCT_CATALOG: Dict[str, Dict[str, Any]] = {
         "category": "Kitchen Appliance",
         "prices": {"IDR": 549000.0, "AUD": 55.0, "USD": 35.0, "SGD": 49.0, "JPY": 5500.0, "EUR": 32.0, "GBP": 28.0},
         "merchants": {"IDR": "Philips Official Store Indonesia", "AUD": "Philips Australia", "USD": "Philips Store", "SGD": "Philips Singapore", "JPY": "Philips Japan"},
+        "is_domestic_idr": True,
+    },
+    "rog strix": {
+        "name": "ASUS ROG Strix G16 (2024) G614JVR Gaming Laptop",
+        "category": "Gaming Laptop",
+        "prices": {"IDR": 24999000.0, "AUD": 2400.0, "USD": 1599.0, "SGD": 2199.0, "JPY": 249000.0, "EUR": 1549.0, "GBP": 1399.0},
+        "merchants": {"IDR": "ASUS Official Store Indonesia", "AUD": "ASUS Official Store Australia", "USD": "ASUS Store US", "SGD": "ASUS Singapore", "JPY": "ASUS Japan"},
+        "is_domestic_idr": True,
+    },
+    "g16": {
+        "name": "ASUS ROG Strix G16 (2024) G614JVR Gaming Laptop",
+        "category": "Gaming Laptop",
+        "prices": {"IDR": 24999000.0, "AUD": 2400.0, "USD": 1599.0, "SGD": 2199.0, "JPY": 249000.0, "EUR": 1549.0, "GBP": 1399.0},
+        "merchants": {"IDR": "ASUS Official Store Indonesia", "AUD": "ASUS Official Store Australia", "USD": "ASUS Store US", "SGD": "ASUS Singapore", "JPY": "ASUS Japan"},
+        "is_domestic_idr": True,
+    },
+    "asus rog": {
+        "name": "ASUS ROG Strix G16 (2024) G614JVR Gaming Laptop",
+        "category": "Gaming Laptop",
+        "prices": {"IDR": 24999000.0, "AUD": 2400.0, "USD": 1599.0, "SGD": 2199.0, "JPY": 249000.0, "EUR": 1549.0, "GBP": 1399.0},
+        "merchants": {"IDR": "ASUS Official Store Indonesia", "AUD": "ASUS Official Store Australia", "USD": "ASUS Store US", "SGD": "ASUS Singapore", "JPY": "ASUS Japan"},
         "is_domestic_idr": True,
     },
 }
