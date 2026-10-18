@@ -205,7 +205,8 @@ def get_trajectory(trace_id: Optional[str] = None) -> List[Dict[str, Any]]:
 
 def parse_real_user_query(
     redacted_query: str,
-    default_sticker_aud: float = 1580.0,
+    user_currency: str = "IDR",
+    default_sticker_aud: Optional[float] = None,
     default_bnpl_fee_aud: float = 10.0,
     default_tenor_months: int = 12,
     default_scam: bool = False,
@@ -315,7 +316,8 @@ def parse_real_user_query(
     )
 
     # 4. Extract main sticker price & currency
-    currency = "AUD"
+    target_default_cur = (user_currency or "IDR").upper()
+    currency = target_default_cur
     foreign_price: Optional[float] = None
 
     # 4a. Check Indonesian Rupiah ("Rp 8,500,000", "Rp 12.5jt", "8.5 juta", "15,000,000 IDR")
@@ -360,27 +362,44 @@ def parse_real_user_query(
             currency = cur_before.group(1).upper()
             foreign_price = float(cur_before.group(2).replace(",", ""))
 
-    # 4c. Symbol or bare number ("$1,899", "¥145,000", "€890", or bare "1899")
+    # 4c. Symbol ("$1,899", "¥145,000", "€890")
     if foreign_price is None:
         sym_match = re.search(r"([¥€£$])\s*(\d[\d,]*(?:\.\d+)?)\b", work_q_no_pct)
         if sym_match:
             sym = sym_match.group(1)
-            currency = {"¥": "JPY", "€": "EUR", "£": "GBP", "$": "AUD"}.get(sym, "AUD")
+            default_dollar = target_default_cur if target_default_cur in ("AUD", "USD", "SGD") else "USD"
+            currency = {"¥": "JPY", "€": "EUR", "£": "GBP", "$": default_dollar}.get(sym, default_dollar)
             foreign_price = float(sym_match.group(2).replace(",", ""))
-        else:
-            bare_nums = re.findall(r"\b(\d[\d,]*(?:\.\d+)?)\b", work_q_no_pct)
-            for bn in bare_nums:
-                candidate_v = float(bn.replace(",", ""))
-                if candidate_v >= 25.0:
-                    if candidate_v >= 250_000.0:
-                        currency = "IDR"
+
+    # 4d. Explicit price keywords (e.g. "harga 500000", "price 1200", "cost 450", "total $800")
+    if foreign_price is None:
+        price_kw = re.search(
+            r"\b(?:harga|price|cost|costs|total|amount|for|at)\s*[:=]?\s*(?:(Rp|IDR|AUD|USD|SGD|\$)\s*)?(\d[\d,]*(?:\.\d+)?)\b",
+            work_q_no_pct,
+            flags=re.IGNORECASE,
+        )
+        if price_kw:
+            kw_cur = (price_kw.group(1) or target_default_cur).upper()
+            currency = "IDR" if kw_cur in ("RP", "IDR") else ("AUD" if kw_cur == "$" and target_default_cur == "AUD" else ("USD" if kw_cur == "$" else kw_cur))
+            foreign_price = float(price_kw.group(2).replace(",", ""))
+
+    # 4e. Bare numeric query ONLY if the entire query is purely a price (e.g. user entered "1500" or "8500000")
+    if foreign_price is None:
+        bare_q = q.replace("$", "").replace("Rp", "").replace("IDR", "").strip()
+        if re.match(r"^[\d,]+(?:\.\d+)?$", bare_q):
+            try:
+                candidate_v = float(bare_q.replace(",", ""))
+                if candidate_v > 0:
                     foreign_price = candidate_v
-                    break
+                    currency = "IDR" if candidate_v >= 200_000.0 else target_default_cur
+            except ValueError:
+                pass
 
     has_explicit_price = foreign_price is not None and foreign_price > 0
     if not has_explicit_price and default_sticker_aud is not None and default_sticker_aud > 0:
         currency = "AUD"
         foreign_price = float(default_sticker_aud)
+        has_explicit_price = True
 
     if foreign_price is not None:
         fx_spot = fx_to_idr.get(currency, 10400.0)
@@ -551,6 +570,20 @@ OFFLINE_PRODUCT_CATALOG: Dict[str, Dict[str, Any]] = {
         "merchants": {"IDR": "Tokopedia Verified Store", "AUD": "EB Games", "USD": "Best Buy", "SGD": "Qisahn", "JPY": "Bic Camera"},
         "is_domestic_idr": True,
     },
+    "philips": {
+        "name": "Philips Series 1000 HD3003 Rice Cooker",
+        "category": "Kitchen Appliance",
+        "prices": {"IDR": 549000.0, "AUD": 55.0, "USD": 35.0, "SGD": 49.0, "JPY": 5500.0, "EUR": 32.0, "GBP": 28.0},
+        "merchants": {"IDR": "Philips Official Store Indonesia", "AUD": "Philips Australia", "USD": "Philips Store", "SGD": "Philips Singapore", "JPY": "Philips Japan"},
+        "is_domestic_idr": True,
+    },
+    "hd3003": {
+        "name": "Philips Series 1000 HD3003 Rice Cooker",
+        "category": "Kitchen Appliance",
+        "prices": {"IDR": 549000.0, "AUD": 55.0, "USD": 35.0, "SGD": 49.0, "JPY": 5500.0, "EUR": 32.0, "GBP": 28.0},
+        "merchants": {"IDR": "Philips Official Store Indonesia", "AUD": "Philips Australia", "USD": "Philips Store", "SGD": "Philips Singapore", "JPY": "Philips Japan"},
+        "is_domestic_idr": True,
+    },
 }
 
 
@@ -589,6 +622,9 @@ def resolve_market_product_offline(
     if any(k in q_clean for k in ["phone", "galaxy", "redmi", "pixel", "xiaomi", "oppo", "vivo", "realme"]):
         cat = "Smartphone"
         p = 5499000.0 if cur == "IDR" else (520.0 if cur == "AUD" else 350.0)
+    elif any(k in q_clean for k in ["cooker", "rice", "blender", "kitchen", "appliance", "air fryer", "fryer", "toaster", "kettle", "philips", "panasonic"]):
+        cat = "Kitchen Appliance"
+        p = 549000.0 if cur == "IDR" else (55.0 if cur == "AUD" else 35.0)
     elif any(k in q_clean for k in ["laptop", "notebook", "dell", "asus", "zenbook", "hp", "lenovo", "acer"]):
         cat = "Laptop"
         p = 14500000.0 if cur == "IDR" else (1380.0 if cur == "AUD" else 920.0)
@@ -649,6 +685,7 @@ def run_full_agent_pipeline(
 
     parsed_case = parse_real_user_query(
         redacted_query=redacted_query,
+        user_currency=user_currency,
         default_sticker_aud=sticker_price_aud,
         default_bnpl_fee_aud=bnpl_monthly_fee_aud or 10.0,
         default_tenor_months=tenor_months,
@@ -692,21 +729,8 @@ def run_full_agent_pipeline(
         tenor_months = parsed_case["tenor_months"]
         bnpl_fee_aud = float(bnpl_monthly_fee_aud if bnpl_monthly_fee_aud is not None else parsed_case["bnpl_monthly_fee_aud"])
         is_scam_scenario = bool(is_scam_scenario or parsed_case["is_scam_scenario"])
-    elif parsed_case["has_explicit_price"]:
-        item_name = parsed_case["item_name"]
-        foreign_currency = parsed_case["currency"]
-        foreign_price = float(parsed_case["foreign_price"])
-        is_domestic = foreign_currency == "IDR" or foreign_currency == user_currency
-        merchant_name = parsed_case["merchant_name"]
-        comparables = [
-            {"store": f"Official {foreign_currency} Store", "price": foreign_price},
-            {"store": "Verified Marketplace", "price": round(foreign_price * 0.96, 2)},
-            {"store": "Authorized Retail", "price": round(foreign_price * 1.04, 2)},
-        ]
-        tenor_months = parsed_case["tenor_months"]
-        bnpl_fee_aud = float(bnpl_monthly_fee_aud if bnpl_monthly_fee_aud is not None else parsed_case["bnpl_monthly_fee_aud"])
-        is_scam_scenario = bool(is_scam_scenario or parsed_case["is_scam_scenario"])
     else:
+        # Step 2a: Live Market Research via DeepSeek AI Agent
         if use_live_llm and is_deepseek_configured() and injected_ungrounded_narrative is None:
             market_resolved = deepseek_market_research(
                 raw_query=redacted_query,
@@ -724,16 +748,18 @@ def run_full_agent_pipeline(
             )
 
         item_name = market_resolved.get("item_name") or parsed_case["item_name"]
-        foreign_currency = market_resolved.get("currency") or user_currency
-        foreign_price = float(market_resolved.get("realistic_market_price") or 5999000.0)
+        foreign_currency = parsed_case["currency"] if parsed_case["has_explicit_price"] else (market_resolved.get("currency") or user_currency)
+        foreign_price = float(parsed_case["foreign_price"] if parsed_case["has_explicit_price"] else (market_resolved.get("realistic_market_price") or 5999000.0))
         merchant_name = market_resolved.get("merchant_name") or f"Verified {foreign_currency} Store"
-        is_domestic = bool(market_resolved.get("is_domestic", foreign_currency == "IDR"))
+        is_domestic = bool(market_resolved.get("is_domestic", foreign_currency == "IDR" or foreign_currency == user_currency))
         comparables = market_resolved.get("comparables", [])
-        tenor_months = int(market_resolved.get("tenor_months") or 12)
+        tenor_months = int(parsed_case.get("tenor_months") or market_resolved.get("tenor_months") or 12)
         extra_fee_local = float(market_resolved.get("bnpl_extra_monthly_fee") or (foreign_price * 0.0075))
         is_scam_scenario = bool(is_scam_scenario or parsed_case["is_scam_scenario"] or market_resolved.get("is_scam", False))
         fx_spot = fx_to_idr.get(foreign_currency, 10400.0)
         bnpl_fee_aud = round((extra_fee_local * fx_spot) / 10400.0, 2) if foreign_currency != "AUD" else extra_fee_local
+        if bnpl_monthly_fee_aud is not None:
+            bnpl_fee_aud = float(bnpl_monthly_fee_aud)
 
     fx_spot = fx_to_idr.get(foreign_currency, 10400.0)
     sticker_price_idr = round(foreign_price * fx_spot if foreign_currency != "IDR" else foreign_price, 2)

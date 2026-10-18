@@ -122,6 +122,32 @@ def test_dynamic_product_pricing_oppo_find_x9_ultra():
     assert "USD" not in audit["verified_narrative"]
 
 
+def test_dynamic_product_pricing_philips_seri_1000():
+    # 1. Model identifier '1000' must NOT be mistaken for a price
+    parsed = parse_real_user_query("Philips Seri 1000 (HD3003", user_currency="IDR")
+    assert parsed["has_explicit_price"] is False
+    assert parsed["foreign_price"] is None
+
+    # 2. Pipeline resolves realistic Indonesian rice cooker pricing (~Rp 549,000), NOT 1000 USD
+    res = run_full_agent_pipeline(
+        raw_query="Philips Seri 1000 (HD3003",
+        user_currency="IDR",
+        user_location="Jakarta",
+        use_live_llm=False,
+    )
+    intake = res["intake_extracted"]
+    landed = res["quant_verdict"]["landed_cost"]
+
+    assert "Philips" in intake["item_name"]
+    assert intake["currency"] == "IDR"
+    assert intake["foreign_price"] == 549000.0
+    assert intake["foreign_price"] != 1000.0  # Must never be 1000!
+    assert landed["final_landed_cost"] == 549000.0
+    assert intake["is_domestic"] is True
+    assert "Philips Official Store" in intake["merchant_name"]
+
+
+
 
 
 
