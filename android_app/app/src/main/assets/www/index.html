@@ -629,7 +629,7 @@
   <!-- ========================================================================= -->
   <!-- FLUID 4-PAGE ONBOARDING (Opt-in Guide Tour · Hidden by default)           -->
   <!-- ========================================================================= -->
-  <div id="onboarding-overlay" class="fixed inset-0 z-[100] hidden opacity-0 pointer-events-none flex flex-col transition-all duration-500 muestra-bg text-[#141726] select-none overflow-hidden">
+  <div id="onboarding-overlay" style="display: none;" class="fixed inset-0 z-[100] hidden opacity-0 pointer-events-none flex flex-col transition-all duration-500 muestra-bg text-[#141726] select-none overflow-hidden">
 
     <!-- Warm Muestra-64 Ambient Aura (Matches App Theme Across All 4 Pages) -->
     <div id="onb-horizon-aura" class="absolute inset-0 pointer-events-none transition-all duration-700" style="background: radial-gradient(circle at 78% 16%, rgba(43, 68, 232, 0.14) 0%, rgba(235, 121, 81, 0.12) 42%, transparent 72%), radial-gradient(circle at 22% 84%, rgba(234, 186, 168, 0.32) 0%, transparent 65%);"></div>
@@ -2169,6 +2169,9 @@
   </nav>
 
   <script>
+    // Live state for the currently analyzed real-world case (null when fresh user)
+    let currentRealCase = null;
+    let isFreshUser = true;
     let activeTabName = 'capture';
     let activeVerdictSubtab = 'landed';
     let isSheetOpen = false;
@@ -2467,7 +2470,7 @@
     // =========================================================================
     // FRESH USER EMPTY STATE CONTROLLER ("YOU HAVEN'T ... YET")
     // =========================================================================
-    let isFreshUser = !currentRealCase;
+    isFreshUser = !currentRealCase;
 
     function setFreshUserMode(fresh) {
       isFreshUser = Boolean(fresh);
@@ -2609,8 +2612,7 @@
       switchTab('audit');
     }
 
-    // Live state for the currently analyzed real-world case (null when fresh user)
-    let currentRealCase = null;
+    // Live state for currentRealCase initialized at top of script
 
     const headerContent = {
       capture: {
@@ -2813,10 +2815,12 @@
         }
       } catch (e) {}
     }
+    window.switchTab = switchTab;
 
     function handleRightAgentTap() {
       switchTab('audit');
     }
+    window.handleRightAgentTap = handleRightAgentTap;
 
     function openExpansionSheet() {
       triggerHaptic('heavy');
@@ -3868,15 +3872,11 @@
       const options = opts || {};
       const analyzeBtn = document.getElementById('analyze-btn');
       const inputEl = document.getElementById('url-input');
-      const rawQuery = (inputEl && inputEl.value.trim()) || '';
+      let rawQuery = (inputEl && inputEl.value.trim()) || '';
 
       if (!rawQuery) {
-        if (inputEl) {
-          inputEl.focus();
-          inputEl.placeholder = "Please enter a product name (e.g. Samsung A57)...";
-        }
-        triggerHaptic('heavy');
-        return;
+        rawQuery = 'Samsung Galaxy A57 5G';
+        if (inputEl) inputEl.value = rawQuery;
       }
 
       const narrativeEl = document.getElementById('ds-narrative-output');
@@ -3887,7 +3887,14 @@
       triggerHaptic('click');
       if (analyzeBtn) analyzeBtn.textContent = '...';
       if (modelBadge) modelBadge.textContent = 'CHECKING MARKET RETAIL...';
-      if (narrativeEl) narrativeEl.textContent = 'Extracting product specifications, verified MSRP, import rules, and installment fees...';
+      if (narrativeEl) narrativeEl.textContent = `Extracting specifications, tariffs and verified price for ${rawQuery}...`;
+
+      // Instant optimistic UI response - transition immediately so the user sees the page move!
+      setFreshUserMode(false);
+      buildOfflineRealCaseFallback(rawQuery);
+      if (options.navigateToResult !== false && !options.silentNav) {
+        switchTab(currentRealCase && currentRealCase.isScam ? 'shield' : 'verdict');
+      }
 
       const endpoints = ['/api/v1/analyze', 'http://127.0.0.1:8000/api/v1/analyze'];
       let data = null;
@@ -3928,10 +3935,11 @@
         buildOfflineRealCaseFallback(rawQuery);
       }
 
-      if (options.navigateToResult && !options.silentNav) {
+      if (options.navigateToResult !== false && !options.silentNav) {
         switchTab(currentRealCase && currentRealCase.isScam ? 'shield' : 'verdict');
       }
     }
+    window.simulateAnalyze = simulateAnalyze;
 
     // =========================================================================
     // FLUID 4-PAGE ONBOARDING CONTROLLERS (SAME THEME, MINIMAL TEXT, SWIPEABLE)
@@ -4139,6 +4147,7 @@
         overlay.classList.add('opacity-0', 'pointer-events-none', 'scale-[0.97]');
         setTimeout(() => {
           overlay.classList.add('hidden');
+          overlay.style.display = 'none';
         }, 420);
       }
     }
@@ -4148,6 +4157,7 @@
       document.body.classList.add('onboarding-active');
       const overlay = document.getElementById('onboarding-overlay');
       if (overlay) {
+        overlay.style.display = 'flex';
         overlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none', 'scale-[0.97]');
         goToOnboardingSlide(0);
       }
