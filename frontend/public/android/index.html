@@ -615,25 +615,21 @@
       transform: scale(1.1) rotate(0deg) !important;
     }
 
-    /* Hide bottom dock & background dashboard completely while in 4-Page Get Started mode */
-    body.onboarding-active #floating-island-dock,
-    body.onboarding-active #expansion-sheet,
-    body.onboarding-active #expansion-scrim,
-    body.onboarding-active #top-floating-header,
-    body.onboarding-active #editorial-title-block,
-    body.onboarding-active #main-status-bar-safe,
-    body.onboarding-active main {
-      display: none !important;
+    /* In 4-Page Get Started mode, overlay floats on top cleanly without destroying DOM layout */
+    body.onboarding-active #onboarding-overlay {
+      display: flex !important;
+      opacity: 1 !important;
+      pointer-events: auto !important;
     }
   </style>
 
 </head>
-<body class="muestra-bg onboarding-active text-[#141726] text-sm min-h-screen flex flex-col relative overflow-x-hidden antialiased">
+<body class="muestra-bg text-[#141726] text-sm min-h-screen flex flex-col relative overflow-x-hidden antialiased">
 
   <!-- ========================================================================= -->
-  <!-- FLUID 4-PAGE ONBOARDING (Unified Warm Muestra-64 Theme · Minimal & Clean) -->
+  <!-- FLUID 4-PAGE ONBOARDING (Opt-in Guide Tour · Hidden by default)           -->
   <!-- ========================================================================= -->
-  <div id="onboarding-overlay" class="fixed inset-0 z-[100] flex flex-col transition-all duration-500 muestra-bg text-[#141726] select-none overflow-hidden">
+  <div id="onboarding-overlay" class="fixed inset-0 z-[100] hidden opacity-0 pointer-events-none flex flex-col transition-all duration-500 muestra-bg text-[#141726] select-none overflow-hidden">
 
     <!-- Warm Muestra-64 Ambient Aura (Matches App Theme Across All 4 Pages) -->
     <div id="onb-horizon-aura" class="absolute inset-0 pointer-events-none transition-all duration-700" style="background: radial-gradient(circle at 78% 16%, rgba(43, 68, 232, 0.14) 0%, rgba(235, 121, 81, 0.12) 42%, transparent 72%), radial-gradient(circle at 22% 84%, rgba(234, 186, 168, 0.32) 0%, transparent 65%);"></div>
@@ -4136,7 +4132,7 @@
       const overlay = document.getElementById('onboarding-overlay');
       const c = ONBOARDING_CASES[currentOnbCase];
       const inputEl = document.getElementById('url-input');
-      if (inputEl && c) {
+      if (inputEl && c && !isFreshUser) {
         inputEl.value = c.handoffPrompt;
       }
       if (overlay) {

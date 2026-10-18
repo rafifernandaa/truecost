@@ -140,8 +140,8 @@ const FRIENDLY_TIPS = [
 
 export function App() {
   const [keyPair, setKeyPair] = useState<UserKeyPair | null>(null);
-  const [checkingBalance, setCheckingBalance] = useState(25000000);
-  const [potBalance, setPotBalance] = useState(18500000);
+  const [checkingBalance, setCheckingBalance] = useState(0);
+  const [potBalance, setPotBalance] = useState(0);
   const [transactions, setTransactions] = useState<any[]>([]);
   const [executedOrders, setExecutedOrders] = useState<any[]>([]);
   const [disposableCards, setDisposableCards] = useState<any[]>([]);
@@ -163,16 +163,16 @@ export function App() {
   // Execution state
   const [isExecuting, setIsExecuting] = useState(false);
   const [isSettled, setIsSettled] = useState(false);
-  const [isOnboardingOpen, setIsOnboardingOpen] = useState(true);
+  const [isOnboardingOpen, setIsOnboardingOpen] = useState(false);
 
   // Friendly greeting & Settings state
   const [friendlyTipIdx, setFriendlyTipIdx] = useState(0);
   const [isSettingsOpen, setIsSettingsOpen] = useState(false);
   const [isExported, setIsExported] = useState(false);
 
-  // Multi-Currency preference
+  // Multi-Currency preference (Default to IDR)
   const [userBaseCurrency, setUserBaseCurrency] = useState<string>(
-    () => localStorage.getItem('tc_user_currency') || 'AUD'
+    () => localStorage.getItem('tc_user_currency') || 'IDR'
   );
 
   const handleCurrencyChange = (curr: string) => {
@@ -180,19 +180,19 @@ export function App() {
     localStorage.setItem('tc_user_currency', curr);
   };
 
-  // User Location & Nearest Store Hub state
+  // User Location & Nearest Store Hub state (Default to Jakarta)
   const [userLocation, setUserLocation] = useState<string>(
-    () => localStorage.getItem('tc_user_location') || 'tokyo'
+    () => localStorage.getItem('tc_user_location') || 'jakarta'
   );
   const [isLocationModalOpen, setIsLocationModalOpen] = useState(false);
   const [gpsStatus, setGpsStatus] = useState<string | null>(null);
 
-  // Fresh user empty state ("You haven't ... yet")
+  // Fresh user empty state ("You haven't ... yet") - default to true
   const [isFreshUser, setIsFreshUser] = useState<boolean>(
-    () => localStorage.getItem('tc_is_fresh') === 'true'
+    () => localStorage.getItem('tc_is_fresh') !== 'false'
   );
 
-  const activeHub = LOCATION_HUBS[userLocation] || LOCATION_HUBS.tokyo;
+  const activeHub = LOCATION_HUBS[userLocation] || LOCATION_HUBS.jakarta;
 
   const handleLocationSelect = (hubId: string, syncCurrency: boolean = true) => {
     setUserLocation(hubId);
