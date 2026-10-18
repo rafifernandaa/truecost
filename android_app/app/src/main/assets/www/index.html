@@ -997,8 +997,9 @@
             <h2 class="text-[13px] font-extrabold text-[#141726] tracking-tight leading-tight" id="home-greeting-title">
               Hi Rafif
             </h2>
-            <button onclick="cycleFriendlyTip()" id="friendly-mood-chip" class="px-2 py-0.5 rounded-full bg-[#10B981]/12 border border-[#10B981]/25 text-[#065F46] text-[9px] font-mono font-bold shrink-0 tactile-press">
-              Ready
+            <button onclick="openProfileModal(false)" id="home-role-chip" class="px-2 py-0.5 rounded-full bg-[#2B44E8]/10 border border-[#2B44E8]/20 text-[#2B44E8] text-[8.5px] font-mono font-bold shrink-0 tactile-press flex items-center gap-1">
+              <span id="home-role-chip-label">💻 Tech &amp; Software</span>
+              <span class="material-symbols-outlined text-[10px]">tune</span>
             </button>
           </div>
 
@@ -1345,15 +1346,18 @@
 
       <div id="active-verdict-content" class="space-y-3">
         <!-- Clean Segmented Pill Switcher -->
-        <div class="soma-glass rounded-full p-1 flex items-center justify-between border border-[#141726]/10">
-          <button id="vtab-btn-landed" onclick="switchVerdictSubtab('landed')" class="flex-1 py-1.5 rounded-full text-[11px] font-bold bg-[#131522] text-white transition">
+        <div class="soma-glass rounded-full p-1 flex items-center justify-between border border-[#141726]/10 gap-0.5">
+          <button id="vtab-btn-landed" onclick="switchVerdictSubtab('landed')" class="flex-1 py-1.5 rounded-full text-[10px] font-bold bg-[#131522] text-white transition">
             Total Cost
           </button>
-          <button id="vtab-btn-bnpl" onclick="switchVerdictSubtab('bnpl')" class="flex-1 py-1.5 rounded-full text-[11px] font-semibold text-[#5A5E72] transition">
+          <button id="vtab-btn-bnpl" onclick="switchVerdictSubtab('bnpl')" class="flex-1 py-1.5 rounded-full text-[10px] font-semibold text-[#5A5E72] transition">
             Plan Fees
           </button>
-          <button id="vtab-btn-hedonic" onclick="switchVerdictSubtab('hedonic')" class="flex-1 py-1.5 rounded-full text-[11px] font-semibold text-[#5A5E72] transition">
+          <button id="vtab-btn-hedonic" onclick="switchVerdictSubtab('hedonic')" class="flex-1 py-1.5 rounded-full text-[10px] font-semibold text-[#5A5E72] transition">
             Best Timing
+          </button>
+          <button id="vtab-btn-oppcost" onclick="switchVerdictSubtab('oppcost')" class="flex-1 py-1.5 rounded-full text-[10px] font-semibold text-[#5A5E72] transition whitespace-nowrap">
+            Opportunity
           </button>
         </div>
 
@@ -1477,9 +1481,11 @@
               <div class="text-xs font-bold text-white break-words leading-tight" id="ticket-stub-title">Airport Tax Refund</div>
               <div class="text-[11px] font-mono text-[#EABAA8] break-words leading-tight mt-0.5" id="ticket-stub-sub">-$150 · <span class="text-white/65">DIRECT PAY</span></div>
             </div>
-            <button onclick="executeRealMoneyFlow('reserve_and_settle')" class="px-4 py-2 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] border border-white/30 shadow-md text-white text-[11px] font-mono font-bold uppercase tracking-wider tactile-press shrink-0">
-              BUY NOW
-            </button>
+            <div id="ticket-stub-action-slot" class="shrink-0">
+              <button onclick="executeRealMoneyFlow('reserve_and_settle')" class="px-4 py-2 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] border border-white/30 shadow-md text-white text-[11px] font-mono font-bold uppercase tracking-wider tactile-press shrink-0">
+                BUY NOW
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -1857,6 +1863,18 @@
           </div>
         </div>
 
+        <!-- Personal Financial Profile & Opportunity Cost -->
+        <button onclick="openProfileModal(false)" class="w-full p-3 rounded-[18px] bg-white/85 hover:bg-white border border-[#141726]/6 flex items-center justify-between text-left tactile-press">
+          <div class="flex items-center gap-2.5">
+            <span class="material-symbols-outlined text-[18px] text-[#2B44E8]">person_celebrate</span>
+            <div>
+              <div class="text-xs font-bold text-[#141726]">Personal Profile &amp; Opportunity Goals</div>
+              <div class="text-[10px] text-[#5A5E72]" id="settings-profile-sub">Tech &amp; Software · Early Career · Rp 10M Budget</div>
+            </div>
+          </div>
+          <span class="material-symbols-outlined text-[16px] text-[#5A5E72]">chevron_right</span>
+        </button>
+
         <button onclick="openOnboardingTour()" class="w-full p-3 rounded-[18px] bg-white/85 hover:bg-white border border-[#141726]/6 flex items-center justify-between text-left tactile-press">
           <div class="flex items-center gap-2.5">
             <span class="material-symbols-outlined text-[18px] text-[#EB7951]">auto_awesome_motion</span>
@@ -2065,6 +2083,157 @@
           <span>Inspect Duties →</span>
         </button>
       </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- PERSONAL PROFILE & OPPORTUNITY COST CALIBRATION MODAL                 -->
+  <!-- ===================================================================== -->
+  <div id="profile-setup-modal" class="fixed inset-0 z-[96] bg-[#131522]/90 backdrop-blur-xl hidden flex-col justify-center items-center p-3 select-none overflow-y-auto">
+    <div class="w-full max-w-[370px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-4 border border-white/80 animate-in fade-in zoom-in-95 duration-200">
+      
+      <!-- Top Header -->
+      <div class="flex items-start justify-between">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-2xl bg-[#2B44E8] text-white flex items-center justify-center shadow-xs">
+            <span class="material-symbols-outlined text-[20px]">psychology</span>
+          </div>
+          <div>
+            <h3 class="text-sm font-extrabold text-[#141726]" id="profile-modal-title">Personalize Autopilot</h3>
+            <p class="text-[10px] text-[#5A5E72]" id="profile-modal-sub">Calibrate Opportunity Cost &amp; Upskilling to You</p>
+          </div>
+        </div>
+        <button onclick="closeProfileModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press">
+          <span class="material-symbols-outlined text-[16px]">close</span>
+        </button>
+      </div>
+
+      <!-- Step 1: Life Stage & Age -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+          <span>1. Life Stage &amp; Age</span>
+          <span class="text-[#2B44E8]" id="profile-age-badge">Early Career</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+          <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#141726]">🎓 Student</span>
+            <span class="text-[8.5px] text-[#5A5E72]">18–22 yrs · 20y Compound</span>
+          </button>
+          <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#2B44E8]">💼 Early Pro</span>
+            <span class="text-[8.5px] text-[#5A5E72]">23–28 yrs · Fast Upskill</span>
+          </button>
+          <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#141726]">🚀 Mid Career</span>
+            <span class="text-[8.5px] text-[#5A5E72]">29–38 yrs · Specialized</span>
+          </button>
+          <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#141726]">🏛️ Senior / Exec</span>
+            <span class="text-[8.5px] text-[#5A5E72]">39+ yrs · Wealth Preserv.</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 2: Role & Profession -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+          <span>2. Profession / Role</span>
+          <span class="text-[#2B44E8]" id="profile-role-badge">Tech &amp; Software</span>
+        </div>
+        <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+          <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#2B44E8]">💻 Tech &amp; Code</span>
+            <span class="text-[8.5px] text-[#5A5E72]">AWS, AI/ML, SysArch</span>
+          </button>
+          <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#141726]">🎨 Creative Design</span>
+            <span class="text-[8.5px] text-[#5A5E72]">Figma, 4K, 3D Master</span>
+          </button>
+          <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#141726]">📊 Finance &amp; Biz</span>
+            <span class="text-[8.5px] text-[#5A5E72]">CFA, Modeling, Deals</span>
+          </button>
+          <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
+            <span class="font-bold text-[#141726]">🎓 Academic / Uni</span>
+            <span class="text-[8.5px] text-[#5A5E72]">GRE, Flights, Papers</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Step 3: Discretionary Budget & Primary Goal -->
+      <div class="space-y-1.5">
+        <div class="flex items-center justify-between text-[10px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+          <span>3. Monthly Budget &amp; Target</span>
+          <span class="text-[#2B44E8]">Target Focus</span>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="block text-[8.5px] text-[#5A5E72] font-mono uppercase mb-0.5">Discretionary Budget</label>
+            <select id="profile-budget-select" class="w-full h-8 px-2 rounded-xl bg-white text-[10px] font-mono font-bold text-[#141726] border border-black/10 outline-none">
+              <option value="3000000">Rp 3M (~$200) · Lean</option>
+              <option value="8000000" selected>Rp 8M (~$500) · Moderate</option>
+              <option value="15000000">Rp 15M (~$950) · Strong</option>
+              <option value="25000000">Rp 25M+ · High Velocity</option>
+            </select>
+          </div>
+          <div>
+            <label class="block text-[8.5px] text-[#5A5E72] font-mono uppercase mb-0.5">Primary Focus</label>
+            <select id="profile-goal-select" class="w-full h-8 px-2 rounded-xl bg-white text-[10px] font-mono font-bold text-[#141726] border border-black/10 outline-none">
+              <option value="career_mastery" selected>🚀 Career Mastery</option>
+              <option value="compound_growth">📈 Compounding Wealth</option>
+              <option value="buffer_peace">🛡️ 60d Safe Buffer</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Action Button -->
+      <div class="pt-2">
+        <button onclick="saveProfileFromModal()" class="w-full py-3 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white text-xs font-mono font-bold uppercase tracking-wider shadow-md tactile-press flex items-center justify-center gap-1.5">
+          <span class="material-symbols-outlined text-[16px]">check_circle</span>
+          <span>Save &amp; Calibrate Autopilot</span>
+        </button>
+        <p class="text-[9px] text-center text-[#5A5E72] mt-1.5 font-mono">
+          🔒 Zero cloud tracking · Calibrated locally on-device
+        </p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================================================================== -->
+  <!-- OPPORTUNITY GROWTH POT CELEBRATION MODAL                              -->
+  <!-- ===================================================================== -->
+  <div id="growth-divert-modal" class="fixed inset-0 z-[97] bg-[#131522]/92 backdrop-blur-xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
+    <div class="w-full max-w-[360px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-4 border border-white/80 text-center animate-in fade-in zoom-in-95 duration-200">
+      <div class="w-14 h-14 rounded-full bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mx-auto shadow-inner">
+        <span class="material-symbols-outlined text-[32px] animate-bounce">savings</span>
+      </div>
+      <div>
+        <span class="text-[9px] font-mono uppercase tracking-widest text-[#10B981] font-bold">Impulse Spending Diverted</span>
+        <h3 class="text-base font-extrabold text-[#141726] mt-0.5">Growth Pot Secured!</h3>
+        <p class="text-xs text-[#5A5E72] mt-1.5 leading-relaxed" id="growth-divert-desc">
+          Rp 15,820,000 diverted from shopping into your Self-Investment Sinking Pot.
+        </p>
+      </div>
+
+      <div class="rounded-2xl bg-black/5 p-3 text-left font-mono text-[10px] space-y-1.5 border border-black/5">
+        <div class="flex justify-between items-center text-[#5A5E72]">
+          <span>Checking Outflow:</span>
+          <span class="font-bold text-[#EB7951]" id="growth-modal-outflow">-Rp 15,820,000</span>
+        </div>
+        <div class="flex justify-between items-center text-[#5A5E72]">
+          <span>Growth Pot Inflow:</span>
+          <span class="font-bold text-[#10B981]" id="growth-modal-inflow">+Rp 15,820,000</span>
+        </div>
+        <div class="flex justify-between items-center text-[#5A5E72] pt-1 border-t border-black/5">
+          <span>Cryptographic Proof:</span>
+          <span class="font-bold text-[#2B44E8]" id="growth-modal-proof">AP2-MND-GROWTH Verified</span>
+        </div>
+      </div>
+
+      <button onclick="closeGrowthDivertModal()" class="w-full py-2.5 rounded-full bg-[#131522] text-white text-xs font-mono font-bold uppercase tracking-wider tactile-press shadow-md">
+        Back to Dashboard
+      </button>
     </div>
   </div>
 
@@ -3208,6 +3377,446 @@
       setTimeout(() => closeExpansionSheet(), 220);
     }
 
+    let USER_PROFILE = {
+      age_bracket: 'early_career',
+      role: 'tech_software',
+      monthly_budget: 8000000,
+      goal: 'career_mastery',
+    };
+    let oppHorizonYears = 5;
+    let oppCostView = 'compound';
+    let CURRENT_OPP_DATA = null;
+
+    const ROLE_LABELS = {
+      tech_software: { label: 'Tech & Software', icon: '💻', short: 'Tech & Code' },
+      design_creative: { label: 'Design & Creative', icon: '🎨', short: 'Creative' },
+      business_finance: { label: 'Finance & Biz', icon: '📊', short: 'Finance' },
+      student_academic: { label: 'Academic / Uni', icon: '🎓', short: 'Student' },
+    };
+
+    const AGE_LABELS = {
+      student: 'Student (18–22)',
+      early_career: 'Early Pro (23–28)',
+      mid_career: 'Mid Career (29–38)',
+      senior_exec: 'Senior / Exec (39+)',
+    };
+
+    function initUserProfile() {
+      try {
+        const saved = localStorage.getItem('tc_user_profile');
+        if (saved) {
+          USER_PROFILE = { ...USER_PROFILE, ...JSON.parse(saved) };
+        }
+      } catch (e) {}
+      updateProfileUI();
+    }
+
+    function updateProfileUI() {
+      const roleChipLabel = document.getElementById('home-role-chip-label');
+      const settingsSub = document.getElementById('settings-profile-sub');
+      const rInfo = ROLE_LABELS[USER_PROFILE.role] || ROLE_LABELS.tech_software;
+      const aInfo = AGE_LABELS[USER_PROFILE.age_bracket] || 'Early Pro';
+
+      if (roleChipLabel) {
+        roleChipLabel.textContent = `${rInfo.icon} ${rInfo.short}`;
+      }
+      if (settingsSub) {
+        const bFmt = USER_PROFILE.monthly_budget >= 1000000 
+          ? `Rp ${(USER_PROFILE.monthly_budget / 1000000).toFixed(0)}M` 
+          : `$${USER_PROFILE.monthly_budget}`;
+        settingsSub.textContent = `${rInfo.label} · ${aInfo} · ${bFmt} Budget`;
+      }
+    }
+
+    function openProfileModal(isFirstTime) {
+      triggerHaptic('heavy');
+      const modal = document.getElementById('profile-setup-modal');
+      const title = document.getElementById('profile-modal-title');
+      const sub = document.getElementById('profile-modal-sub');
+
+      if (title && sub) {
+        if (isFirstTime) {
+          title.textContent = "Welcome! Let's Calibrate Autopilot";
+          sub.textContent = '15 seconds setup so Opportunity Cost matches your real life';
+        } else {
+          title.textContent = 'Personalize Autopilot';
+          sub.textContent = 'Calibrate Opportunity Cost & Upskilling to You';
+        }
+      }
+
+      selectProfilePill('age', USER_PROFILE.age_bracket, true);
+      selectProfilePill('role', USER_PROFILE.role, true);
+
+      const budgetSel = document.getElementById('profile-budget-select');
+      const goalSel = document.getElementById('profile-goal-select');
+      if (budgetSel) budgetSel.value = String(USER_PROFILE.monthly_budget || 8000000);
+      if (goalSel) goalSel.value = USER_PROFILE.goal || 'career_mastery';
+
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+    }
+
+    function closeProfileModal() {
+      triggerHaptic('click');
+      const modal = document.getElementById('profile-setup-modal');
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+    }
+
+    function selectProfilePill(category, key, silent) {
+      if (!silent) triggerHaptic('click');
+      if (category === 'age') {
+        USER_PROFILE.age_bracket = key;
+        const badge = document.getElementById('profile-age-badge');
+        if (badge) badge.textContent = AGE_LABELS[key] || key;
+        ['student', 'early_career', 'mid_career', 'senior_exec'].forEach(k => {
+          const btn = document.getElementById('prof-age-' + k);
+          if (btn) {
+            btn.className = k === key
+              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between'
+              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between';
+            const span = btn.querySelector('span:first-child');
+            if (span) span.className = k === key ? 'font-bold text-[#2B44E8]' : 'font-bold text-[#141726]';
+          }
+        });
+      } else if (category === 'role') {
+        USER_PROFILE.role = key;
+        const badge = document.getElementById('profile-role-badge');
+        const rInfo = ROLE_LABELS[key] || ROLE_LABELS.tech_software;
+        if (badge) badge.textContent = rInfo.label;
+        ['tech_software', 'design_creative', 'business_finance', 'student_academic'].forEach(k => {
+          const btn = document.getElementById('prof-role-' + k);
+          if (btn) {
+            btn.className = k === key
+              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between'
+              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between';
+            const span = btn.querySelector('span:first-child');
+            if (span) span.className = k === key ? 'font-bold text-[#2B44E8]' : 'font-bold text-[#141726]';
+          }
+        });
+      }
+    }
+
+    function saveProfileFromModal() {
+      triggerHaptic('success');
+      const budgetSel = document.getElementById('profile-budget-select');
+      const goalSel = document.getElementById('profile-goal-select');
+      if (budgetSel) USER_PROFILE.monthly_budget = Number(budgetSel.value) || 8000000;
+      if (goalSel) USER_PROFILE.goal = goalSel.value;
+
+      localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
+      localStorage.setItem('tc_user_profile_configured', 'true');
+
+      updateProfileUI();
+      closeProfileModal();
+
+      if (currentRealCase) {
+        fetchOpportunityCostData(currentRealCase);
+        if (activeVerdictSubtab === 'oppcost') {
+          switchVerdictSubtab('oppcost', true);
+        }
+      }
+    }
+
+    function setOppCostView(view) {
+      triggerHaptic('click');
+      oppCostView = view;
+      if (currentRealCase) {
+        renderOppCostDrawer(currentRealCase);
+      }
+    }
+
+    function setOppHorizon(years) {
+      triggerHaptic('click');
+      oppHorizonYears = Number(years);
+      if (currentRealCase) {
+        renderOppCostDrawer(currentRealCase);
+      }
+    }
+
+    async function fetchOpportunityCostData(rc) {
+      if (!rc) return;
+      const principal = (userBaseCurrency === 'IDR' || rc.currency === 'IDR') 
+        ? (rc.stickerPriceIdr || rc.foreignPrice || 15820000)
+        : (rc.stickerPriceAud || rc.foreignPrice || 1580);
+      const currency = (userBaseCurrency === 'IDR' || rc.currency === 'IDR') ? 'IDR' : (rc.currency || 'USD');
+
+      const endpoints = getApiEndpoints('/api/v1/quant/opportunity-cost');
+      let data = null;
+
+      for (const url of endpoints) {
+        try {
+          const resp = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              principal: Number(principal),
+              currency: currency,
+              role: USER_PROFILE.role,
+              age_bracket: USER_PROFILE.age_bracket,
+              monthly_budget: Number(USER_PROFILE.monthly_budget),
+              annual_rate: 0.06,
+            }),
+            signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(3000) : undefined,
+          });
+          if (resp.ok) {
+            data = await resp.json();
+            break;
+          }
+        } catch (e) {}
+      }
+
+      if (!data) {
+        const p = Number(principal);
+        const r = 0.06;
+        const projections = [1, 3, 5, 10, 20].map(t => {
+          const fv = p * Math.pow(1 + (r / 12), 12 * t);
+          return {
+            horizon_years: t,
+            future_value: Math.round(fv),
+            interest_earned: Math.round(fv - p),
+            multiple: Math.round((fv / p) * 100) / 100,
+          };
+        });
+        const lifeHours = Math.round((p / (USER_PROFILE.monthly_budget / 160)) * 10) / 10;
+        data = {
+          status: 'SUCCESS',
+          principal: p,
+          currency: currency,
+          compounding: {
+            principal: p,
+            rule_of_72_doubling_years: 12.0,
+            projections: projections,
+            default_5y_future_value: projections[2].future_value,
+            default_5y_interest_earned: projections[2].interest_earned,
+          },
+          human_capital: {
+            role: USER_PROFILE.role,
+            human_capital_irr_estimate: '350% - 1,200% via Career Progression',
+            recommended_bundle: [
+              {
+                name: 'AWS Solutions Architect & Cloud Cert',
+                category: 'Certification',
+                cost_local: Math.round(p * 0.2),
+                formatted_cost: currency === 'IDR' ? `Rp ${Math.round(p * 0.2).toLocaleString('id-ID')}` : `$${Math.round(p * 0.2)}`,
+                career_impact: '+15-25% Seniority Advantage in DevOps/Cloud',
+                icon: 'verified',
+              },
+              {
+                name: "1-Year O'Reilly / Coursera Plus Access",
+                category: 'Continuous Learning',
+                cost_local: Math.round(p * 0.45),
+                formatted_cost: currency === 'IDR' ? `Rp ${Math.round(p * 0.45).toLocaleString('id-ID')}` : `$${Math.round(p * 0.45)}`,
+                career_impact: 'Master System Architecture & LLMs',
+                icon: 'school',
+              },
+              {
+                name: 'Ergonomic 4K Display / Workstation',
+                category: 'Hardware',
+                cost_local: Math.round(p * 0.35),
+                formatted_cost: currency === 'IDR' ? `Rp ${Math.round(p * 0.35).toLocaleString('id-ID')}` : `$${Math.round(p * 0.35)}`,
+                career_impact: '+20% Daily Deep Work Output',
+                icon: 'desktop_windows',
+              },
+            ],
+          },
+          life_energy: {
+            life_energy_hours: lifeHours,
+            life_energy_work_days: Math.round((lifeHours / 8) * 10) / 10,
+          },
+        };
+      }
+
+      CURRENT_OPP_DATA = data;
+      if (activeVerdictSubtab === 'oppcost') {
+        renderOppCostDrawer(rc);
+      }
+    }
+
+    function renderOppCostDrawer(rc) {
+      const body = document.getElementById('verdict-drawer-body');
+      const title = document.getElementById('verdict-drawer-title');
+      const stubTitle = document.getElementById('ticket-stub-title');
+      const stubSub = document.getElementById('ticket-stub-sub');
+      const stubSlot = document.getElementById('ticket-stub-action-slot');
+
+      if (!body || !title) return;
+      title.textContent = 'OPPORTUNITY COST & FUTURE WEALTH';
+
+      if (!CURRENT_OPP_DATA) {
+        body.innerHTML = '<div class="py-4 text-center text-white/70 font-mono text-xs">Calculating opportunity cost...</div>';
+        return;
+      }
+
+      const d = CURRENT_OPP_DATA;
+      const cur = d.currency;
+      const isIdr = cur === 'IDR';
+
+      let contentHtml = `
+        <div class="flex items-center justify-between p-1 rounded-xl bg-white/10 text-[9.5px] font-mono mb-2">
+          <button onclick="setOppCostView('compound')" class="flex-1 py-1 rounded-lg transition ${oppCostView === 'compound' ? 'bg-[#2B44E8] text-white font-bold' : 'text-white/70'}">📈 5y Wealth</button>
+          <button onclick="setOppCostView('career')" class="flex-1 py-1 rounded-lg transition ${oppCostView === 'career' ? 'bg-[#2B44E8] text-white font-bold' : 'text-white/70'}">🎓 Upskilling</button>
+          <button onclick="setOppCostView('life')" class="flex-1 py-1 rounded-lg transition ${oppCostView === 'life' ? 'bg-[#2B44E8] text-white font-bold' : 'text-white/70'}">⏳ Life Energy</button>
+        </div>
+      `;
+
+      if (oppCostView === 'compound') {
+        const proj = d.compounding.projections.find(p => p.horizon_years === oppHorizonYears) || d.compounding.projections[2];
+        const fvFmt = isIdr ? `Rp ${Math.round(proj.future_value).toLocaleString('id-ID')}` : `${cur} ${proj.future_value.toLocaleString()}`;
+        const gainFmt = isIdr ? `+Rp ${Math.round(proj.interest_earned).toLocaleString('id-ID')}` : `+${cur} ${proj.interest_earned.toLocaleString()}`;
+
+        contentHtml += `
+          <div class="p-3 rounded-[16px] frosted-inner-well space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] font-mono text-white/70 uppercase">If Compounded at 6% p.a.</span>
+              <span class="text-[9px] font-mono px-2 py-0.5 rounded-full bg-[#10B981]/20 text-[#10B981] font-bold">Rule of 72: ~${d.compounding.rule_of_72_doubling_years}y Doubling</span>
+            </div>
+            <div>
+              <div class="text-base font-black font-mono text-white">${fvFmt}</div>
+              <div class="text-[10px] font-mono text-[#10B981] font-bold mt-0.5">${gainFmt} Interest (${proj.multiple}x Growth)</div>
+            </div>
+            <div class="flex gap-1 pt-1 border-t border-white/10">
+              ${[1, 3, 5, 10, 20].map(yr => `
+                <button onclick="setOppHorizon(${yr})" class="flex-1 py-1 rounded-lg text-[9px] font-mono font-bold transition ${oppHorizonYears === yr ? 'bg-[#10B981] text-white' : 'bg-white/10 text-white/75 hover:bg-white/20'}">
+                  ${yr}y
+                </button>
+              `).join('')}
+            </div>
+          </div>
+          <div class="text-[9px] text-white/75 font-mono px-1">
+            💡 Diverting this purchase into your high-yield pot lets compound interest work for your future self.
+          </div>
+        `;
+      } else if (oppCostView === 'career') {
+        const rInfo = ROLE_LABELS[USER_PROFILE.role] || ROLE_LABELS.tech_software;
+        const bundle = d.human_capital.recommended_bundle || [];
+
+        contentHtml += `
+          <div class="p-2.5 rounded-[16px] frosted-inner-well space-y-2">
+            <div class="flex items-center justify-between">
+              <span class="text-[9px] font-mono text-white/70 uppercase">Role-Tailored Upskilling</span>
+              <span class="text-[8.5px] font-mono text-[#EABAA8] font-bold">${rInfo.icon} ${rInfo.short}</span>
+            </div>
+            <div class="space-y-1.5 max-h-36 overflow-y-auto pr-0.5">
+              ${bundle.map(item => `
+                <div class="p-2 rounded-xl frosted-inner-row flex items-start gap-2">
+                  <span class="material-symbols-outlined text-[15px] text-[#10B981] shrink-0 mt-0.5">${item.icon || 'verified'}</span>
+                  <div class="min-w-0 flex-1">
+                    <div class="flex items-center justify-between gap-1">
+                      <span class="text-[10px] font-bold text-white truncate">${item.name}</span>
+                      <span class="text-[9.5px] font-mono font-bold text-[#10B981] shrink-0">${item.formatted_cost || ''}</span>
+                    </div>
+                    <div class="text-[8.5px] text-[#EABAA8] mt-0.5 leading-tight">${item.career_impact}</div>
+                  </div>
+                </div>
+              `).join('')}
+            </div>
+          </div>
+          <div class="text-[9px] text-[#10B981] font-mono px-1 font-bold">
+            ⚡ Estimated Human Capital IRR: ${d.human_capital.human_capital_irr_estimate || '350%+'}
+          </div>
+        `;
+      } else {
+        const le = d.life_energy;
+        contentHtml += `
+          <div class="p-3 rounded-[16px] frosted-inner-well space-y-2">
+            <div class="text-[9px] font-mono text-white/70 uppercase">Life Energy Worked</div>
+            <div class="flex items-baseline gap-2">
+              <span class="text-xl font-black font-mono text-[#EB7951]">${le.life_energy_hours}h</span>
+              <span class="text-xs font-mono text-white/90">(${le.life_energy_work_days} Working Days)</span>
+            </div>
+            <p class="text-[9.5px] text-white/80 leading-relaxed font-mono pt-1 border-t border-white/10">
+              Based on your monthly discretionary budget, this single item requires working <strong class="text-white">${le.life_energy_work_days} full 8-hour days</strong>. Is it worth this much of your life energy?
+            </p>
+          </div>
+        `;
+      }
+
+      body.innerHTML = contentHtml;
+
+      if (stubTitle) stubTitle.textContent = 'Divert to Growth Pot';
+      if (stubSub) stubSub.innerHTML = 'Lock budget into high-yield pot · <span class="text-[#10B981] font-bold">SAVE</span>';
+      if (stubSlot) {
+        stubSlot.innerHTML = `
+          <button onclick="divertCurrentCaseToGrowthPot()" class="px-3.5 py-2 rounded-full bg-[#10B981] hover:bg-[#059669] border border-white/30 shadow-md text-white text-[10.5px] font-mono font-bold uppercase tracking-wider tactile-press shrink-0 flex items-center gap-1">
+            <span class="material-symbols-outlined text-[14px]">savings</span>
+            <span>DIVERT TO POT</span>
+          </button>
+        `;
+      }
+    }
+
+    async function divertCurrentCaseToGrowthPot() {
+      triggerHaptic('heavy');
+      const rc = currentRealCase;
+      if (!rc) return;
+
+      const price = (userBaseCurrency === 'IDR' || rc.currency === 'IDR') 
+        ? (rc.stickerPriceIdr || rc.foreignPrice || 15820000)
+        : (rc.stickerPriceAud || rc.foreignPrice || 1580);
+      const currency = (userBaseCurrency === 'IDR' || rc.currency === 'IDR') ? 'IDR' : (rc.currency || 'USD');
+
+      const endpoints = getApiEndpoints('/api/v1/bank/divert-to-growth-pot');
+      let result = null;
+
+      for (const url of endpoints) {
+        try {
+          const resp = await fetch(url, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              amount: Number(price),
+              currency: currency,
+              item_name: rc.itemName,
+              growth_target: 'Opportunity Growth Pot',
+              user_id: 'USR_DEFAULT',
+            }),
+            signal: (typeof AbortSignal !== 'undefined' && AbortSignal.timeout) ? AbortSignal.timeout(3500) : undefined,
+          });
+          if (resp.ok) {
+            result = await resp.json();
+            break;
+          }
+        } catch (e) {}
+      }
+
+      const pFmt = currency === 'IDR' ? `Rp ${Math.round(price).toLocaleString('id-ID')}` : `${currency} ${price.toLocaleString()}`;
+
+      const modal = document.getElementById('growth-divert-modal');
+      const desc = document.getElementById('growth-divert-desc');
+      const outflow = document.getElementById('growth-modal-outflow');
+      const inflow = document.getElementById('growth-modal-inflow');
+      const proof = document.getElementById('growth-modal-proof');
+
+      if (desc) desc.textContent = `${pFmt} diverted from '${rc.itemName}' into your Self-Investment Sinking Pot.`;
+      if (outflow) outflow.textContent = `-${pFmt}`;
+      if (inflow) inflow.textContent = `+${pFmt}`;
+      if (proof && result && result.journal_id) {
+        proof.textContent = `Journal #${result.journal_id.slice(0, 12)}...`;
+      }
+
+      if (modal) {
+        modal.classList.remove('hidden');
+        modal.classList.add('flex');
+      }
+
+      syncLiveBankState();
+    }
+
+    function closeGrowthDivertModal() {
+      triggerHaptic('click');
+      const modal = document.getElementById('growth-divert-modal');
+      if (modal) {
+        modal.classList.remove('flex');
+        modal.classList.add('hidden');
+      }
+      switchTab('capture');
+    }
+
     function switchVerdictSubtab(mode, silent) {
       if (!silent) triggerHaptic('click');
       activeVerdictSubtab = mode;
@@ -3215,16 +3824,36 @@
       if (!rc) return;
       const body = document.getElementById('verdict-drawer-body');
       const title = document.getElementById('verdict-drawer-title');
-      ['landed', 'bnpl', 'hedonic'].forEach(m => {
+      const stubTitle = document.getElementById('ticket-stub-title');
+      const stubSub = document.getElementById('ticket-stub-sub');
+      const stubSlot = document.getElementById('ticket-stub-action-slot');
+
+      ['landed', 'bnpl', 'hedonic', 'oppcost'].forEach(m => {
         const b = document.getElementById('vtab-btn-' + m);
         if (b) {
           b.className = m === mode
-            ? 'flex-1 py-1.5 rounded-full text-[11px] font-bold bg-[#131522] text-white transition'
-            : 'flex-1 py-1.5 rounded-full text-[11px] font-semibold text-[#5A5E72] transition';
+            ? 'flex-1 py-1.5 rounded-full text-[10px] font-bold bg-[#131522] text-white transition'
+            : 'flex-1 py-1.5 rounded-full text-[10px] font-semibold text-[#5A5E72] transition whitespace-nowrap';
         }
       });
 
       if (!body || !title) return;
+
+      if (mode === 'oppcost') {
+        renderOppCostDrawer(rc);
+        return;
+      }
+
+      // Restore standard BUY NOW button for other subtabs
+      if (stubTitle) stubTitle.textContent = rc.touristRefundAud > 0 ? 'Airport Tax Refund' : rc.itemName;
+      if (stubSub) stubSub.innerHTML = `${rc.touristRefundAud > 0 ? `-${formatInBaseCurrency(rc.touristRefundAud)} · ` : ''}<span class="text-white/65">DIRECT PAY</span>`;
+      if (stubSlot) {
+        stubSlot.innerHTML = `
+          <button onclick="executeRealMoneyFlow('reserve_and_settle')" class="px-4 py-2 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] border border-white/30 shadow-md text-white text-[11px] font-mono font-bold uppercase tracking-wider tactile-press shrink-0">
+            BUY NOW
+          </button>
+        `;
+      }
 
       if (mode === 'landed') {
         title.textContent = 'COST & SAVINGS SUMMARY';
@@ -3454,6 +4083,13 @@
       if (w2Cap) w2Cap.textContent = `Exact Cap: Rp ${Math.round(rc.landedCostIdr).toLocaleString('id-ID')}`;
       if (dockVerdictLbl) dockVerdictLbl.textContent = `${formatCompactIdr(rc.landedCostIdr)} · ${rc.isScam ? 'RISK' : 'BUY'}`;
       if (dockShieldLbl) dockShieldLbl.textContent = rc.isScam ? 'Wire Blocked' : 'Verified Safe';
+
+      // 5. Pre-fetch and update Opportunity Cost Analytics for active item
+      fetchOpportunityCostData(rc).then(() => {
+        if (activeVerdictSubtab === 'oppcost') {
+          renderOppCostDrawer(rc);
+        }
+      });
     }
 
     function cycleWalletCard() {
@@ -4515,6 +5151,11 @@
           overlay.style.display = 'none';
         }, 420);
       }
+      if (!localStorage.getItem('tc_user_profile_configured')) {
+        setTimeout(() => {
+          openProfileModal(true);
+        }, 550);
+      }
     }
 
     function openOnboardingTour() {
@@ -4667,6 +5308,7 @@
 
     document.addEventListener('DOMContentLoaded', () => {
       initFriendlyGreeting();
+      initUserProfile();
       initBackendUrlConfig();
       const savedLoc = localStorage.getItem('tc_user_location') || 'jakarta';
       userLocation = savedLoc;
