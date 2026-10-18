@@ -141,6 +141,30 @@ $$R_t = P_{10} + (P_{50} - P_{10}) \times \left(1 - \left(\frac{T - t}{T}\right)
 
 ---
 
+### 3.5. Opportunity Cost, Compounding Asset Wealth & Human Capital Knapsack
+Rather than treating a purchase in isolation, TrueCost Autopilot introduces deterministic opportunity cost framing across three distinct financial dimensions:
+
+1. **Asset Compounding Projections & Rule of 72 Doubling:**
+   The future value $FV$ of diverting the sticker price $P$ into diversified compound growth assets at benchmark annual interest rates $r \in [2\%, 8\%]$ compounded $n$ times per year over horizons $t \in \{1, 3, 5, 10, 20\}$ years is calculated deterministically via NumPy:
+   $$FV(P, r, t, n) = P \times \left(1 + \frac{r}{n}\right)^{n \cdot t}$$
+   The estimated asset doubling duration is computed using the exact Rule of 72:
+   $$T_{\text{double}} = \frac{72}{r \times 100} \text{ years}$$
+
+2. **Role-Tailored Human Capital Knapsack Alternatives:**
+   When evaluating a discretionary expense, the quant engine queries a curated catalog of high-leverage career accelerators, professional certifications, and productive tools tailored to the user's active persona (`tech_software`, `design_creative`, `business_finance`, `student_academic`). The engine greedily packs affordable items within budget $P$:
+   $$\text{ROI}_{\text{career}} = \arg \max_{S \subseteq \mathcal{C}_{\text{role}}} \sum_{i \in S} \text{Leverage}(i) \quad \text{s.t.} \quad \sum_{i \in S} \text{Cost}(i) \le P$$
+   Items display tangible career multiples (e.g. "Cloud Architect Exam + Claude Pro subscription saves 40 hrs/mo").
+
+3. **Vicki Robin "Your Money or Your Life" Energy Quantification:**
+   Quantifies the true life hours worked to fund the discretionary expenditure:
+   $$R_{\text{hourly}} = \frac{\text{Monthly Discretionary Budget}}{160 \text{ hours/month}}$$
+   $$\text{Life Energy Hours} = \frac{P}{R_{\text{hourly}}}$$
+
+4. **Atomic 1-Tap Growth Pot Diversion:**
+   Users can convert impulsive spending impulses into tangible wealth by executing an atomic bank transfer from checking (`ACC_USER_CHECKING`) to the interest-bearing sinking pot (`ACC_USER_SINKING_POT`) via `POST /api/v1/bank/divert-to-growth-pot`, backed by balanced double-entry ledger entries and audit hashes.
+
+---
+
 ## 4. Cryptographic Security & Mandate Protocol
 
 ### 4.1. Intent Mandate Specification
