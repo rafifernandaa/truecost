@@ -168,6 +168,31 @@ Before any debit, the Core Banking engine executes non-bypassable checks:
 3. Assert `CartMandate.landed_cost <= IntentMandate.max_budget`
 4. Assert `CartMandate.effective_apr <= IntentMandate.max_acceptable_apr`
 5. Assert `CartMandate.created_at <= IntentMandate.expires_at`
-6. Assert `CartMandate.scam_score < 0.50` or valid user intervention token present.
-
 If any invariant fails, the transaction is rejected, producing an immutable cryptographic audit record.
+
+---
+
+## 5. Financial Database Architecture, Double-Entry Ledger & External Payment Infrastructure
+
+### 5.1. Versioned Relational Schema & Integer Minor-Unit Precision
+All monetary quantities are stored and processed in **exact integer minor units (`amount_minor`, `balance_minor` where `1 major unit = 100 minor units`)** converted via `Decimal` with `ROUND_HALF_UP` (`backend/app/bank/database.py`). Binary floating-point (`float`) arithmetic is never used for ledger postings.
+
+Versioned, non-destructive migrations (`schema_migrations` v1–v3) maintain:
+- `users`: Account identities and public key bindings (`USR_DEFAULT`).
+- `accounts`: Ring-fenced user asset accounts (`ACC_USER_CHECKING`, `ACC_USER_SINKING_POT`, `ACC_EMERGENCY_BUFFER`) and counterparty clearing accounts (`ACC_EXTERNAL_INCOME_SOURCE`, `ACC_MERCHANT_SETTLEMENT_CLEARING`, `ACC_PAYMENT_GATEWAY_ESCROW`).
+- `ledger_journals` & `ledger_entries`: Immutable double-entry postings enforcing `CHECK (total_debit_minor = total_credit_minor AND total_debit_minor > 0)`. SQLite `BEFORE UPDATE` and `BEFORE DELETE` triggers (`trg_ledger_entries_immutable_update`, `trg_ledger_entries_immutable_delete`) prevent any modification or deletion of posted entries; refunds and corrections must post an inverse reversing journal (`POST /api/bank/ledger/reverse`).
+- `idempotency_keys`: Deduplicates client retries (`Idempotency-Key` header) per `(idempotency_key, user_id, endpoint)` and returns HTTP 409 on payload hash conflicts.
+- `payment_transactions`, `webhook_events`, `reconciliation_records`, and hash-chained `audit_logs`.
+
+### 5.2. Indonesian Payment Gateway Integration (Xendit & Midtrans)
+`backend/app/bank/payment_gateway.py` integrates Indonesian payment rails (`XENDIT` v2 Invoices / QRIS / Virtual Accounts and `MIDTRANS` Snap / BCA / Mandiri / BNI Virtual Accounts):
+1. **Authoritative Amount Lookup (`POST /api/payments/create`):** Resolves the amount from server-side `executed_orders` or `intent_mandates_store` and creates a `PENDING` payment record.
+2. **Cryptographic Webhook Verification:**
+   - **Xendit (`POST /api/webhooks/xendit`):** Constant-time `hmac.compare_digest` verification of `x-callback-token` and optional `x-callback-signature` HMAC-SHA256.
+   - **Midtrans (`POST /api/webhooks/midtrans`):** Constant-time verification of `SHA512(order_id + status_code + gross_amount + MIDTRANS_SERVER_KEY)`.
+3. **State Machine & Exactly-Once Accounting:**
+   - Valid transitions: `PENDING -> {PAID, FAILED, EXPIRED, CANCELLED}` and `PAID -> {REFUNDED}`.
+   - Duplicate webhook deliveries are deduplicated via `UNIQUE(provider, provider_event_id)` in `webhook_events`.
+   - Double-entry settlement (`ledger_journals` + `ledger_entries`) is posted inside an atomic `BEGIN IMMEDIATE` transaction **only** when transitioning to `PAID`.
+4. **Automated Reconciliation (`POST /api/payments/reconcile`):** Verifies that every `PAID` transaction has a matching balanced journal and auto-heals delayed webhooks from verified provider settlement reports.
+

@@ -1,0 +1,28 @@
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"name\":\"projects/5894247679312562472/screens/9ece5206870b40fabc05bca5533a4fe2\",\"title\":\"Part. 03 \u00b7 Scam Shield & HITL Execution Gate (Dynamic Dock)\",\"screenshot\":{\"name\":\"projects/5894247679312562472/screens/9ece5206870b40fabc05bca5533a4fe2/fileEntries/screenshot\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1VXTJr_WpCoNABM0aocOql37MKT8bAHP_zBzX6PmhefHRuDEtJgm4vYAu1oEA52woHt-BAaE4ypuJh3LrhI69Ol_qYgKYgzYew43NVR0jH-jIpo_717gjAMgZrqrV3-CIxlerNFzq1E1zvbHHQfgJIrXoLF-S_bDFrS5Uw3qesqkdVaRNFi9mKm6djny-iO79kM67XO2chj87vRtJXtEvM0azeniTkO9J0LkaTGIUg1BhVKISyv-NGQa_Y\"},\"htmlCode\":{\"name\":\"projects/5894247679312562472/screens/9ece5206870b40fabc05bca5533a4fe2/fileEntries/html\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1ZGQ4OGJjMzQ1NjMwMjJkNDM0OGEzMTY3MDVkEgsSBxCN4PijrA4YAZIBIwoKcHJvamVjdF9pZBIVQhM1ODk0MjQ3Njc5MzEyNTYyNDcy&filename=&opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"780\",\"height\":\"4340\",\"deviceType\":\"MOBILE\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "deviceType": "MOBILE",
+      "height": "4340",
+      "htmlCode": {
+        "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1ZGQ4OGJjMzQ1NjMwMjJkNDM0OGEzMTY3MDVkEgsSBxCN4PijrA4YAZIBIwoKcHJvamVjdF9pZBIVQhM1ODk0MjQ3Njc5MzEyNTYyNDcy&filename=&opi=89354086",
+        "mimeType": "text/html",
+        "name": "projects/5894247679312562472/screens/9ece5206870b40fabc05bca5533a4fe2/fileEntries/html"
+      },
+      "name": "projects/5894247679312562472/screens/9ece5206870b40fabc05bca5533a4fe2",
+      "screenshot": {
+        "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VXTJr_WpCoNABM0aocOql37MKT8bAHP_zBzX6PmhefHRuDEtJgm4vYAu1oEA52woHt-BAaE4ypuJh3LrhI69Ol_qYgKYgzYew43NVR0jH-jIpo_717gjAMgZrqrV3-CIxlerNFzq1E1zvbHHQfgJIrXoLF-S_bDFrS5Uw3qesqkdVaRNFi9mKm6djny-iO79kM67XO2chj87vRtJXtEvM0azeniTkO9J0LkaTGIUg1BhVKISyv-NGQa_Y",
+        "name": "projects/5894247679312562472/screens/9ece5206870b40fabc05bca5533a4fe2/fileEntries/screenshot"
+      },
+      "title": "Part. 03 \u00b7 Scam Shield & HITL Execution Gate (Dynamic Dock)",
+      "width": "780"
+    }
+  }
+}

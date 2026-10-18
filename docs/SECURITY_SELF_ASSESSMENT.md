@@ -49,3 +49,13 @@ To ensure that autonomous agents cannot execute unauthorized or high-risk financ
 - **Indonesian OJK POJK 32/2025 (BNPL Responsible Lending):** System proactively flags predatory financing terms and verifies debt-to-income limits.
 - **UK PSR APP Scam Regulations (2024/2025):** Implements proactive, point-of-intent scam friction barriers to halt push-payment fraud before funds leave the consumer's institution.
 - **GDPR / Personal Data Protection (UU PDP):** Zero data retention with external AI providers; PII masking on all agent inputs.
+
+---
+
+## 5. Financial Database, Webhook & API Hardening Controls
+
+- **Database-Level Ledger & Audit Immutability:** SQLite `BEFORE UPDATE` and `BEFORE DELETE` triggers on `ledger_entries` and `audit_logs` block any attempt to alter or erase historical accounting postings or security logs.
+- **Atomic Financial Transactions (`BEGIN IMMEDIATE`):** All balance updates, double-entry postings, mandate registrations, and webhook state transitions execute inside atomic database transactions that roll back completely on any intermediate error.
+- **Idempotency & Replay Prevention:** Every mutation endpoint (`/api/bank/deposit`, `/api/bank/real-flow`, `/api/payments/create`) supports `Idempotency-Key` deduplication with SHA-256 request payload hashing, alongside `used_nonces` for Ed25519 mandate signatures and `UNIQUE(provider, provider_event_id)` for webhooks.
+- **Resource-Level Authorization & Rate Limiting:** Sensitive endpoints enforce `X-User-Id` ownership checks (logging `UNAUTHORIZED_RESOURCE_ACCESS_BLOCKED` on violations), a 5 MB payload ceiling, and sliding-window rate limiting (`TRUECOST_RATE_LIMIT_PER_MIN`).
+

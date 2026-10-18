@@ -1,0 +1,28 @@
+{
+  "id": 1,
+  "jsonrpc": "2.0",
+  "result": {
+    "content": [
+      {
+        "text": "{\"name\":\"projects/5894247679312562472/screens/c967f13527324ad591b2b39d38db0fd1\",\"title\":\"Part. 02 \u00b7 Deterministic Quant Verdict (Dynamic Dock)\",\"screenshot\":{\"name\":\"projects/5894247679312562472/screens/c967f13527324ad591b2b39d38db0fd1/fileEntries/screenshot\",\"downloadUrl\":\"https://lh3.googleusercontent.com/aida/AEtjO1VbeIWZinTZppm8hiIKFQLZiobNrI1M4C6NPEPvYcpLL2E_NsT2ITAWQ2XbGF02rNmDfN_XWSNmf7o61e-P_GMt6nZv_jA3Bqqv0aAb5gquLlqCjO7fHv6p7M7Y7A7dVEZwCSzzlVWhRtw9riZUzsA4SssmSXjmYo2-zXm-tgqXAbK_EFky6eXDcn470uSxAgmcPztL4Q3YoMZc1xepUADVmLa159tWygdP_gHn2McnIo9pZTC-tyVb9Ks\"},\"htmlCode\":{\"name\":\"projects/5894247679312562472/screens/c967f13527324ad591b2b39d38db0fd1/fileEntries/html\",\"downloadUrl\":\"https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1ZGQ4OGJhNDEwMmIwN2M0ZDBhMTk1MTVjNTVlEgsSBxCN4PijrA4YAZIBIwoKcHJvamVjdF9pZBIVQhM1ODk0MjQ3Njc5MzEyNTYyNDcy&filename=&opi=89354086\",\"mimeType\":\"text/html\"},\"width\":\"780\",\"height\":\"2894\",\"deviceType\":\"MOBILE\"}",
+        "type": "text"
+      }
+    ],
+    "structuredContent": {
+      "deviceType": "MOBILE",
+      "height": "2894",
+      "htmlCode": {
+        "downloadUrl": "https://contribution.usercontent.google.com/download?c=CgthaWRhX2NvZGVmeBJ7Eh1hcHBfY29tcGFuaW9uX2dlbmVyYXRlZF9maWxlcxpaCiVodG1sXzAwMDY1ZGQ4OGJhNDEwMmIwN2M0ZDBhMTk1MTVjNTVlEgsSBxCN4PijrA4YAZIBIwoKcHJvamVjdF9pZBIVQhM1ODk0MjQ3Njc5MzEyNTYyNDcy&filename=&opi=89354086",
+        "mimeType": "text/html",
+        "name": "projects/5894247679312562472/screens/c967f13527324ad591b2b39d38db0fd1/fileEntries/html"
+      },
+      "name": "projects/5894247679312562472/screens/c967f13527324ad591b2b39d38db0fd1",
+      "screenshot": {
+        "downloadUrl": "https://lh3.googleusercontent.com/aida/AEtjO1VbeIWZinTZppm8hiIKFQLZiobNrI1M4C6NPEPvYcpLL2E_NsT2ITAWQ2XbGF02rNmDfN_XWSNmf7o61e-P_GMt6nZv_jA3Bqqv0aAb5gquLlqCjO7fHv6p7M7Y7A7dVEZwCSzzlVWhRtw9riZUzsA4SssmSXjmYo2-zXm-tgqXAbK_EFky6eXDcn470uSxAgmcPztL4Q3YoMZc1xepUADVmLa159tWygdP_gHn2McnIo9pZTC-tyVb9Ks",
+        "name": "projects/5894247679312562472/screens/c967f13527324ad591b2b39d38db0fd1/fileEntries/screenshot"
+      },
+      "title": "Part. 02 \u00b7 Deterministic Quant Verdict (Dynamic Dock)",
+      "width": "780"
+    }
+  }
+}

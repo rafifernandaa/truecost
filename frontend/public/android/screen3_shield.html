@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_tab" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&amp;family=Space+Grotesk:wght@300;500;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;background-color:#fcf9f6;}body{overscroll-behavior:none;-webkit-font-smoothing:antialiased;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { "colors": { "surface-container-high": "#ebe8e5", "background": "#fcf9f6", "surface-tint": "#3755c3", "on-background": "#1c1c1a", "secondary-fixed": "#ffdbcf", "on-tertiary-fixed": "#002116", "on-secondary-fixed-variant": "#822700", "on-surface-variant": "#444653", "on-tertiary-fixed-variant": "#00513b", "on-secondary-container": "#681e00", "secondary-container": "#ff7947", "primary": "#00288e", "surface-container": "#f0edeb", "surface-container-low": "#f6f3f1", "inverse-primary": "#b8c4ff", "on-secondary-fixed": "#390c00", "primary-container": "#1e40af", "surface-dim": "#dcd9d7", "on-primary-fixed": "#001453", "surface-variant": "#e5e2e0", "primary-fixed-dim": "#b8c4ff", "tertiary-fixed-dim": "#8cd5b7", "on-tertiary-container": "#81caac", "inverse-surface": "#31302f", "on-primary": "#ffffff", "on-error-container": "#93000a", "secondary-fixed-dim": "#ffb59c", "on-tertiary": "#ffffff", "on-primary-container": "#a8b8ff", "surface-container-highest": "#e5e2e0", "surface": "#fcf9f6", "error": "#ba1a1a", "on-error": "#ffffff", "tertiary": "#003d2c", "surface-bright": "#fcf9f6", "tertiary-container": "#00563f", "on-primary-fixed-variant": "#173bab", "outline-variant": "#c4c5d5", "primary-fixed": "#dde1ff", "on-secondary": "#ffffff", "tertiary-fixed": "#a7f2d2", "surface-container-lowest": "#ffffff", "secondary": "#a73a0a", "error-container": "#ffdad6", "on-surface": "#1c1c1a", "outline": "#757684", "inverse-on-surface": "#f3f0ee" }, "borderRadius": { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" }, "spacing": { "space-xs": "0.25rem", "space-lg": "1.5rem", "gutter": "1.5rem", "margin-mobile": "1rem", "space-md": "1rem", "space-sm": "0.5rem", "gutter-mobile": "1rem", "space-xl": "2.5rem", "margin": "2.5rem" }, "fontFamily": { "body-md": ["Inter"], "headline-lg-mobile": ["Space Grotesk"], "body-lg": ["Inter"], "headline-lg": ["Space Grotesk"], "numeral-display": ["Space Grotesk"], "headline-xl-mobile": ["Space Grotesk"], "index-marker": ["Space Grotesk"], "headline-xl": ["Space Grotesk"], "headline-md": ["Space Grotesk"], "label-caps": ["Space Grotesk"], "body-sm": ["Inter"] }, "fontSize": { "body-md": ["0.9375rem", { "lineHeight": "1.55", "letterSpacing": "0.005em", "fontWeight": "400" }], "headline-lg-mobile": ["1.5rem", { "lineHeight": "1.25", "letterSpacing": "0.06em", "fontWeight": "700" }], "body-lg": ["1.125rem", { "lineHeight": "1.6", "letterSpacing": "0em", "fontWeight": "400" }], "headline-lg": ["2rem", { "lineHeight": "1.2", "letterSpacing": "0.08em", "fontWeight": "700" }], "numeral-display": ["3.5rem", { "lineHeight": "1.0", "letterSpacing": "-0.03em", "fontWeight": "200" }], "headline-xl-mobile": ["2.5rem", { "lineHeight": "1.15", "letterSpacing": "-0.01em", "fontWeight": "300" }], "index-marker": ["0.8125rem", { "lineHeight": "1.0", "letterSpacing": "0.12em", "fontWeight": "500" }], "headline-xl": ["3.5rem", { "lineHeight": "1.1", "letterSpacing": "-0.02em", "fontWeight": "300" }], "headline-md": ["1.25rem", { "lineHeight": "1.3", "letterSpacing": "0.1em", "fontWeight": "700" }], "label-caps": ["0.6875rem", { "lineHeight": "1.2", "letterSpacing": "0.14em", "fontWeight": "700" }], "body-sm": ["0.8125rem", { "lineHeight": "1.5", "letterSpacing": "0.01em", "fontWeight": "400" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+</head><body class="bg-[#f9f6f2] text-on-surface font-body-md text-body-md flex flex-col min-h-screen selection:bg-primary-fixed selection:text-on-primary-fixed relative overflow-x-hidden"><header class="fixed top-0 w-full z-50 pt-safe backdrop-blur-xl bg-white/70 border-b border-white/60 shadow-sm"><div class="h-16 px-gutter-mobile flex items-center justify-between"><div class="flex items-center gap-space-sm min-w-0"><img alt="Profile" class="w-8 h-8 rounded-full object-cover flex-shrink-0 ring-2 ring-white/80 shadow-sm" src="https://lh3.googleusercontent.com/aida/AEtjO1VMiCI627h19xuAxCz4Y7-eo_72cx6IWPeLEyKlRYOgQ4Wtmkc4MybyqRu9NQ60mcKmjq8z1XGy8aFIniJqtD9heWuuxhfuW04CIm6zztX4GBDATV1S3vSS2xMQPpXnmZhVNtz3OF4i6pKZsyCXxv_evixl3E-PcWrpAVBzWY-WR_98QL3s3Q2TstduenHId8-yVgUeyabpi7b8RUz8BdeMP5NIb3XCffrlAMAg831EykHu0ul4aH-fxw"/><div class="flex flex-col truncate"><span class="font-label-caps text-label-caps uppercase text-on-surface truncate">TRUECOST · ED. 26</span><span class="font-index-marker text-index-marker text-primary font-medium tracking-wider truncate">Shield</span></div></div><div class="flex items-center gap-space-xs"><div class="px-3 py-1 rounded-full bg-white/75 backdrop-blur-md border border-white/80 text-on-surface font-label-caps text-label-caps uppercase tracking-wider flex items-center gap-1.5 whitespace-nowrap shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span><span>SANDBOX · AUD to IDR</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 pb-28 min-h-screen z-10"><div class="fixed inset-0 pointer-events-none overflow-hidden z-0"><div class="absolute -top-24 -left-20 w-80 h-80 bg-orange-400/20 rounded-full blur-3xl"></div><div class="absolute top-1/4 -right-24 w-80 h-80 bg-rose-400/15 rounded-full blur-3xl"></div><div class="absolute top-2/3 -left-20 w-72 h-72 bg-emerald-400/15 rounded-full blur-3xl"></div><div class="absolute -bottom-10 right-0 w-80 h-80 bg-amber-400/20 rounded-full blur-3xl"></div></div><div class="flex flex-col w-full px-gutter-mobile space-y-space-md"><!-- Chapter Stamp & Status Indicator (No Slashes) --><div class="flex items-center justify-between pt-space-xs"><div class="flex items-center gap-space-xs text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider"><span class="text-secondary font-bold">FOLIO 03</span><span class="opacity-40">·</span><span>AUTOMATED INTERCEPTION</span></div><div class="flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/75 backdrop-blur-md border border-amber-500/20 text-secondary font-label-caps text-label-caps shadow-sm"><span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span><span>GATEWAY LOCKED</span></div></div><!-- Frosted Warning Banner Card --><div class="relative overflow-hidden rounded-3xl backdrop-blur-xl bg-gradient-to-br from-amber-500/20 via-rose-500/15 to-white/85 border border-white/80 p-5 shadow-sm text-on-surface"><div class="flex items-start justify-between relative z-10"><div class="space-y-1.5 max-w-[240px]"><span class="inline-block px-2.5 py-0.5 bg-rose-500/15 text-rose-700 font-label-caps text-label-caps uppercase rounded-full tracking-widest font-bold border border-rose-500/20">CODE RED · SEC. 41</span><h2 class="font-headline-md text-headline-md tracking-wider uppercase leading-tight pt-1 text-on-surface">High-Risk Anomaly Detected</h2><p class="font-body-sm text-body-sm text-on-surface-variant leading-snug">Deterministic signature flagged rogue merchant identity and artificial invoice pricing.</p></div><div class="w-14 h-14 bg-white/85 backdrop-blur-md border border-white/80 rounded-2xl flex items-center justify-center flex-shrink-0 relative shadow-sm"><span class="material-symbols-outlined text-[30px] text-amber-700" style="font-variation-settings: 'FILL' 0, 'wght' 300;">lock_open</span><div class="absolute -top-1 -right-1 w-5 h-5 bg-rose-600 text-white rounded-full flex items-center justify-center text-[10px] font-bold font-index-marker shadow-sm">!</div></div></div><div class="mt-4 pt-3 border-t border-black/5 flex items-center justify-between text-on-surface-variant font-label-caps text-label-caps uppercase tracking-widest"><span class="flex items-center gap-1.5"><span class="w-1.5 h-1.5 rounded-full bg-emerald-600"></span>SHIELD ACTIVE · REALTIME INTERCEPT</span><span class="px-2 py-0.5 rounded-full bg-black/5">HITL GATE ARMED</span></div></div><!-- Metric Hero & Forensic Telemetry Frosted Card --><div class="rounded-3xl backdrop-blur-xl bg-white/70 border border-white/80 p-5 space-y-4 shadow-sm"><div class="flex items-center justify-between border-b border-black/5 pb-2.5"><span class="font-label-caps text-label-caps uppercase tracking-wider text-on-surface-variant">INVOICE ANOMALY INDEX · LATENCY 14MS</span><span class="font-index-marker text-index-marker text-secondary uppercase font-bold px-2 py-0.5 rounded-full bg-rose-500/10 border border-rose-500/20">CRITICAL HIT</span></div><div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-1"><div><div class="font-numeral-display text-[4rem] text-secondary tracking-tighter leading-none font-extralight">0.89</div><div class="font-label-caps text-label-caps uppercase tracking-wider text-secondary font-bold mt-1.5">Scam Probability Score · Hard-Blocked</div></div><div class="text-right"><span class="inline-flex items-center px-2.5 py-1 rounded-full bg-amber-500/10 text-amber-800 font-index-marker text-index-marker border border-amber-500/20">TOLERANCE THRESHOLD: 0.12</span></div></div><!-- Breakdown Section with Pill Cards --><div class="space-y-2.5 pt-1"><div class="text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider">FORENSIC TELEMETRY BREAKDOWN</div><div class="space-y-2"><div class="p-3.5 bg-white/80 backdrop-blur-md rounded-2xl border border-white/90 flex items-start gap-space-sm shadow-sm"><div class="w-6 h-6 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center font-index-marker text-[11px] font-bold flex-shrink-0 mt-0.5">01</div><div class="space-y-0.5 flex-1"><span class="font-index-marker text-index-marker uppercase text-secondary font-bold block">Z-Score -3.1 · Implausible Pricing</span><p class="font-body-sm text-body-sm text-on-surface">Quoted tuition accommodation fee is 64% below the 90-day market median for Carlton and Melbourne precinct.</p></div></div><div class="p-3.5 bg-white/80 backdrop-blur-md rounded-2xl border border-white/90 flex items-start gap-space-sm shadow-sm"><div class="w-6 h-6 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center font-index-marker text-[11px] font-bold flex-shrink-0 mt-0.5">02</div><div class="space-y-0.5 flex-1"><span class="font-index-marker text-index-marker uppercase text-secondary font-bold block">Domain · IBAN Jurisdiction Mismatch</span><p class="font-body-sm text-body-sm text-on-surface">Vendor registers with Indonesian TLD (<code class="font-index-marker bg-black/5 px-1 rounded">.id</code>), but payment routing directs to Lithuanian neo-bank IBAN (<code class="font-index-marker bg-black/5 px-1 rounded">LT71...</code>).</p></div></div><div class="p-3.5 bg-white/80 backdrop-blur-md rounded-2xl border border-white/90 flex items-start gap-space-sm shadow-sm"><div class="w-6 h-6 rounded-xl bg-secondary/15 text-secondary flex items-center justify-center font-index-marker text-[11px] font-bold flex-shrink-0 mt-0.5">03</div><div class="space-y-0.5 flex-1"><span class="font-index-marker text-index-marker uppercase text-secondary font-bold block">Off-Platform Exfiltration Directive</span><p class="font-body-sm text-body-sm text-on-surface">OCR scanning detected obfuscated manual wire request via private messaging handler (<code class="font-index-marker bg-black/5 px-1 rounded">@melb_agent_vault</code>).</p></div></div></div></div><!-- Halting notice pill --><div class="flex items-center gap-2 p-3 bg-white/70 backdrop-blur-md rounded-2xl border border-white/80 text-on-surface-variant font-body-sm text-body-sm shadow-sm"><span class="material-symbols-outlined text-secondary text-lg" style="font-variation-settings: 'FILL' 1;">gpp_bad</span><span>Automated Tier 3 block enforced. Card charging strictly halted.</span></div></div><!-- Intercepted Evidence Preview Card --><div class="rounded-3xl backdrop-blur-xl bg-white/70 border border-white/80 p-5 space-y-3 shadow-sm"><div class="flex items-center justify-between"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant">INTERCEPTED EVIDENCE REPOSITORY</span><span class="font-index-marker text-index-marker text-primary font-bold px-2 py-0.5 rounded-full bg-primary/10 border border-primary/20">SCAN_ID #409-AU</span></div><div class="grid grid-cols-2 gap-3"><div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container ring-1 ring-black/5"><img class="w-full h-full object-cover grayscale contrast-125" data-alt="Editorial close-up macro photograph of a forged rental agreement document printed on matte tactile paper with handwritten stamps and red ink analytical annotations highlighting fraudulent clauses." src="https://lh3.googleusercontent.com/aida-public/AB6AXuCe6NYwzfPfGQkP6MbsTeSHOigVwrGT3Maoxb2nioc0RE4-7iSaj2JGPTfHrsKcmd0uvlwj0kbvydTzOtZoWHN2ZuhtdTV4icbDnuc04CE2drvGD0d00keRD7bpdyIpdM3IqlzDo5L-7194H6ducsndD43NnZfNKNEcP7IZXlPBCHDYNVhgEhgPHm91fDr_C7PLIrhox4cY5pdSjPaPpODMu5eDYz2LCvlINeDUjKiPazfJL594A7La"/><div class="absolute inset-0 bg-primary-container/10 mix-blend-multiply"></div><div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/60 backdrop-blur-md text-white font-label-caps text-[9px] uppercase tracking-wider rounded-full border border-white/20">INVOICE_P1.PDF</div></div><div class="relative rounded-2xl overflow-hidden aspect-[4/3] bg-surface-container ring-1 ring-black/5"><img class="w-full h-full object-cover grayscale contrast-125" data-alt="Monochrome forensic inspection of an international wire transfer receipt with stamped verification markers and analytical ledger typography on crisp museum paper stock." src="https://lh3.googleusercontent.com/aida-public/AB6AXuC3ucMnttn8wNoa1OjYhLwojuf5wwJYL7TNjv3u4NXm5TA6-Uf0EP0xsa11jUzKqFIztRU3AaOetBdXhtlXVsyggXuZ0jjb4jWKRApJyNJpV8lCMbbiXw0tGU2oPb0qhWkffoo6fTdjbjdbNpOi2lEcr_wlS-7k1uL59APhKOhCtngcpOTsFWy6LU7DChwOMFx1RXBkDIIPDph7zDa2aX6D06Xlh8knWnES0RaQcwX3-HOfPzwZQ7uV"/><div class="absolute inset-0 bg-secondary/10 mix-blend-multiply"></div><div class="absolute bottom-2 left-2 px-2 py-0.5 bg-black/60 backdrop-blur-md text-white font-label-caps text-[9px] uppercase tracking-wider rounded-full border border-white/20">OCR_TELEMETRY.RAW</div></div></div></div><!-- HITL Execution Action Card --><div class="rounded-3xl backdrop-blur-xl bg-white/80 border border-white/90 p-5 space-y-4 shadow-md"><div class="space-y-1.5"><div class="flex items-center justify-between"><span class="px-2.5 py-0.5 rounded-full bg-primary-container text-on-primary font-label-caps text-label-caps uppercase tracking-wider shadow-sm">HITL AUTHORIZATION TIER 2</span><span class="font-index-marker text-index-marker text-on-surface-variant">CHALLENGE LEVEL: HIGH</span></div><h3 class="font-headline-md text-headline-md text-on-surface uppercase tracking-wide pt-1">Bounded Financial Action</h3><p class="font-body-sm text-body-sm text-on-surface-variant">QuantEngine recommends neutralizing predatory short-term debt traps and redeploying liquid reserves:</p></div><!-- Comparative Choice Pills --><div class="space-y-2.5" id="action-selection-group"><label class="block cursor-pointer"><input class="peer sr-only" name="hitl_action" type="radio" value="option_a"/><div class="p-3.5 bg-white/70 backdrop-blur-md rounded-2xl border border-white/80 transition-all peer-checked:bg-white peer-checked:border-primary/40 peer-checked:shadow-sm"><div class="flex items-start justify-between"><div class="space-y-0.5"><span class="font-label-caps text-label-caps uppercase text-on-surface-variant tracking-wider">OPTION A · INTERCEPT</span><div class="font-index-marker text-index-marker text-secondary font-bold">Decline 18.4% APR BNPL Contract</div><p class="font-body-sm text-body-sm text-on-surface">Averts $160 AUD in deferred predatory interest and application surcharges.</p></div><div class="w-5 h-5 rounded-full border-2 border-outline/50 flex items-center justify-center peer-checked:border-primary"><span class="w-2.5 h-2.5 rounded-full bg-transparent peer-checked:bg-primary transition-colors"></span></div></div></div></label><label class="block cursor-pointer"><input checked="" class="peer sr-only" name="hitl_action" type="radio" value="option_b"/><div class="p-3.5 bg-emerald-500/10 backdrop-blur-md rounded-2xl border border-emerald-500/30 transition-all peer-checked:bg-emerald-500/15 peer-checked:shadow-sm"><div class="flex items-start justify-between"><div class="space-y-0.5"><div class="flex items-center gap-1.5"><span class="font-label-caps text-label-caps uppercase text-tertiary font-bold tracking-wider">OPTION B · RECOMMENDED ALLOCATION</span><span class="px-2 py-0.5 bg-emerald-700 text-white text-[9px] font-label-caps rounded-full shadow-sm">OPTIMAL</span></div><div class="font-index-marker text-index-marker text-tertiary font-bold">Open Sinking-Fund Pot ($185 AUD per wk)</div><p class="font-body-sm text-body-sm text-on-surface">Pre-funds housing deposit organically via audited escrow trigger order under $1,420 AUD barrier.</p></div><div class="w-5 h-5 rounded-full bg-tertiary text-on-tertiary flex items-center justify-center text-[10px] shadow-sm">✓</div></div></div></label></div><!-- Cryptographic Token Stamp --><div class="p-3.5 bg-white/70 backdrop-blur-md rounded-2xl border border-white/80 flex flex-col space-y-1 shadow-sm"><div class="flex items-center justify-between text-on-surface-variant font-label-caps text-label-caps uppercase tracking-wider"><span>SECURITY ATTESTATION</span><span>ECDSA VERIFIED</span></div><div class="font-index-marker text-index-marker text-on-surface break-all tracking-wider text-xs">HITL CHALLENGE TOKEN: <span class="text-primary font-bold">0x9f82...c31b</span></div><div class="flex items-center gap-1.5 text-[11px] text-on-surface-variant font-body-sm"><span class="w-1.5 h-1.5 rounded-full bg-tertiary"></span><span>Idempotency Key Armed · Single Execution Valid 120s</span></div></div><!-- Actions with High-Contrast Pill Button --><div class="space-y-2 pt-1"><button class="w-full py-3.5 px-5 bg-on-surface text-white hover:bg-black transition-all font-headline-md text-index-marker tracking-widest uppercase rounded-full flex items-center justify-center gap-2 shadow-md active:scale-[0.99]" id="btn-hitl-confirm" type="button"><span class="material-symbols-outlined text-[18px]">verified_user</span><span>Confirm &amp; Sign Execution (HITL)</span></button><button class="w-full py-2.5 px-4 text-on-surface-variant hover:text-on-surface transition-colors font-label-caps text-label-caps uppercase tracking-widest text-center rounded-full" type="button">Dismiss &amp; Return to Safe Ledger</button></div></div><!-- Footnote Metadata --><div class="py-space-sm flex items-center justify-between text-on-surface-variant/70 font-label-caps text-label-caps uppercase tracking-wider border-t border-black/5"><span>SYSTEM: QUIS · AU · SHIELD · V4</span><span>STATUS: THREAT HALTED</span></div></div>
+<script>
+  // Simple micro-interaction for confirmation button feedback
+  (function() {
+    const btn = document.getElementById('btn-hitl-confirm');
+    if (btn) {
+      btn.addEventListener('click', function() {
+        const originalText = btn.innerHTML;
+        btn.classList.add('bg-tertiary', 'text-on-tertiary');
+        btn.innerHTML = `
+          <span class="material-symbols-outlined text-[18px] animate-spin">sync</span>
+          <span>ATTESTING SECURE SIGNATURE...</span>
+        `;
+        setTimeout(() => {
+          btn.classList.remove('bg-tertiary', 'text-on-tertiary');
+          btn.classList.add('bg-primary', 'text-on-primary');
+          btn.innerHTML = `
+            <span class="material-symbols-outlined text-[18px]">check_circle</span>
+            <span>INTENT SIGNED &amp; EXECUTED</span>
+          `;
+        }, 1200);
+      });
+    }
+  })();
+</script></main><!-- Dynamic Interactive (3 + 1) Morphing Dock --><nav class="fixed bottom-4 left-3 right-3 z-50 pointer-events-none pb-safe" id="dynamic-dock-container"><div class="flex items-center justify-between gap-2 max-w-md mx-auto pointer-events-auto"><!-- Primary Capsule (Left): 3 Core Nav Items with Shield Active --><div class="transition-all duration-300 ease-in-out backdrop-blur-xl bg-white/80 border border-white/80 rounded-full p-1.5 shadow-xl flex items-center gap-1 flex-1 min-w-0" id="dock-left-capsule"><!-- Capture Tab --><button class="transition-all duration-300 ease-in-out flex items-center justify-center rounded-full h-12 flex-1 min-w-[44px] text-on-surface-variant hover:text-on-surface hover:bg-black/5 active:scale-95 group relative" id="tab-capture" title="01 Capture" type="button"><div class="flex items-center gap-1.5 px-2"><span class="material-symbols-outlined text-[20px] transition-transform duration-200 group-hover:scale-110">center_focus_strong</span><span class="font-label-caps text-[10px] tracking-wider uppercase hidden sm:inline-block">CAPTURE</span></div></button><!-- Verdict Tab --><button class="transition-all duration-300 ease-in-out flex items-center justify-center rounded-full h-12 flex-1 min-w-[44px] text-on-surface-variant hover:text-on-surface hover:bg-black/5 active:scale-95 group relative" id="tab-verdict" title="02 Verdict" type="button"><div class="flex items-center gap-1.5 px-2"><span class="material-symbols-outlined text-[20px] transition-transform duration-200 group-hover:scale-110">balance</span><span class="font-label-caps text-[10px] tracking-wider uppercase hidden sm:inline-block">VERDICT</span></div></button><!-- Shield Tab (Active on this screen) --><button class="transition-all duration-300 ease-in-out flex items-center justify-center rounded-full h-12 flex-1 min-w-[48px] bg-on-surface text-white shadow-md active:scale-95 group relative" id="tab-shield" title="03 Shield Active" type="button"><div class="flex items-center gap-1.5 px-3" id="tab-shield-content"><span class="material-symbols-outlined text-[20px] text-amber-300 fill-1" style="font-variation-settings: 'FILL' 1;">shield</span><span class="font-label-caps text-[11px] font-bold tracking-widest uppercase">SHIELD</span><span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-0.5"></span></div></button></div><!-- Secondary Capsule (Right): +1 Morphing Module (Notification Bell & Profile) --><div class="transition-all duration-300 ease-in-out backdrop-blur-xl bg-white/80 border border-white/80 rounded-full p-1.5 shadow-xl flex items-center gap-1.5 flex-shrink-0" id="dock-right-capsule"><!-- Notification / Audit Trigger --><button class="transition-all duration-300 ease-in-out relative flex items-center justify-center h-12 px-3 rounded-full text-on-surface-variant hover:text-on-surface hover:bg-black/5 active:scale-95" id="btn-dock-audit" title="Audit and Telemetry Alert" type="button"><span class="material-symbols-outlined text-[20px]">notifications_active</span><span class="absolute top-2.5 right-2.5 w-2 h-2 rounded-full bg-rose-600 ring-2 ring-white"></span><!-- Dynamic info label injected during morph --><div class="hidden flex-col items-start ml-2 text-left pr-1" id="audit-expanded-label"><span class="font-label-caps text-[9px] uppercase tracking-wider text-rose-700 font-bold leading-none">AUDIT</span><span class="font-index-marker text-[11px] text-on-surface font-semibold tracking-tight whitespace-nowrap leading-none mt-0.5">Telemetry Gate</span></div></button><!-- Profile Avatar Trigger --><button class="transition-all duration-300 ease-in-out relative flex items-center justify-center h-12 p-1 rounded-full hover:bg-black/5 active:scale-95" id="btn-dock-profile" title="Security Profile" type="button"><div class="relative w-10 h-10 rounded-full overflow-hidden ring-1 ring-black/10 flex-shrink-0"><img alt="User Avatar" class="w-full h-full object-cover" src="https://lh3.googleusercontent.com/aida/AEtjO1VMiCI627h19xuAxCz4Y7-eo_72cx6IWPeLEyKlRYOgQ4Wtmkc4MybyqRu9NQ60mcKmjq8z1XGy8aFIniJqtD9heWuuxhfuW04CIm6zztX4GBDATV1S3vSS2xMQPpXnmZhVNtz3OF4i6pKZsyCXxv_evixl3E-PcWrpAVBzWY-WR_98QL3s3Q2TstduenHId8-yVgUeyabpi7b8RUz8BdeMP5NIb3XCffrlAMAg831EykHu0ul4aH-fxw"/></div><span class="absolute bottom-1 right-1 w-2.5 h-2.5 rounded-full bg-emerald-600 ring-2 ring-white"></span><!-- Dynamic info label for profile morph --><div class="hidden flex-col items-start ml-2 text-left pr-2" id="profile-expanded-label"><span class="font-label-caps text-[9px] uppercase tracking-wider text-primary font-bold leading-none">SECURITY</span><span class="font-index-marker text-[11px] text-on-surface font-semibold tracking-tight whitespace-nowrap leading-none mt-0.5">L2 Armed</span></div></button></div></div></nav>
+<script>
+  // Dynamic (3 + 1) Morphing Dock Interactivity
+  (function() {
+    const leftCapsule = document.getElementById('dock-left-capsule');
+    const rightCapsule = document.getElementById('dock-right-capsule');
+    const tabCapture = document.getElementById('tab-capture');
+    const tabVerdict = document.getElementById('tab-verdict');
+    const tabShield = document.getElementById('tab-shield');
+    const tabShieldContent = document.getElementById('tab-shield-content');
+    const btnAudit = document.getElementById('btn-dock-audit');
+    const btnProfile = document.getElementById('btn-dock-profile');
+    const auditLabel = document.getElementById('audit-expanded-label');
+    const profileLabel = document.getElementById('profile-expanded-label');
+
+    let currentMode = 'default'; // 'default', 'audit', 'profile'
+
+    function resetDockToDefault() {
+      currentMode = 'default';
+      // Restore left capsule
+      leftCapsule.classList.remove('flex-initial', 'w-16', 'justify-center');
+      leftCapsule.classList.add('flex-1');
+      tabCapture.classList.remove('hidden');
+      tabVerdict.classList.remove('hidden');
+      tabShield.classList.remove('w-12', 'px-0');
+      tabShield.classList.add('flex-1', 'bg-on-surface', 'text-white');
+      
+      tabShieldContent.innerHTML = `
+        <span class="material-symbols-outlined text-[20px] text-amber-300 fill-1" style="font-variation-settings: 'FILL' 1;">shield</span>
+        <span class="font-label-caps text-[11px] font-bold tracking-widest uppercase">SHIELD</span>
+        <span class="w-1.5 h-1.5 rounded-full bg-emerald-400 animate-pulse ml-0.5"></span>
+      `;
+
+      // Restore right capsule
+      rightCapsule.classList.remove('flex-1');
+      btnAudit.classList.remove('bg-rose-500/10', 'border', 'border-rose-500/20', 'rounded-2xl', 'px-3.5', 'text-rose-700');
+      btnAudit.classList.add('rounded-full', 'px-3');
+      auditLabel.classList.add('hidden');
+      auditLabel.classList.remove('flex');
+
+      btnProfile.classList.remove('bg-primary/10', 'border', 'border-primary/20', 'rounded-2xl', 'px-3');
+      profileLabel.classList.add('hidden');
+      profileLabel.classList.remove('flex');
+    }
+
+    function morphToAudit() {
+      currentMode = 'audit';
+      // Shrink left capsule into compact single indicator pill
+      leftCapsule.classList.remove('flex-1');
+      leftCapsule.classList.add('flex-initial', 'w-16', 'justify-center');
+      tabCapture.classList.add('hidden');
+      tabVerdict.classList.add('hidden');
+      tabShield.classList.remove('flex-1');
+      tabShield.classList.add('w-12', 'px-0');
+      tabShieldContent.innerHTML = `
+        <span class="material-symbols-outlined text-[20px] text-amber-300" style="font-variation-settings: 'FILL' 1;">shield</span>
+      `;
+
+      // Expand right capsule
+      rightCapsule.classList.add('flex-1');
+      btnAudit.classList.remove('rounded-full', 'px-3');
+      btnAudit.classList.add('bg-rose-500/10', 'border', 'border-rose-500/20', 'rounded-2xl', 'px-3.5', 'text-rose-700');
+      auditLabel.classList.remove('hidden');
+      auditLabel.classList.add('flex');
+
+      // Ensure profile is compact
+      btnProfile.classList.remove('bg-primary/10', 'border', 'border-primary/20', 'rounded-2xl', 'px-3');
+      profileLabel.classList.add('hidden');
+      profileLabel.classList.remove('flex');
+    }
+
+    function morphToProfile() {
+      currentMode = 'profile';
+      // Shrink left capsule
+      leftCapsule.classList.remove('flex-1');
+      leftCapsule.classList.add('flex-initial', 'w-16', 'justify-center');
+      tabCapture.classList.add('hidden');
+      tabVerdict.classList.add('hidden');
+      tabShield.classList.remove('flex-1');
+      tabShield.classList.add('w-12', 'px-0');
+      tabShieldContent.innerHTML = `
+        <span class="material-symbols-outlined text-[20px] text-amber-300" style="font-variation-settings: 'FILL' 1;">shield</span>
+      `;
+
+      // Contract audit button
+      btnAudit.classList.remove('bg-rose-500/10', 'border', 'border-rose-500/20', 'rounded-2xl', 'px-3.5', 'text-rose-700');
+      btnAudit.classList.add('rounded-full', 'px-3');
+      auditLabel.classList.add('hidden');
+      auditLabel.classList.remove('flex');
+
+      // Expand profile capsule
+      rightCapsule.classList.add('flex-1');
+      btnProfile.classList.add('bg-primary/10', 'border', 'border-primary/20', 'rounded-2xl', 'px-3');
+      profileLabel.classList.remove('hidden');
+      profileLabel.classList.add('flex');
+    }
+
+    // Event listeners
+    if (btnAudit) {
+      btnAudit.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (currentMode === 'audit') {
+          resetDockToDefault();
+        } else {
+          morphToAudit();
+        }
+      });
+    }
+
+    if (btnProfile) {
+      btnProfile.addEventListener('click', function(e) {
+        e.stopPropagation();
+        if (currentMode === 'profile') {
+          resetDockToDefault();
+        } else {
+          morphToProfile();
+        }
+      });
+    }
+
+    if (tabShield) {
+      tabShield.addEventListener('click', function(e) {
+        e.stopPropagation();
+        resetDockToDefault();
+      });
+    }
+
+    // Click outside dock to return to default shield-active state
+    document.addEventListener('click', function(e) {
+      const dockContainer = document.getElementById('dynamic-dock-container');
+      if (dockContainer && !dockContainer.contains(e.target)) {
+        if (currentMode !== 'default') {
+          resetDockToDefault();
+        }
+      }
+    });
+  })();
+</script></body></html>

@@ -47,6 +47,7 @@
 * **Disposable Virtual Cards:** Single-use tokens that self-destruct upon clearance, neutralizing post-purchase card theft.
 
 ### Slide 7: Live Execution Evidence & Benchmarks (7:45 - 8:45)
+* **Physical Hardware Verification:** Live execution proof on Samsung Galaxy A55 5G (`SM-A556E`) showing all 4 Google Stitch screens operating natively with local cryptographic signing.
 * **Machine-Readable Ledger:** Demonstration of `logs/sandbox_execution.jsonl`.
 * **Adversarial Red-Team Results:** 100% of over-budget or tampered carts rejected by independent bank verification.
 * **Performance:** Sub-50ms deterministic quant execution; 0% hallucinated numbers.
@@ -64,8 +65,8 @@
 ## Part 2: Demo Video Script ($\le$ 5 Minutes)
 
 ### [0:00 - 0:40] Scenario Introduction
-* **Voiceover:** *"Meet Alex, an international student planning to buy a high-performance laptop. In front of him is an advertised sticker price of 1,580 AUD with an enticing '0% interest' installment plan. But is this really a good deal, and is it safe to buy?"*
-* **On-Screen:** Show the TrueCost Autopilot Web Dashboard with live Sandbox Bank balances (Checking: 25,000,000 IDR).
+* **Voiceover:** *"Meet Alex, an international student planning to buy a high-performance laptop. In front of him is an advertised sticker price of 1,580 AUD with an enticing '0% interest' installment plan. But is this really a good deal, and is it safe to buy? Today we demonstrate TrueCost Autopilot running natively on a physical Samsung Galaxy A55 5G smartphone connected to our sandbox banking backend."*
+* **On-Screen:** Show the TrueCost Autopilot mobile application on the Samsung Galaxy A55 5G with live Sandbox Bank balances (Checking: 25,000,000 IDR) and the 4 Stitch-designed navigation tabs (Capture Canvas, Quant Verdict, Scam Shield, Audit Ledger).
 
 ### [0:40 - 1:40] Step 1: In-Browser Cryptographic Intent Mandate Signing
 * **Action:** Alex clicks **"Sign Intent Mandate"**. Sets:

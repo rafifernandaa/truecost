@@ -39,3 +39,20 @@ dist/
 # OS
 .DS_Store
 Thumbs.db
+
+# Secrets & Environment
+.env
+.env.*
+!.env.example
+backend/.env
+frontend/.env
+
+# SQLite Database Files
+*.db
+*.sqlite3
+
+# Temporary root test captures
+phone_*.png
+emulator_*.png
+Screenshot_*.jpg
+

@@ -158,3 +158,47 @@ def test_bank_blocks_scam_cart_without_override(fresh_bank, keys):
     # Allowed only with explicit user override token from passing Scam Intervention Flow
     res_allowed = fresh_bank.execute_cart_mandate(scam_cart, user_override_token="TOKEN_INTERVENTION_PASSED")
     assert res_allowed["success"] is True
+
+
+def test_bank_deposit_income_splits_buffer_and_checking(fresh_bank):
+    res = fresh_bank.deposit_income(10_000_000.0, source="Monthly Salary")
+    assert res["status"] == "DEPOSITED"
+    assert res["checking_credited_idr"] == 8_000_000.0
+    assert res["buffer_credited_idr"] == 2_000_000.0
+    assert fresh_bank.accounts["ACC_USER_CHECKING"]["balance"] == 33_000_000.0
+    assert fresh_bank.accounts["ACC_EMERGENCY_BUFFER"]["balance"] == 12_000_000.0
+    assert "tx_hash" in res["transaction"]
+
+
+def test_bank_blocks_replay_attack_on_intent_mandate(fresh_bank, keys):
+    user_key, _ = keys
+    now = datetime.now(timezone.utc)
+    intent = IntentMandate(
+        mandate_id=f"mandate-replay-{now.timestamp()}",
+        user_public_key=user_key.verify_key.encode().hex(),
+        item_query="ThinkPad",
+        max_budget=5_000_000.0,
+        currency="IDR",
+        allowed_payment_methods=["DEBIT"],
+        created_at=now.isoformat(),
+        expires_at=(now + timedelta(days=7)).isoformat()
+    )
+    intent.user_signature = user_key.sign(intent.canonical_bytes()).signature.hex()
+    fresh_bank.register_intent_mandate(intent)
+
+    with pytest.raises(ValueError, match="REPLAY_ATTACK_DETECTED"):
+        fresh_bank.register_intent_mandate(intent)
+
+
+def test_execute_real_case_flow_reserves_settles_and_refunds_savings(fresh_bank):
+    res = fresh_bank.execute_real_case_flow(
+        item_title="ThinkPad T14s Gen 4",
+        max_budget_idr=19_000_000.0,
+        optimal_landed_idr=17_584_320.0,
+        mode="reserve_and_settle",
+    )
+    assert res["success"] is True
+    assert res["savings_refunded"] == pytest.approx(1_415_680.0)
+    assert res["sinking_pot_idr"] == 0.0
+    assert res["emergency_buffer_idr"] == 10_000_000.0
+
