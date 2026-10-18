@@ -34,6 +34,11 @@ from app.engine.hedonic_tco import (
     compute_tco_npv,
     project_cashflow_60d,
 )
+from app.engine.opportunity_cost import (
+    compute_compound_opportunity_cost,
+    get_human_capital_alternatives,
+    calculate_life_energy_hours,
+)
 from app.agents.deepseek_client import (
     DEFAULT_DEEPSEEK_MODEL,
     is_deepseek_configured,
@@ -835,5 +840,102 @@ def api_v1_market_fx_rates(base: str = "USD"):
     _FX_CACHE["timestamp"] = now
     _FX_CACHE["payload"] = payload
     return payload
+
+
+# ----------------- OPPORTUNITY COST & HUMAN CAPITAL ENGINE -----------------
+
+class OpportunityCostRequest(BaseModel):
+    principal: float
+    currency: str = "IDR"
+    role: str = "tech_software"
+    age_bracket: str = "early_career"
+    monthly_budget: Optional[float] = None
+    annual_rate: float = 0.05
+
+
+class DivertGrowthRequest(BaseModel):
+    amount: float
+    currency: str = "IDR"
+    item_name: str = "Impulse Purchase Avoidance"
+    growth_target: str = "Self-Investment Sinking Pot"
+    user_id: str = "USR_DEFAULT"
+    idempotency_key: Optional[str] = None
+
+
+@router.post("/v1/quant/opportunity-cost")
+def api_v1_quant_opportunity_cost(req: OpportunityCostRequest):
+    """
+    Computes deterministic compound interest curves, life-energy worked hours,
+    and role-tailored human capital alternatives for an impulse purchase budget.
+    """
+    compound_res = compute_compound_opportunity_cost(
+        principal=req.principal,
+        annual_rate=req.annual_rate,
+        compounding_frequency=12,
+    )
+
+    fx_to_idr = 18000.0
+    if _FX_CACHE.get("payload") and _FX_CACHE["payload"].get("rates_to_idr"):
+        fx_to_idr = float(_FX_CACHE["payload"]["rates_to_idr"].get("USD", 18000.0))
+    aud_to_idr = 12500.0
+    if _FX_CACHE.get("payload") and _FX_CACHE["payload"].get("rates_to_idr"):
+        aud_to_idr = float(_FX_CACHE["payload"]["rates_to_idr"].get("AUD", 12500.0))
+
+    human_res = get_human_capital_alternatives(
+        budget_amount=req.principal,
+        currency=req.currency,
+        role=req.role,
+        usd_to_idr=fx_to_idr,
+        aud_to_idr=aud_to_idr,
+    )
+
+    monthly_b = req.monthly_budget
+    if not monthly_b or monthly_b <= 0:
+        monthly_b = 10_000_000.0 if req.currency.upper() == "IDR" else 1_500.0
+
+    life_res = calculate_life_energy_hours(
+        price=req.principal,
+        monthly_discretionary_budget=monthly_b,
+    )
+
+    return {
+        "status": "SUCCESS",
+        "principal": req.principal,
+        "currency": req.currency,
+        "role": req.role,
+        "age_bracket": req.age_bracket,
+        "compounding": compound_res,
+        "human_capital": human_res,
+        "life_energy": life_res,
+    }
+
+
+@router.post("/v1/bank/divert-to-growth-pot")
+def api_v1_bank_divert_to_growth_pot(
+    req: DivertGrowthRequest,
+    idempotency_key: Optional[str] = Header(None, alias="Idempotency-Key"),
+):
+    """
+    Executes an intentional financial diversion from checking to growth sinking pot.
+    """
+    idem = req.idempotency_key or idempotency_key
+    try:
+        res = bank_service.divert_to_growth_pot(
+            amount=req.amount,
+            currency=req.currency,
+            item_name=req.item_name,
+            growth_target=req.growth_target,
+            user_id=req.user_id,
+            idempotency_key=idem,
+        )
+        return {
+            "status": "SUCCESS",
+            **res,
+        }
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=f"Diverting to growth pot failed: {str(e)}")
+
 
 

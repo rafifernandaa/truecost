@@ -1072,6 +1072,114 @@ class SandboxBank:
             operation_fn=_op,
         )
 
+    def divert_to_growth_pot(
+        self,
+        amount: float,
+        currency: str = "IDR",
+        item_name: str = "Impulse Purchase Avoidance",
+        growth_target: str = "Self-Investment Sinking Pot",
+        user_id: str = "USR_DEFAULT",
+        idempotency_key: Optional[str] = None,
+    ) -> Dict[str, Any]:
+        """
+        Diverts funds from ACC_USER_CHECKING to ACC_USER_SINKING_POT as an intentional
+        growth investment, preserving budget away from impulsive depreciating spending.
+        Posts an atomic double-entry journal, records hash-chained audit logs.
+        """
+        self.verify_user_authorization(user_id, "USR_DEFAULT")
+
+        def _op() -> Dict[str, Any]:
+            if amount <= 0:
+                raise ValueError("Divert amount must be greater than zero.")
+
+            amt_minor = to_minor_units(amount)
+            sync_accounts_to_db(self.accounts, self.db_path)
+
+            with atomic_db_transaction(self.db_path) as cur:
+                cur.execute("SELECT balance_minor FROM accounts WHERE account_id = 'ACC_USER_CHECKING'")
+                checking_row = cur.fetchone()
+                current_checking = int(checking_row["balance_minor"]) if checking_row else 0
+
+                if current_checking < amt_minor:
+                    raise ValueError(
+                        f"Insufficient checking funds: Available {from_minor_units(current_checking):,.2f} "
+                        f"{currency}, requested {amount:,.2f} {currency}."
+                    )
+
+                tx_id = str(uuid.uuid4())
+                journal = post_double_entry_journal(
+                    cur,
+                    tx_id=tx_id,
+                    user_id=user_id,
+                    entry_type="OPPORTUNITY_COST_GROWTH_DIVERSION",
+                    description=f"Diverted {amount:,.0f} {currency} from '{item_name}' to {growth_target}",
+                    currency=currency,
+                    postings=[
+                        ("ACC_USER_CHECKING", "DEBIT", amt_minor),
+                        ("ACC_USER_SINKING_POT", "CREDIT", amt_minor),
+                    ],
+                )
+
+                record_chained_transaction_in_cursor(
+                    cur,
+                    {
+                        "tx_id": tx_id,
+                        "user_id": user_id,
+                        "type": "GROWTH_POT_DIVERSION",
+                        "amount": float(amount),
+                        "amount_minor": amt_minor,
+                        "currency": currency,
+                        "item_name": item_name,
+                        "growth_target": growth_target,
+                        "status": "SETTLED",
+                        "timestamp": datetime.now(timezone.utc).isoformat(),
+                    },
+                    journal_id=journal["journal_id"],
+                )
+
+                audit_entry = record_audit_log(
+                    user_id=user_id,
+                    action="GROWTH_POT_DIVERSION",
+                    resource_type="ACCOUNT",
+                    resource_id="ACC_USER_SINKING_POT",
+                    status="SUCCESS",
+                    details={
+                        "tx_id": tx_id,
+                        "amount": float(amount),
+                        "currency": currency,
+                        "item_name": item_name,
+                        "growth_target": growth_target,
+                        "journal_id": journal["journal_id"],
+                    },
+                    cur=cur,
+                    db_path=self.db_path,
+                )
+
+                self._refresh_in_memory_accounts_from_cursor(cur)
+
+            return {
+                "success": True,
+                "tx_id": tx_id,
+                "journal_id": journal["journal_id"],
+                "diverted_amount": float(amount),
+                "currency": currency,
+                "item_name": item_name,
+                "growth_target": growth_target,
+                "checking_balance": self.accounts["ACC_USER_CHECKING"]["balance"],
+                "growth_pot_balance": self.accounts["ACC_USER_SINKING_POT"]["balance"],
+                "emergency_buffer": self.accounts["ACC_EMERGENCY_BUFFER"]["balance"],
+                "audit_log_id": audit_entry.get("audit_id") or str(uuid.uuid4()),
+            }
+
+        return self.execute_idempotent(
+            idempotency_key=idempotency_key,
+            user_id=user_id,
+            endpoint="POST:/api/v1/bank/divert-to-growth-pot",
+            request_payload={"amount": amount, "currency": currency, "item_name": item_name, "growth_target": growth_target},
+            operation_fn=_op,
+        )
+
 
 # Singleton instance for the application runtime (loads persisted state from SQLite)
 bank_service = SandboxBank(persist_state=True)
+

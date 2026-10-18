@@ -117,3 +117,51 @@ def test_calculate_life_energy_hours():
     assert res["hourly_discretionary_rate"] == 62_500.0
     assert res["life_energy_hours"] == 240.0
     assert res["life_energy_work_days"] == 30.0
+
+
+def test_api_quant_opportunity_cost_endpoint():
+    from fastapi.testclient import TestClient
+    from app.main import app
+
+    client = TestClient(app)
+    payload = {
+        "principal": 15000000.0,
+        "currency": "IDR",
+        "role": "tech_software",
+        "age_bracket": "early_career",
+        "monthly_budget": 8000000.0,
+        "annual_rate": 0.06,
+    }
+    resp = client.post("/api/v1/quant/opportunity-cost", json=payload)
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "SUCCESS"
+    assert data["compounding"]["principal"] == 15000000.0
+    assert len(data["human_capital"]["recommended_bundle"]) > 0
+    assert data["life_energy"]["life_energy_hours"] > 0
+
+
+def test_api_bank_divert_to_growth_pot_endpoint():
+    from fastapi.testclient import TestClient
+    from app.main import app
+    from app.bank.service import bank_service
+
+    # Ensure sufficient checking balance
+    bank_service.deposit_income(amount_idr=10_000_000.0, source="Test Income Deposit")
+
+    client = TestClient(app)
+    payload = {
+        "amount": 2500000.0,
+        "currency": "IDR",
+        "item_name": "Test Gadget Impulse",
+        "growth_target": "AWS Cloud Architect Pot",
+        "user_id": "USR_DEFAULT",
+    }
+    resp = client.post("/api/v1/bank/divert-to-growth-pot", json=payload)
+    assert resp.status_code == 200
+    data = resp.json()
+    assert data["status"] == "SUCCESS"
+    assert data["diverted_amount"] == 2500000.0
+    assert data["growth_pot_balance"] >= 2500000.0
+
+
