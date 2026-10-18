@@ -51,8 +51,23 @@ frontend/.env
 *.db
 *.sqlite3
 
+# Scratch and exploration artifacts
+stitch_output/
+android_assets/
+frontend/
+0.26.0
+Additional Information.txt
+international-topics-rules-en.docx
+install_emulator_driver.bat
+
 # Temporary root test captures
 phone_*.png
 emulator_*.png
 Screenshot_*.jpg
+
+# Scratch scripts
+scripts/build_unified_app.py
+scripts/extract_screens.py
+scripts/prepare_assets.py
+scripts/stitch_fetch.py
 

@@ -30,7 +30,7 @@ This repository satisfies all required submission items under the Official Compe
 | **2. Security Self-Assessment** | [`docs/SECURITY_SELF_ASSESSMENT.md`](docs/SECURITY_SELF_ASSESSMENT.md) & Section 2 below | 4-tier permission model, STRIDE threat matrix, and known-risk ledger. |
 | **3. Execution Evidence** | [`docs/EXECUTION_EVIDENCE.md`](docs/EXECUTION_EVIDENCE.md) & [`logs/`](logs/) | Double-entry core banking ledger, sinking pot reservation logs, cryptographic mandate verification trails, and real device execution proof. |
 | **4. Source Code & Test Cases** | [`backend/`](backend/) & [`backend/tests/`](backend/tests/) | Pure deterministic quant modules, FastAPI REST endpoints, and 100% passing test suite (35/35 tests). |
-| **5. Mobile Android Client App** | [`android_app/`](android_app/) & [`frontend/public/android/`](frontend/public/android/) | Full Android application implementing the Stitch UI design, client-side Ed25519 cryptography, and tested on real Samsung Galaxy hardware. |
+| **5. Mobile Android Client App** | [`android_app/`](android_app/) | Full Android application implementing native Kotlin Jetpack Compose shell, client-side Ed25519 cryptography, and tested on real Samsung Galaxy hardware. |
 | **6. One-Click Deployment** | [`docker-compose.yml`](docker-compose.yml) & [`backend/Dockerfile`](backend/Dockerfile) | Production Docker environment containerizing the complete service. |
 
 ---
@@ -168,11 +168,9 @@ pytest -v
 # Start FastAPI Server
 uvicorn app.main:app --host 127.0.0.1 --port 8000 --reload
 
-# Frontend Setup (in separate terminal)
-cd ../frontend
-npm install
-npm run build
-npm run dev
+# Option B: Interactive Mobile Preview Studio (in separate terminal)
+python run_browser_preview.py
+# (Or double-click run_browser_preview.bat to open preview on http://localhost:8080)
 ```
 
 #### Option C: Native Android Client
@@ -185,9 +183,9 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ---
 
-### 1.5 Deterministic Test Cases (35 Passed / 100% Coverage)
+### 1.5 Deterministic Test Cases (36 Passed / 100% Coverage)
 
-All financial formulas, cryptographic operations, and security boundaries are validated with 35 deterministic unit tests:
+All financial formulas, cryptographic operations, and security boundaries are validated with 36 deterministic unit tests:
 
 ```bash
 backend/.venv/Scripts/pytest.exe backend/tests -v
@@ -206,7 +204,7 @@ backend/tests/test_sandbox_bank.py .................................. [PASSED]
 backend/tests/test_scam_detector.py ................................. [PASSED]
 backend/tests/test_topsis.py ........................................ [PASSED]
 
-======================= 35 passed, 1 warning in 14.88s =======================
+======================= 36 passed, 1 warning in 14.04s =======================
 ```
 
 ---

@@ -3269,7 +3269,7 @@
           : 'Custom Bill Verified · Zero PII Leaked';
       }
 
-      const endpoints = ['/api/v1/scan-receipt', 'http://127.0.0.1:8000/api/v1/scan-receipt'];
+      const endpoints = ['/api/v1/scan-receipt', 'http://127.0.0.1:8000/api/v1/scan-receipt', 'http://10.0.2.2:8000/api/v1/scan-receipt'];
       let data = null;
       for (const url of endpoints) {
         try {
@@ -3322,7 +3322,7 @@
         if (statusPill) statusPill.textContent = 'Vault Ready';
         return;
       }
-      const endpoints = ['/api/bank/accounts', 'http://127.0.0.1:8000/api/bank/accounts'];
+      const endpoints = ['/api/bank/accounts', 'http://127.0.0.1:8000/api/bank/accounts', 'http://10.0.2.2:8000/api/bank/accounts'];
       for (const url of endpoints) {
         try {
           const r = await fetch(url, { headers: { 'X-User-Id': 'USR_DEFAULT' } });
@@ -3339,7 +3339,7 @@
     async function loadPersistentTransactionHistory() {
       const listEl = document.getElementById('persistent-tx-history-list');
       const statusPill = document.getElementById('ledger-status-pill');
-      const endpoints = ['/api/bank/transactions', 'http://127.0.0.1:8000/api/bank/transactions'];
+      const endpoints = ['/api/bank/transactions', 'http://127.0.0.1:8000/api/bank/transactions', 'http://10.0.2.2:8000/api/bank/transactions'];
       for (const url of endpoints) {
         try {
           const r = await fetch(url, { headers: { 'X-User-Id': 'USR_DEFAULT' } });
@@ -3408,7 +3408,7 @@
     async function triggerQuickDeposit() {
       triggerHaptic('success');
       const idemKey = 'IDEM_DEP_' + Date.now();
-      const endpoints = ['/api/bank/deposit', 'http://127.0.0.1:8000/api/bank/deposit'];
+      const endpoints = ['/api/bank/deposit', 'http://127.0.0.1:8000/api/bank/deposit', 'http://10.0.2.2:8000/api/bank/deposit'];
       let resData = null;
       for (const url of endpoints) {
         try {
@@ -3451,7 +3451,7 @@
       const optimalLandedIdr = Math.round(rc.landedCostIdr);
       const idemKey = 'IDEM_FLOW_' + Date.now();
 
-      const endpoints = ['/api/bank/real-flow', 'http://127.0.0.1:8000/api/bank/real-flow'];
+      const endpoints = ['/api/bank/real-flow', 'http://127.0.0.1:8000/api/bank/real-flow', 'http://10.0.2.2:8000/api/bank/real-flow'];
       let data = null;
       for (const url of endpoints) {
         try {
@@ -3561,7 +3561,7 @@
       if (row3Badge) row3Badge.textContent = 'PENDING';
 
       const idemKey = `IDEM_${provider}_${Date.now()}`;
-      const createUrls = ['/api/payments/create', 'http://127.0.0.1:8000/api/payments/create'];
+      const createUrls = ['/api/payments/create', 'http://127.0.0.1:8000/api/payments/create', 'http://10.0.2.2:8000/api/payments/create'];
       let createdPay = null;
       for (const url of createUrls) {
         try {
@@ -3598,7 +3598,8 @@
       // 2. Dispatch signed webhook notification to backend and wait for verified settlement
       const whkUrls = [
         `/api/payments/${createdPay.payment_id}/simulate-webhook`,
-        `http://127.0.0.1:8000/api/payments/${createdPay.payment_id}/simulate-webhook`
+        `http://127.0.0.1:8000/api/payments/${createdPay.payment_id}/simulate-webhook`,
+        `http://10.0.2.2:8000/api/payments/${createdPay.payment_id}/simulate-webhook`
       ];
       let whkRes = null;
       for (const url of whkUrls) {
@@ -3629,7 +3630,7 @@
       triggerHaptic('click');
       const btn = document.getElementById('reconcile-btn');
       if (btn) btn.textContent = 'Reconciling...';
-      const urls = ['/api/payments/reconcile', 'http://127.0.0.1:8000/api/payments/reconcile'];
+      const urls = ['/api/payments/reconcile', 'http://127.0.0.1:8000/api/payments/reconcile', 'http://10.0.2.2:8000/api/payments/reconcile'];
       for (const url of urls) {
         try {
           const r = await fetch(url, {
@@ -3893,7 +3894,7 @@
         switchTab(currentRealCase && currentRealCase.isScam ? 'shield' : 'verdict');
       }
 
-      const endpoints = ['/api/v1/analyze', 'http://127.0.0.1:8000/api/v1/analyze'];
+      const endpoints = ['/api/v1/analyze', 'http://127.0.0.1:8000/api/v1/analyze', 'http://10.0.2.2:8000/api/v1/analyze'];
       let data = null;
       for (const url of endpoints) {
         try {
