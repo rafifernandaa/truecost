@@ -25,7 +25,11 @@ from app.bank.payment_gateway import (
 )
 from app.engine.apr import deconstruct_bnpl_offer
 from app.engine.landed_cost import compute_landed_cost
-from app.engine.scam_detector import analyze_scam_risk
+from app.engine.scam_detector import (
+    analyze_scam_risk,
+    audit_invoice_authenticity,
+    parse_invoice_text,
+)
 from app.engine.optimal_stopping import evaluate_buy_timing
 from app.engine.topsis import rank_alternatives_topsis
 from app.engine.replay_simulator import run_time_travel_simulation
@@ -515,6 +519,8 @@ class ScamCheckRequest(BaseModel):
     seller_account_age_days: Optional[int] = 365
     listing_url: Optional[str] = None
     demands_off_platform_payment: bool = False
+    invoice_data: Optional[Dict[str, Any]] = None
+    invoice_text: Optional[str] = None
 
 @router.post("/quant/scam-check")
 def api_scam_check(req: ScamCheckRequest):
@@ -525,8 +531,24 @@ def api_scam_check(req: ScamCheckRequest):
         seller_review_count=req.seller_review_count,
         seller_account_age_days=req.seller_account_age_days,
         listing_url=req.listing_url,
-        demands_off_platform_payment=req.demands_off_platform_payment
+        demands_off_platform_payment=req.demands_off_platform_payment,
+        invoice_data=req.invoice_data,
+        invoice_text=req.invoice_text,
     )
+
+class InvoiceAuditRequest(BaseModel):
+    invoice_data: Optional[Dict[str, Any]] = None
+    invoice_text: Optional[str] = None
+    market_prices: Optional[List[float]] = None
+
+@router.post("/quant/invoice-audit")
+def api_invoice_audit(req: InvoiceAuditRequest):
+    data = req.invoice_data
+    if req.invoice_text and not data:
+        data = parse_invoice_text(req.invoice_text)
+    if not data:
+        raise HTTPException(status_code=400, detail="Either invoice_data or invoice_text must be provided")
+    return audit_invoice_authenticity(data, req.market_prices)
 
 class BuyTimingRequest(BaseModel):
     current_price: float

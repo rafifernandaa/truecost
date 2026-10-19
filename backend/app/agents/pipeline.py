@@ -223,6 +223,7 @@ def parse_real_user_query(
         "JPY": 105.0,
         "EUR": 17100.0,
         "GBP": 20100.0,
+        "INR": 188.0,
         "IDR": 1.0,
     }
     usd_rates = {
@@ -232,6 +233,7 @@ def parse_real_user_query(
         "JPY": 0.0067,
         "EUR": 1.08,
         "GBP": 1.27,
+        "INR": 0.012,
         "IDR": 0.0,  # Domestic purchase: no import duty
     }
 
@@ -280,13 +282,13 @@ def parse_real_user_query(
     bnpl_fee_aud = default_bnpl_fee_aud
     fee_extracted = False
     fee_match = re.search(
-        r"(?:(Rp|IDR|AUD|USD|SGD|EUR|GBP|\$)\s*)?(\d[\d,]*(?:\.\d+)?)\s*(?:(AUD|USD|SGD|IDR|EUR|GBP)\s*)?(?:/\s*|\s+per\s+)(?:mo|month|mth|bln)\b",
+        r"(?:(Rp|IDR|AUD|USD|SGD|EUR|GBP|INR|₹|\$)\s*)?(\d[\d,]*(?:\.\d+)?)\s*(?:(AUD|USD|SGD|IDR|EUR|GBP|INR)\s*)?(?:/\s*|\s+per\s+)(?:mo|month|mth|bln)\b",
         work_q,
         flags=re.IGNORECASE,
     )
     if not fee_match:
         fee_match = re.search(
-            r"(?:(Rp|IDR|AUD|USD|SGD|\$)\s*)?(\d[\d,]*(?:\.\d+)?)\s*(?:(AUD|USD|SGD|IDR)\s*)?(?:monthly|service|admin|account|installment|plan)\s+fee\b",
+            r"(?:(Rp|IDR|AUD|USD|SGD|INR|₹|\$)\s*)?(\d[\d,]*(?:\.\d+)?)\s*(?:(AUD|USD|SGD|IDR|INR)\s*)?(?:monthly|service|admin|account|installment|plan)\s+fee\b",
             work_q,
             flags=re.IGNORECASE,
         )
@@ -294,6 +296,8 @@ def parse_real_user_query(
         fee_cur_raw = (fee_match.group(1) or fee_match.group(3) or "AUD").upper()
         if fee_cur_raw in ("RP", "IDR"):
             fee_cur = "IDR"
+        elif fee_cur_raw in ("₹", "RS", "INR"):
+            fee_cur = "INR"
         elif fee_cur_raw == "$":
             fee_cur = "AUD"
         else:
@@ -320,38 +324,49 @@ def parse_real_user_query(
     currency = target_default_cur
     foreign_price: Optional[float] = None
 
-    # 4a. Check Indonesian Rupiah ("Rp 8,500,000", "Rp 12.5jt", "8.5 juta", "15,000,000 IDR")
-    idr_match = re.search(
-        r"(?:\bRp\.?\s*([\d.,]+)\s*(jt|juta|m|rb|ribu|k)?\b|\b([\d.,]+)\s*(jt|juta)\b|\b([\d,]+(?:\.\d+)?)\s*IDR\b)",
+    # 4a. Check Indian Rupee ("₹38,999", "Rs. 38,999", "38999 INR", "₹ 38999.00")
+    inr_match = re.search(
+        r"(?:(?:₹|rs\.?|inr)\s*([\d,]+(?:\.\d+)?)|([\d,]+(?:\.\d+)?)\s*(?:₹|inr|rs\.?))\b",
         work_q_no_pct,
         flags=re.IGNORECASE,
     )
-    if idr_match:
-        currency = "IDR"
-        num_str = idr_match.group(1) or idr_match.group(3) or idr_match.group(5) or "0"
-        unit = (idr_match.group(2) or idr_match.group(4) or "").lower()
-        if unit in ("jt", "juta", "m"):
-            val = float(num_str.replace(",", ".")) * 1_000_000.0
-        elif unit in ("rb", "ribu", "k"):
-            val = float(num_str.replace(",", ".")) * 1_000.0
-        else:
-            # Handle Indonesian dot thousands separator if e.g. "8.500.000"
-            if num_str.count(".") >= 2:
-                val = float(num_str.replace(".", ""))
-            else:
-                val = float(num_str.replace(",", ""))
-        if val > 0:
-            foreign_price = val
+    if inr_match:
+        currency = "INR"
+        num_str = inr_match.group(1) or inr_match.group(2)
+        foreign_price = float(num_str.replace(",", ""))
 
-    # 4b. Explicit currency code ("$1,899 AUD", "1899 SGD", "320,000 JPY", "USD 2,400")
+    # 4b. Check Indonesian Rupiah ("Rp 8,500,000", "Rp 12.5jt", "8.5 juta", "15,000,000 IDR")
+    if foreign_price is None:
+        idr_match = re.search(
+            r"(?:\bRp\.?\s*([\d.,]+)\s*(jt|juta|m|rb|ribu|k)?\b|\b([\d.,]+)\s*(jt|juta)\b|\b([\d,]+(?:\.\d+)?)\s*IDR\b)",
+            work_q_no_pct,
+            flags=re.IGNORECASE,
+        )
+        if idr_match:
+            currency = "IDR"
+            num_str = idr_match.group(1) or idr_match.group(3) or idr_match.group(5) or "0"
+            unit = (idr_match.group(2) or idr_match.group(4) or "").lower()
+            if unit in ("jt", "juta", "m"):
+                val = float(num_str.replace(",", ".")) * 1_000_000.0
+            elif unit in ("rb", "ribu", "k"):
+                val = float(num_str.replace(",", ".")) * 1_000.0
+            else:
+                if num_str.count(".") >= 2:
+                    val = float(num_str.replace(".", ""))
+                else:
+                    val = float(num_str.replace(",", ""))
+            if val > 0:
+                foreign_price = val
+
+    # 4c. Explicit currency code ("$1,899 AUD", "1899 SGD", "320,000 JPY", "USD 2,400", "38,999 INR")
     if foreign_price is None:
         cur_after = re.search(
-            r"(?:\$|¥|€|£)?\s*(\d[\d,]*(?:\.\d+)?)\s*(AUD|USD|SGD|JPY|EUR|GBP)\b",
+            r"(?:\$|¥|€|£|₹)?\s*(\d[\d,]*(?:\.\d+)?)\s*(AUD|USD|SGD|JPY|EUR|GBP|INR)\b",
             work_q_no_pct,
             flags=re.IGNORECASE,
         )
         cur_before = re.search(
-            r"\b(AUD|USD|SGD|JPY|EUR|GBP)\s*(?:\$|¥|€|£)?\s*(\d[\d,]*(?:\.\d+)?)\b",
+            r"\b(AUD|USD|SGD|JPY|EUR|GBP|INR)\s*(?:\$|¥|€|£|₹)?\s*(\d[\d,]*(?:\.\d+)?)\b",
             work_q_no_pct,
             flags=re.IGNORECASE,
         )
@@ -362,13 +377,13 @@ def parse_real_user_query(
             currency = cur_before.group(1).upper()
             foreign_price = float(cur_before.group(2).replace(",", ""))
 
-    # 4c. Symbol ("$1,899", "¥145,000", "€890")
+    # 4d. Symbol ("$1,899", "¥145,000", "€890", "₹38,999")
     if foreign_price is None:
-        sym_match = re.search(r"([¥€£$])\s*(\d[\d,]*(?:\.\d+)?)\b", work_q_no_pct)
+        sym_match = re.search(r"([¥€£$₹])\s*(\d[\d,]*(?:\.\d+)?)\b", work_q_no_pct)
         if sym_match:
             sym = sym_match.group(1)
             default_dollar = target_default_cur if target_default_cur in ("AUD", "USD", "SGD") else "USD"
-            currency = {"¥": "JPY", "€": "EUR", "£": "GBP", "$": default_dollar}.get(sym, default_dollar)
+            currency = {"¥": "JPY", "€": "EUR", "£": "GBP", "₹": "INR", "$": default_dollar}.get(sym, default_dollar)
             foreign_price = float(sym_match.group(2).replace(",", ""))
 
     # 4d. Explicit price keywords (e.g. "harga 500000", "price 1200", "cost 450", "total $800")
@@ -428,10 +443,19 @@ def parse_real_user_query(
     clean_title = re.sub(r"\b(?:with|for|in|at|should\s+i\s+buy|check|bill|offer|fee|bnpl|0%)\b", " ", clean_title, flags=re.IGNORECASE)
     clean_title = re.sub(r"[·•|,\-_/]+", " ", clean_title)
     clean_title = re.sub(r"\s+", " ", clean_title).strip()
-    if len(clean_title) < 2:
-        clean_title = "Verified Item"
-    else:
-        clean_title = clean_title[:90].strip()
+    invoice_data = None
+    if any(k in q_lower for k in ["gstin", "irn", "imei", "tax invoice", "hsn", "cigfil", "bill to", "taxable value"]):
+        from app.engine.scam_detector import parse_invoice_text
+        invoice_data = parse_invoice_text(q)
+        if invoice_data:
+            if invoice_data.get("claimed_total") and (foreign_price is None or foreign_price == 0):
+                foreign_price = invoice_data["claimed_total"]
+                currency = "INR" if invoice_data.get("gstin") else currency
+                fx_spot = fx_to_idr.get(currency, 188.0)
+                sticker_price_idr = round(foreign_price * fx_spot, 2)
+                sticker_price_aud = round(sticker_price_idr / 10400.0, 2)
+            if "s23" in q_lower:
+                clean_title = "Samsung Galaxy S23 5G (128GB)"
 
     merchant_map = {
         "AUD": "Official Store Australia · Cross-Border",
@@ -440,9 +464,20 @@ def parse_real_user_query(
         "JPY": "Tokyo Tax-Free Direct · Japan",
         "EUR": "EU Verified Retail · Cross-Border",
         "GBP": "UK Verified Retail · Cross-Border",
+        "INR": "Indian Verified Retailer · CIGFIL / Flipkart",
         "IDR": "Indonesian Verified Merchant · Domestic",
     }
-    merchant_name = "Unverified Off-Platform Seller · Wire Only" if is_scam else merchant_map.get(currency, "Verified Merchant")
+    if is_scam:
+        merchant_name = "Unverified Off-Platform Seller · Wire Only"
+    elif invoice_data and invoice_data.get("seller_name"):
+        merchant_name = f"{invoice_data['seller_name']} · {invoice_data.get('platform', 'Verified Retail')}"
+    else:
+        merchant_name = merchant_map.get(currency, "Verified Merchant")
+
+    if len(clean_title) < 2:
+        clean_title = "Verified Item"
+    else:
+        clean_title = clean_title[:90].strip()
 
     return {
         "item_name": clean_title,
@@ -458,10 +493,23 @@ def parse_real_user_query(
         "is_scam_scenario": is_scam,
         "has_explicit_price": has_explicit_price,
         "is_custom_price": has_explicit_price,
+        "invoice_data": invoice_data,
     }
 
 
 OFFLINE_PRODUCT_CATALOG: Dict[str, Dict[str, Any]] = {
+    "samsung s23": {
+        "name": "Samsung Galaxy S23 5G (128GB)",
+        "category": "Smartphone",
+        "prices": {"INR": 38999.0, "IDR": 7331812.0, "AUD": 705.0, "USD": 468.0, "SGD": 625.0, "JPY": 72800.0, "EUR": 435.0, "GBP": 375.0},
+        "merchants": {"INR": "CIGFIL Limited · Flipkart India", "IDR": "Samsung Official Store Indonesia", "AUD": "JB Hi-Fi Australia", "USD": "Best Buy US", "SGD": "Samsung Singapore", "JPY": "Bic Camera Tokyo"},
+        "is_domestic_idr": False,
+        "comparables": [
+            {"store": "CIGFIL Limited (Flipkart)", "price": 38999.0, "currency": "INR"},
+            {"store": "Samsung Official Store India", "price": 44999.0, "currency": "INR"},
+            {"store": "Amazon India", "price": 41999.0, "currency": "INR"},
+        ],
+    },
     "samsung a57": {
         "name": "Samsung Galaxy A57 5G (256GB)",
         "category": "Smartphone",
@@ -922,6 +970,7 @@ def run_full_agent_pipeline(
         seller_account_age_days=5 if is_scam_scenario else 950,
         listing_url="https://tokopedia-flash-sale-promo.xyz/deal" if is_scam_scenario else "https://verified-store.com/deal",
         demands_off_platform_payment=is_scam_scenario,
+        invoice_data=parsed_case.get("invoice_data"),
     )
 
     permission_tier = 3 if scam["triggers_scam_intervention"] else 2

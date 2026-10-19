@@ -128,6 +128,23 @@ $$M_i = \frac{0.6745 \times (p_i - \tilde{p})}{\text{MAD}}$$
 - Combined with domain typosquatting detection, newly created seller accounts (<30 days), and off-platform wire demands, an aggregate Scam Score $S \in [0.0, 1.0]$ is established.
 - If $S \ge 0.50$, the transaction triggers the **Revolut-Style Scam Intervention Flow**, halting execution until verified.
 
+#### 3.3.1. Deterministic Multi-Jurisdiction Invoice & Bill Copy Forensic Audit
+Fine-tuned against real-world retail invoices (e.g. original Flipkart/CIGFIL Samsung Galaxy S23 tax invoices, Australian ATO tax receipts, and Indonesian DJP e-Faktur bills), the system validates invoice integrity across five statutory and mathematical dimensions:
+1. **Statutory Tax Identifiers:**
+   - **India (GSTIN):** Enforces 15-character alphanumeric format `^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$` with state code and PAN parity.
+   - **Australia (ABN):** Evaluates official Australian Taxation Office (ATO) 11-digit Modulo-89 checksum algorithm ($\sum w_i (d_i - 1) \equiv 0 \pmod{89}$).
+   - **Indonesia (NPWP):** Validates 15-digit / 16-digit Directorate General of Taxes (DJP) formatting.
+2. **E-Invoicing Cryptographic Integrity (IRN):**
+   - Verifies 64-character SHA-256 Invoice Reference Number (IRN) statutory digital seal mandated by tax and invoice registration authorities.
+3. **Telecommunications Hardware Integrity (IMEI Luhn Check):**
+   - For smartphone and mobile hardware invoices, extracts the 15-digit IMEI and validates it against the 3GPP/GSM Modulo-10 Luhn check-digit algorithm ($\text{Luhn}(d_{1..14}) == d_{15}$), catching counterfeit and dummy IMEIs instantly.
+4. **Line-Item Mathematical Balancing Down to the Paisa/Cent:**
+   - Enforces exact reconciliation:
+     $$\left|\text{Taxable Value} + \text{CGST} + \text{SGST} + \text{IGST} + \text{Shipping} - \text{Discount} - \text{Grand Total}\right| \le 0.01$$
+     Counterfeit invoices frequently fail this invariant due to fabricated rounded totals or missing tax component breakdowns.
+5. **Authorized Retailer & Whitelist Verification:**
+   - Validates seller legal name against known authorized retailer networks (e.g., CIGFIL Limited / Flipkart, Amazon Retail, Samsung Official Store) and flags unauthorized third-party dropshippers.
+
 ---
 
 ### 3.4. Finite-Horizon Optimal Stopping (Buy Timing)

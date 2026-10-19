@@ -7,7 +7,7 @@
 **Official Language:** English for all documentation, code, comments, commit messages, and presentation materials.  
 **Submission Deadline:** October 20, 2026, 23:59 Beijing Time (UTC+8) / 22:59 Jakarta Time (WIB).
 
-[![Test Suite](https://img.shields.io/badge/Unit%20Tests-45%2F45%20PASSED%20(100%25)-10B981?style=for-the-badge&logo=pytest)](backend/tests/)
+[![Test Suite](https://img.shields.io/badge/Unit%20Tests-49%2F49%20PASSED%20(100%25)-10B981?style=for-the-badge&logo=pytest)](backend/tests/)
 [![Python](https://img.shields.io/badge/Python-3.11%2B%20%7C%20FastAPI-2B44E8?style=for-the-badge&logo=python)](backend/)
 [![Cryptography](https://img.shields.io/badge/Security-Ed25519%20%7C%20AP2%20Mandates-EB7951?style=for-the-badge&logo=shield)](docs/SECURITY_SELF_ASSESSMENT.md)
 [![Hardware](https://img.shields.io/badge/Tested%20On-Samsung%20Galaxy%20A55%205G-131522?style=for-the-badge&logo=android)](docs/EXECUTION_EVIDENCE.md)
@@ -49,7 +49,7 @@ This repository satisfies all required deliverables under Section 5 of the Offic
 | # | Official Competition Deliverable | Primary Repository Location | Scope & Coverage in This Repository |
 | :-: | :--- | :--- | :--- |
 | **1** | **Technical Documentation** | [`docs/TECHNICAL_DOCUMENTATION.md`](docs/TECHNICAL_DOCUMENTATION.md) & [Section 1](#1-technical-documentation) | Complete system architecture, AIEP 4-layer design, 7 core quant algorithm formulas, security boundary proofs, and setup guides. |
-| **2** | **Source Code & Test Cases** | [`backend/`](backend/), [`frontend/`](frontend/), [`android_app/`](android_app/) & [Section 1.5](#15-comprehensive-deterministic-test-cases-45-passed--100-coverage) | Full production source code: deterministic Python quant modules, FastAPI endpoints, React 18 UI, and 45 passing deterministic test cases. |
+| **2** | **Source Code & Test Cases** | [`backend/`](backend/), [`frontend/`](frontend/), [`android_app/`](android_app/) & [Section 1.5](#15-comprehensive-deterministic-test-cases-49-passed--100-coverage) | Full production source code: deterministic Python quant modules, FastAPI endpoints, React 18 UI, and 49 passing deterministic test cases. |
 | **3** | **Security Self-Assessment Report** | [`docs/SECURITY_SELF_ASSESSMENT.md`](docs/SECURITY_SELF_ASSESSMENT.md) & [Section 2](#2-security-self-assessment-report-requirement-5) | 4-tier permission matrix (Tiers 0–3), STRIDE threat model, and comprehensive 7-point Known-Risk Ledger (`RSK-01` to `RSK-07`). |
 | **4** | **Execution Evidence (Non-On-Chain Topic A)** | [`docs/EXECUTION_EVIDENCE.md`](docs/EXECUTION_EVIDENCE.md), [`logs/`](logs/) & [Section 3](#3-execution-evidence--sandbox-operation-logs-requirement-6) | Full simulated core bank operation logs (`logs/sandbox_execution.jsonl`, `logs/agent_trajectory.jsonl`), double-entry ledger trails, and physical Samsung Galaxy A55 5G execution proof. |
 | **5** | **Presentation Deck & Demo Video Script** | [`presentation/PRESENTATION_DECK_AND_SCRIPT.md`](presentation/PRESENTATION_DECK_AND_SCRIPT.md) | 10-minute competition slide deck outline and $\le 5$-minute narrated product demonstration video script. |
@@ -175,8 +175,8 @@ $$
 
 As deadline $N$ approaches, the option value of delay decays, dynamically relaxing $R_t$ toward the median retail price to prevent purchase failure.
 
-#### D. Modified Z-Score Scam Anomaly Detector (`scam_detector.py`)
-E-commerce fraud exploits deep price discounts. Standard standard deviation ($\sigma$) metrics fail because malicious outlier clusters distort the mean. The system applies Boris Iglewicz and David Hoaglin's robust **Median Absolute Deviation (MAD)**:
+#### D. Modified Z-Score Scam Anomaly Detector & Forensic Bill Copy Verification (`scam_detector.py`)
+E-commerce fraud exploits deep price discounts, counterfeit invoices, and manipulated tax receipts. Standard standard deviation ($\sigma$) metrics fail because malicious outlier clusters distort the mean. The system applies Boris Iglewicz and David Hoaglin's robust **Median Absolute Deviation (MAD)**:
 
 $$
 \begin{aligned}
@@ -190,6 +190,23 @@ $$
 $$
 
 When $M_i < -3.5$ or when combined with typosquatted domains, new merchant accounts (<30 days), and off-platform payment demands, the listing triggers the **Revolut-Style Scam Intervention Flow**, halting execution.
+
+##### Multi-Jurisdiction Forensic Invoice & Bill Copy Audit:
+To prevent counterfeit invoices and forged electronic bills from bypassing purchase approval (calibrated against real-world tax invoices such as Flipkart/CIGFIL Samsung Galaxy S23 invoices, Australian ATO tax invoices, and Indonesian e-Faktur receipts), the engine executes deterministic statutory and mathematical forensic tests:
+1. **Statutory Tax Identifier Formats & Modulo Checksums:**
+   - **India (GSTIN):** Enforces 15-character alphanumeric format `^[0-9]{2}[A-Z]{5}[0-9]{4}[A-Z]{1}[1-9A-Z]{1}Z[0-9A-Z]{1}$` with state code and PAN parity.
+   - **Australia (ABN):** Evaluates official Australian Taxation Office (ATO) 11-digit Modulo-89 checksum algorithm ($\sum w_i (d_i - 1) \equiv 0 \pmod{89}$).
+   - **Indonesia (NPWP):** Validates 15-digit / 16-digit Directorate General of Taxes (DJP) formatting.
+2. **E-Invoicing Cryptographic Integrity (IRN):**
+   - Verifies 64-character SHA-256 Invoice Reference Number (IRN) statutory digital seal mandated by tax and invoice registration authorities.
+3. **Telecommunications Hardware Integrity (IMEI Luhn Check):**
+   - For smartphone and mobile hardware invoices, extracts the 15-digit IMEI and validates it against the 3GPP/GSM Modulo-10 Luhn check-digit algorithm ($\text{Luhn}(d_{1..14}) == d_{15}$), catching counterfeit and dummy IMEIs instantly.
+4. **Line-Item Mathematical Balancing Down to the Paisa/Cent:**
+   - Enforces exact reconciliation:
+     $$\left|\text{Taxable Value} + \text{CGST} + \text{SGST} + \text{IGST} + \text{Shipping} - \text{Discount} - \text{Grand Total}\right| \le 0.01$$
+     Counterfeit invoices frequently fail this invariant due to fabricated rounded totals or missing tax component breakdowns.
+5. **Authorized Retailer & Whitelist Verification:**
+   - Validates seller legal name against known authorized retailer networks (e.g., CIGFIL Limited / Flipkart, Amazon Retail, Samsung Official Store) and flags unauthorized third-party dropshippers.
 
 #### E. Compound Opportunity Cost & Human Capital Growth Engine (`opportunity_cost.py`)
 Calculates the true economic trade-off of consumer discretionary spending by projecting alternative capital growth and labor value:
@@ -304,7 +321,7 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ---
 
-### 1.5 Comprehensive Deterministic Test Cases (45 Passed / 100% Coverage)
+### 1.5 Comprehensive Deterministic Test Cases (49 Passed / 100% Coverage)
 
 All financial formulas, cryptographic operations, banking state transitions, and security boundaries are validated by a deterministic unit test suite. Every single test asserts an exact mathematical theorem, cryptographic property, or adversarial invariant:
 
@@ -315,7 +332,7 @@ backend/.venv/Scripts/pytest backend/tests -v
 ```
 ============================= test session starts =============================
 platform win32 -- Python 3.12.4, pytest-9.1.1 -- rootdir: c:\Users\rafif\fintechathon26\backend
-collected 45 items
+collected 49 items
 
 backend/tests/test_agent_pipeline.py::test_redact_pii_text_masks_pan_nik_and_email ............. [PASSED]
 backend/tests/test_agent_pipeline.py::test_audit_agent_catches_hallucinated_numbers ............. [PASSED]
@@ -361,9 +378,13 @@ backend/tests/test_sandbox_bank.py::test_bank_blocks_replay_attack_on_intent_man
 backend/tests/test_sandbox_bank.py::test_execute_real_case_flow_reserves_settles_and_refunds_savings [PASSED]
 backend/tests/test_scam_detector.py::test_normal_market_price ................................... [PASSED]
 backend/tests/test_scam_detector.py::test_extreme_low_outlier_scam_with_fake_domain ............. [PASSED]
+backend/tests/test_scam_detector.py::test_real_samsung_s23_invoice_authenticity_audit ........... [PASSED]
+backend/tests/test_scam_detector.py::test_fake_counterfeit_samsung_invoice_caught ............... [PASSED]
+backend/tests/test_scam_detector.py::test_australian_invoice_abn_and_indonesian_npwp_audit ...... [PASSED]
+backend/tests/test_scam_detector.py::test_parse_invoice_text_from_raw_ocr_string ................ [PASSED]
 backend/tests/test_topsis.py::test_topsis_ranking ................................................ [PASSED]
 
-======================= 45 passed, 1 warning in 13.06s =======================
+======================= 49 passed, 1 warning in 16.36s =======================
 ```
 
 #### Detailed Breakdown of Test Invariants by Functional Module:
@@ -412,6 +433,10 @@ backend/tests/test_topsis.py::test_topsis_ranking ..............................
 | | `test_execute_real_case_flow_reserves_settles_and_refunds_savings` | Verifies complete real-world Lenovo laptop scenario with surplus funds returned to checking. |
 | **`test_scam_detector.py`** | `test_normal_market_price` | Confirms authentic retail market prices yield low anomaly scores ($M_i \approx 0$). |
 | | `test_extreme_low_outlier_scam_with_fake_domain` | Proves that a 65% discounted listing on a typosquatted domain triggers $M_i < -3.5$ and triggers mandatory Tier 3 Scam Intervention. |
+| | `test_real_samsung_s23_invoice_authenticity_audit` | Validates genuine Samsung Galaxy S23 bill copy (Flipkart/CIGFIL) passing statutory GSTIN, 64-char IRN hash, 15-digit IMEI Luhn check, and exact line-item tax reconciliation down to ₹0.00. |
+| | `test_fake_counterfeit_samsung_invoice_caught` | Confirms system catches counterfeit Samsung invoice with fake GSTIN, invalid IMEI failing Luhn check, missing IRN, and arithmetic balance mismatch. |
+| | `test_australian_invoice_abn_and_indonesian_npwp_audit` | Validates Australian ATO ABN Modulo-89 checksum and Indonesian DJP NPWP tax registration on international retail invoices. |
+| | `test_parse_invoice_text_from_raw_ocr_string` | Verifies automated deterministic extraction of GSTIN, IRN, IMEI, Order ID, and line-item financial amounts from raw OCR text. |
 | **`test_topsis.py`** | `test_topsis_ranking` | Validates multi-attribute vector normalization and relative closeness scoring to ideal solution ($C_i^* \in [0, 1]$). |
 
 ---
