@@ -100,13 +100,68 @@
     /* Apple Liquid Glass Material with Specular Inner Rim */
     .soma-glass {
       background: rgba(255, 253, 249, 0.82);
-      backdrop-filter: blur(22px) saturate(170%);
-      -webkit-backdrop-filter: blur(22px) saturate(170%);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
       border: 1px solid rgba(255, 255, 255, 0.9);
       box-shadow:
-        0 12px 30px -8px rgba(20, 23, 38, 0.07),
-        inset 0 1px 1px rgba(255, 255, 255, 0.95),
+        0 14px 32px -8px rgba(20, 23, 38, 0.07),
+        inset 0 1px 1.5px rgba(255, 255, 255, 0.95),
         inset 0 -1px 1px rgba(20, 23, 38, 0.04);
+    }
+
+    /* Ultra-Modern Liquid & Frosted Glass System (Apple visionOS Inspired) */
+    .liquid-glass-pane {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(255, 255, 255, 0.52) 48%, rgba(255, 255, 255, 0.72) 100%);
+      backdrop-filter: blur(28px) saturate(190%);
+      -webkit-backdrop-filter: blur(28px) saturate(190%);
+      border: 1px solid rgba(255, 255, 255, 0.85);
+      box-shadow:
+        0 16px 36px -10px rgba(20, 23, 38, 0.08),
+        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.95),
+        inset 0 -1px 1px 0 rgba(20, 23, 38, 0.03);
+    }
+
+    .liquid-glass-pill {
+      position: relative;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.72) 0%, rgba(255, 255, 255, 0.40) 100%);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1px solid rgba(255, 255, 255, 0.78);
+      box-shadow:
+        0 4px 14px -3px rgba(20, 23, 38, 0.05),
+        inset 0 1px 1px 0 rgba(255, 255, 255, 0.95);
+      transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass-pill:hover {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.58) 100%);
+      border-color: rgba(255, 255, 255, 0.95);
+      box-shadow:
+        0 8px 20px -4px rgba(20, 23, 38, 0.08),
+        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.98);
+    }
+    .liquid-glass-pill-active {
+      background: linear-gradient(140deg, rgba(43, 68, 232, 0.12) 0%, rgba(43, 68, 232, 0.04) 100%) !important;
+      backdrop-filter: blur(24px) saturate(190%) !important;
+      -webkit-backdrop-filter: blur(24px) saturate(190%) !important;
+      border: 1.5px solid #2B44E8 !important;
+      box-shadow:
+        0 8px 24px -4px rgba(43, 68, 232, 0.25),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.95),
+        inset 0 0 12px 0 rgba(43, 68, 232, 0.08) !important;
+    }
+
+    .liquid-specular-border {
+      position: relative;
+    }
+    .liquid-specular-border::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 10%;
+      right: 10%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent 0%, rgba(255, 255, 255, 0.85) 50%, transparent 100%);
+      pointer-events: none;
     }
 
     .obsidian-card {
@@ -941,10 +996,10 @@
           
           <!-- Top Hologram Persona Card -->
           <div class="mt-1 flex flex-col items-center">
-            <div class="w-full p-3.5 rounded-[28px] soma-glass flex items-center justify-between border border-white/80 shadow-md">
+            <div class="w-full p-3.5 rounded-[28px] liquid-glass-pane liquid-specular-border flex items-center justify-between shadow-md">
               <div class="flex items-center gap-2.5">
                 <div id="onb-persona-icon-box" class="w-10 h-10 rounded-2xl bg-[#2B44E8] text-white flex items-center justify-center shadow-xs transition-all duration-300">
-                  <span class="material-symbols-outlined text-[22px]" id="onb-persona-icon">terminal</span>
+                  <span class="material-symbols-outlined text-[20px]" id="onb-persona-icon">terminal</span>
                 </div>
                 <div class="text-left">
                   <span class="text-[9px] font-mono uppercase tracking-widest text-[#5A5E72] block" id="onb-persona-stage-tag">EARLY PRO · 23–28 YRS</span>
@@ -960,99 +1015,142 @@
 
           <!-- Editorial Heading -->
           <div class="text-center my-1">
-            <h2 class="text-[22px] font-extrabold text-[#141726] leading-tight tracking-tight">
+            <h2 class="text-[21px] font-extrabold text-[#141726] leading-tight tracking-tight">
               Calibrate your <span class="font-serif italic font-black text-[#2B44E8]">opportunity autopilot</span>
             </h2>
-            <p class="text-[10.5px] text-[#5A5E72] mt-0.5">
+            <p class="text-[10px] text-[#5A5E72] mt-0.5">
               Personalized compounding, career alternatives &amp; life energy.
             </p>
           </div>
 
-          <!-- Interactive Persona Cards (Clean Compact Grid) -->
+          <!-- Interactive Persona Cards (Liquid Glass Minimalist Grid) -->
           <div class="space-y-2.5 my-auto overflow-y-auto no-scrollbar max-h-[380px] pr-0.5">
             
             <!-- 1. Life Stage & Age -->
             <div class="space-y-1">
-              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
                 <span>1. Life Stage &amp; Age</span>
                 <span class="text-[#2B44E8]" id="profile-age-badge">Early Career</span>
               </div>
               <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-                <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#141726]">🎓 Student</span>
-                  <span class="text-[8px] text-[#5A5E72]">18–22 yrs · 20y Compound</span>
+                <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">school</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#141726]">Student</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">18–22 yrs · 20y Compound</span>
                 </button>
-                <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#2B44E8]">💼 Early Pro</span>
-                  <span class="text-[8px] text-[#5A5E72]">23–28 yrs · Fast Upskill</span>
+                <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">work</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#2B44E8]">Early Pro</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">23–28 yrs · Fast Upskill</span>
                 </button>
-                <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#141726]">🚀 Mid Career</span>
-                  <span class="text-[8px] text-[#5A5E72]">29–38 yrs · Specialized</span>
+                <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">trending_up</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#141726]">Mid Career</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">29–38 yrs · Specialized</span>
                 </button>
-                <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#141726]">🏛️ Senior / Exec</span>
-                  <span class="text-[8px] text-[#5A5E72]">39+ yrs · Wealth Preserv.</span>
+                <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">account_balance</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#141726]">Senior / Exec</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">39+ yrs · Wealth Preserv.</span>
                 </button>
               </div>
             </div>
 
             <!-- 2. Profession / Role -->
             <div class="space-y-1">
-              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
                 <span>2. Profession / Role</span>
                 <span class="text-[#2B44E8]" id="profile-role-badge">Tech &amp; Software</span>
               </div>
               <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-                <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#2B44E8]">💻 Tech &amp; Code</span>
-                  <span class="text-[8px] text-[#5A5E72]">AWS, AI/ML, Architecture</span>
+                <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">terminal</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#2B44E8]">Tech &amp; Code</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">AI, Cloud, Systems</span>
                 </button>
-                <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#141726]">🎨 Design &amp; UI</span>
-                  <span class="text-[8px] text-[#5A5E72]">Figma, 3D, Creative Rig</span>
+                <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">palette</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#141726]">Design &amp; UI</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">Figma, 3D, Creative</span>
                 </button>
-                <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#141726]">📊 Finance &amp; Biz</span>
-                  <span class="text-[8px] text-[#5A5E72]">CFA, Deals, Modeling</span>
+                <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">query_stats</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#141726]">Finance &amp; Biz</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">CFA, Deals, Modeling</span>
                 </button>
-                <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
-                  <span class="font-bold text-[#141726]">🎓 Academic / Uni</span>
-                  <span class="text-[8px] text-[#5A5E72]">GRE, Research, Papers</span>
+                <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                  <div class="flex items-center gap-1.5">
+                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                      <span class="material-symbols-outlined text-[13px]">school</span>
+                    </span>
+                    <span class="pill-title font-bold text-[#141726]">Academic / Uni</span>
+                  </div>
+                  <span class="text-[8px] text-[#5A5E72] mt-1">GRE, Research, Papers</span>
                 </button>
               </div>
             </div>
 
             <!-- 3. Monthly Discretionary Savings & Primary Focus -->
             <div class="space-y-1">
-              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
                 <span>3. Monthly Budget &amp; Goal</span>
                 <span class="text-[#10B981]" id="profile-goal-badge">Career Boost</span>
               </div>
               <div class="grid grid-cols-4 gap-1 font-mono text-[9.5px]">
-                <button type="button" onclick="selectProfileBudget(3000000)" id="prof-b-3m" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press">
+                <button type="button" onclick="selectProfileBudget(3000000)" id="prof-b-3m" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
                   Rp 3M
                 </button>
-                <button type="button" onclick="selectProfileBudget(8000000)" id="prof-b-8m" class="p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press">
+                <button type="button" onclick="selectProfileBudget(8000000)" id="prof-b-8m" class="p-2 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press">
                   Rp 8M
                 </button>
-                <button type="button" onclick="selectProfileBudget(15000000)" id="prof-b-15m" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press">
+                <button type="button" onclick="selectProfileBudget(15000000)" id="prof-b-15m" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
                   Rp 15M
                 </button>
-                <button type="button" onclick="selectProfileBudget(25000000)" id="prof-b-25m" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press">
+                <button type="button" onclick="selectProfileBudget(25000000)" id="prof-b-25m" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
                   Rp 25M+
                 </button>
               </div>
 
               <div class="grid grid-cols-3 gap-1 pt-1 font-mono text-[9px]">
-                <button type="button" onclick="selectProfileGoal('career_mastery')" id="prof-g-career_mastery" class="p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press truncate">
-                  🚀 Career Boost
+                <button type="button" onclick="selectProfileGoal('career_mastery')" id="prof-g-career_mastery" class="p-2 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press truncate flex items-center justify-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">bolt</span>
+                  <span>Career Boost</span>
                 </button>
-                <button type="button" onclick="selectProfileGoal('compound_growth')" id="prof-g-compound_growth" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press truncate">
-                  📈 Compound
+                <button type="button" onclick="selectProfileGoal('compound_growth')" id="prof-g-compound_growth" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">insights</span>
+                  <span>Compound</span>
                 </button>
-                <button type="button" onclick="selectProfileGoal('buffer_peace')" id="prof-g-buffer_peace" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press truncate">
-                  🛡️ 60d Buffer
+                <button type="button" onclick="selectProfileGoal('buffer_peace')" id="prof-g-buffer_peace" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1">
+                  <span class="material-symbols-outlined text-[13px]">shield</span>
+                  <span>60d Buffer</span>
                 </button>
               </div>
             </div>
@@ -1061,12 +1159,13 @@
 
           <!-- Bottom Action Button -->
           <div class="pt-2">
-            <button onclick="finishOnboardingFromPersonaScreen()" class="w-full h-13 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
+            <button onclick="finishOnboardingFromPersonaScreen()" class="w-full h-12 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
               <span id="onb-p5-cta-label">Activate My Autopilot</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </button>
-            <p class="text-[8.5px] text-center text-[#5A5E72] mt-1 font-mono">
-              🔒 Encrypted on-device · Zero cloud tracking
+            <p class="text-[8.5px] text-center text-[#5A5E72] mt-1 font-mono flex items-center justify-center gap-1">
+              <span class="material-symbols-outlined text-[12px] text-[#2B44E8]">lock</span>
+              <span>Encrypted on-device · Zero cloud tracking</span>
             </p>
           </div>
 
@@ -1136,9 +1235,10 @@
             <h2 class="text-[13px] font-extrabold text-[#141726] tracking-tight leading-tight" id="home-greeting-title">
               Hi Rafif
             </h2>
-            <button onclick="openProfileModal(false)" id="home-role-chip" class="px-2 py-0.5 rounded-full bg-[#2B44E8]/10 border border-[#2B44E8]/20 text-[#2B44E8] text-[8.5px] font-mono font-bold shrink-0 tactile-press flex items-center gap-1">
-              <span id="home-role-chip-label">💻 Tech &amp; Software</span>
-              <span class="material-symbols-outlined text-[10px]">tune</span>
+            <button onclick="openProfileModal(false)" id="home-role-chip" class="px-2.5 py-1 rounded-full bg-[#2B44E8]/10 border border-[#2B44E8]/20 text-[#2B44E8] text-[9px] font-mono font-bold shrink-0 tactile-press flex items-center gap-1.5 shadow-2xs">
+              <span class="material-symbols-outlined text-[12px]" id="home-role-chip-icon">terminal</span>
+              <span id="home-role-chip-label">Tech &amp; Code</span>
+              <span class="material-symbols-outlined text-[10px] text-[#2B44E8]/70">tune</span>
             </button>
           </div>
 
@@ -2142,7 +2242,7 @@
             <p class="text-[10px] font-mono text-[#5A5E72]">Nearest verified stores &amp; tourist tax rules</p>
           </div>
         </div>
-        <button onclick="closeLocationModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-xs font-bold text-[#5A5E72] tactile-press">✕</button>
+        <button onclick="closeLocationModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
       </div>
 
       <!-- Quick GPS Auto-Detect Button -->
@@ -2183,7 +2283,7 @@
             <p class="text-[10px] font-mono text-[#5A5E72]" id="fx-modal-provider">Open Exchange Interbank Spot (Live)</p>
           </div>
         </div>
-        <button onclick="closeFxRadarDetails()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-xs font-bold text-[#5A5E72] tactile-press">✕</button>
+        <button onclick="closeFxRadarDetails()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
       </div>
 
       <!-- Active Rate Hero Card with Live Radar Glow -->
@@ -2278,7 +2378,7 @@
             <p class="text-[10px] font-mono text-[#5A5E72]">Non-Repudiable Passkey Authorization</p>
           </div>
         </div>
-        <button onclick="closeApprovalModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-xs font-bold text-[#5A5E72]">✕</button>
+        <button onclick="closeApprovalModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
       </div>
 
       <!-- Approved Item Summary Card -->
@@ -3414,10 +3514,10 @@
     let CURRENT_OPP_DATA = null;
 
     const ROLE_LABELS = {
-      tech_software: { label: 'Tech & Software', icon: '💻', short: 'Tech & Code' },
-      design_creative: { label: 'Design & Creative', icon: '🎨', short: 'Creative' },
-      business_finance: { label: 'Finance & Biz', icon: '📊', short: 'Finance' },
-      student_academic: { label: 'Academic / Uni', icon: '🎓', short: 'Student' },
+      tech_software: { label: 'Tech & Software', symbol: 'terminal', short: 'Tech & Code' },
+      design_creative: { label: 'Design & Creative', symbol: 'palette', short: 'Creative' },
+      business_finance: { label: 'Finance & Biz', symbol: 'query_stats', short: 'Finance' },
+      student_academic: { label: 'Academic / Uni', symbol: 'school', short: 'Academic' },
     };
 
     const AGE_LABELS = {
@@ -3439,12 +3539,16 @@
 
     function updateProfileUI() {
       const roleChipLabel = document.getElementById('home-role-chip-label');
+      const roleChipIcon = document.getElementById('home-role-chip-icon');
       const settingsSub = document.getElementById('settings-profile-sub');
       const rInfo = ROLE_LABELS[USER_PROFILE.role] || ROLE_LABELS.tech_software;
       const aInfo = AGE_LABELS[USER_PROFILE.age_bracket] || 'Early Pro';
 
       if (roleChipLabel) {
-        roleChipLabel.textContent = `${rInfo.icon} ${rInfo.short}`;
+        roleChipLabel.textContent = rInfo.short;
+      }
+      if (roleChipIcon) {
+        roleChipIcon.textContent = rInfo.symbol || 'terminal';
       }
       if (settingsSub) {
         const bFmt = USER_PROFILE.monthly_budget >= 1000000 
@@ -3468,14 +3572,8 @@
         roleTag.textContent = `${rInfo.label} Focus`;
       }
       const iconSpan = document.getElementById('onb-persona-icon');
-      const iconMap = {
-        tech_software: 'terminal',
-        design_creative: 'palette',
-        business_finance: 'trending_up',
-        student_academic: 'school'
-      };
       if (iconSpan) {
-        iconSpan.textContent = iconMap[USER_PROFILE.role] || 'terminal';
+        iconSpan.textContent = rInfo.symbol || 'terminal';
       }
     }
 
@@ -3491,8 +3589,8 @@
         const btn = document.getElementById('prof-b-' + (a === 25000000 ? '25m' : (a / 1000000) + 'm'));
         if (btn) {
           btn.className = a === amt
-            ? 'p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press'
-            : 'p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press';
+            ? 'p-2 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press'
+            : 'p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press';
         }
       });
       localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
@@ -3513,8 +3611,8 @@
         const btn = document.getElementById('prof-g-' + g);
         if (btn) {
           btn.className = g === goal
-            ? 'p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press truncate'
-            : 'p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press truncate';
+            ? 'p-2 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press truncate flex items-center justify-center gap-1'
+            : 'p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1';
         }
       });
       localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
@@ -3533,10 +3631,16 @@
           const btn = document.getElementById('prof-age-' + k);
           if (btn) {
             btn.className = k === key
-              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press'
-              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press';
-            const span = btn.querySelector('span:first-child');
-            if (span) span.className = k === key ? 'font-bold text-[#2B44E8]' : 'font-bold text-[#141726]';
+              ? 'prof-pill p-2.5 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press'
+              : 'prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press';
+            const iconWrap = btn.querySelector('.pill-icon-wrap');
+            if (iconWrap) {
+              iconWrap.className = k === key
+                ? 'pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors'
+                : 'pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors';
+            }
+            const span = btn.querySelector('.pill-title');
+            if (span) span.className = k === key ? 'pill-title font-bold text-[#2B44E8]' : 'pill-title font-bold text-[#141726]';
           }
         });
       } else if (category === 'role') {
@@ -3545,23 +3649,23 @@
         const roleTag = document.getElementById('onb-persona-role-tag');
         const iconSpan = document.getElementById('onb-persona-icon');
         const rInfo = ROLE_LABELS[key] || ROLE_LABELS.tech_software;
-        const iconMap = {
-          tech_software: 'terminal',
-          design_creative: 'palette',
-          business_finance: 'trending_up',
-          student_academic: 'school'
-        };
         if (badge) badge.textContent = rInfo.label;
         if (roleTag) roleTag.textContent = `${rInfo.label} Focus`;
-        if (iconSpan) iconSpan.textContent = iconMap[key] || 'terminal';
+        if (iconSpan) iconSpan.textContent = rInfo.symbol || 'terminal';
         ['tech_software', 'design_creative', 'business_finance', 'student_academic'].forEach(k => {
           const btn = document.getElementById('prof-role-' + k);
           if (btn) {
             btn.className = k === key
-              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press'
-              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press';
-            const span = btn.querySelector('span:first-child');
-            if (span) span.className = k === key ? 'font-bold text-[#2B44E8]' : 'font-bold text-[#141726]';
+              ? 'prof-pill p-2.5 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press'
+              : 'prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press';
+            const iconWrap = btn.querySelector('.pill-icon-wrap');
+            if (iconWrap) {
+              iconWrap.className = k === key
+                ? 'pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors'
+                : 'pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors';
+            }
+            const span = btn.querySelector('.pill-title');
+            if (span) span.className = k === key ? 'pill-title font-bold text-[#2B44E8]' : 'pill-title font-bold text-[#141726]';
           }
         });
       }
@@ -3732,10 +3836,19 @@
       const isIdr = cur === 'IDR';
 
       let contentHtml = `
-        <div class="flex items-center justify-between p-1 rounded-xl bg-white/10 text-[9.5px] font-mono mb-2">
-          <button onclick="setOppCostView('compound')" class="flex-1 py-1 rounded-lg transition ${oppCostView === 'compound' ? 'bg-[#2B44E8] text-white font-bold' : 'text-white/70'}">📈 5y Wealth</button>
-          <button onclick="setOppCostView('career')" class="flex-1 py-1 rounded-lg transition ${oppCostView === 'career' ? 'bg-[#2B44E8] text-white font-bold' : 'text-white/70'}">🎓 Upskilling</button>
-          <button onclick="setOppCostView('life')" class="flex-1 py-1 rounded-lg transition ${oppCostView === 'life' ? 'bg-[#2B44E8] text-white font-bold' : 'text-white/70'}">⏳ Life Energy</button>
+        <div class="flex items-center justify-between p-1 rounded-xl bg-white/10 text-[9.5px] font-mono mb-2 gap-1">
+          <button onclick="setOppCostView('compound')" class="flex-1 py-1.5 px-1 rounded-lg transition flex items-center justify-center gap-1 ${oppCostView === 'compound' ? 'bg-[#2B44E8] text-white font-bold shadow-xs' : 'text-white/70 hover:text-white'}">
+            <span class="material-symbols-outlined text-[13px]">trending_up</span>
+            <span>Wealth</span>
+          </button>
+          <button onclick="setOppCostView('career')" class="flex-1 py-1.5 px-1 rounded-lg transition flex items-center justify-center gap-1 ${oppCostView === 'career' ? 'bg-[#2B44E8] text-white font-bold shadow-xs' : 'text-white/70 hover:text-white'}">
+            <span class="material-symbols-outlined text-[13px]">school</span>
+            <span>Upskill</span>
+          </button>
+          <button onclick="setOppCostView('life')" class="flex-1 py-1.5 px-1 rounded-lg transition flex items-center justify-center gap-1 ${oppCostView === 'life' ? 'bg-[#2B44E8] text-white font-bold shadow-xs' : 'text-white/70 hover:text-white'}">
+            <span class="material-symbols-outlined text-[13px]">schedule</span>
+            <span>Life Energy</span>
+          </button>
         </div>
       `;
 
@@ -3762,8 +3875,9 @@
               `).join('')}
             </div>
           </div>
-          <div class="text-[9px] text-white/75 font-mono px-1">
-            💡 Diverting this purchase into your high-yield pot lets compound interest work for your future self.
+          <div class="text-[9px] text-white/75 font-mono px-1 flex items-start gap-1.5">
+            <span class="material-symbols-outlined text-[13px] text-amber-300 shrink-0 mt-0.5">lightbulb</span>
+            <span>Diverting this purchase into your high-yield pot lets compound interest work for your future self.</span>
           </div>
         `;
       } else if (oppCostView === 'career') {
@@ -3774,7 +3888,10 @@
           <div class="p-2.5 rounded-[16px] frosted-inner-well space-y-2">
             <div class="flex items-center justify-between">
               <span class="text-[9px] font-mono text-white/70 uppercase">Role-Tailored Upskilling</span>
-              <span class="text-[8.5px] font-mono text-[#EABAA8] font-bold">${rInfo.icon} ${rInfo.short}</span>
+              <span class="text-[8.5px] font-mono text-[#EABAA8] font-bold flex items-center gap-1">
+                <span class="material-symbols-outlined text-[11px]">${rInfo.symbol || 'terminal'}</span>
+                <span>${rInfo.short}</span>
+              </span>
             </div>
             <div class="space-y-1.5 max-h-36 overflow-y-auto pr-0.5">
               ${bundle.map(item => `
@@ -3791,8 +3908,9 @@
               `).join('')}
             </div>
           </div>
-          <div class="text-[9px] text-[#10B981] font-mono px-1 font-bold">
-            ⚡ Estimated Human Capital IRR: ${d.human_capital.human_capital_irr_estimate || '350%+'}
+          <div class="text-[9px] text-[#10B981] font-mono px-1 font-bold flex items-center gap-1.5">
+            <span class="material-symbols-outlined text-[13px] text-[#10B981]">bolt</span>
+            <span>Estimated Human Capital IRR: ${d.human_capital.human_capital_irr_estimate || '350%+'}</span>
           </div>
         `;
       } else {
