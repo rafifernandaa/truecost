@@ -164,6 +164,76 @@
       pointer-events: none;
     }
 
+    /* Ultra-Modern Liquid Frosted Glass Modal & Hub System (Apple visionOS) */
+    .liquid-glass-modal {
+      position: relative;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.82) 0%, rgba(246, 242, 236, 0.62) 50%, rgba(255, 255, 255, 0.75) 100%);
+      backdrop-filter: blur(36px) saturate(200%);
+      -webkit-backdrop-filter: blur(36px) saturate(200%);
+      border: 1.5px solid rgba(255, 255, 255, 0.90);
+      box-shadow:
+        0 28px 64px -14px rgba(15, 17, 28, 0.32),
+        0 10px 24px -6px rgba(15, 17, 28, 0.12),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98),
+        inset 0 -1.5px 2px 0 rgba(20, 23, 38, 0.04);
+    }
+
+    .liquid-glass-btn-primary {
+      position: relative;
+      background: linear-gradient(135deg, rgba(43, 68, 232, 0.94) 0%, rgba(31, 37, 68, 0.94) 100%);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      border: 1.5px solid rgba(255, 255, 255, 0.45);
+      box-shadow:
+        0 12px 28px -6px rgba(43, 68, 232, 0.40),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.50),
+        inset 0 -1.5px 1.5px 0 rgba(0, 0, 0, 0.28);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass-btn-primary:active {
+      transform: scale(0.98);
+      box-shadow:
+        0 6px 18px -4px rgba(43, 68, 232, 0.35),
+        inset 0 1.5px 1.5px 0 rgba(255, 255, 255, 0.35);
+    }
+
+    .liquid-glass-hub-active {
+      position: relative;
+      overflow: hidden;
+      background:
+        radial-gradient(circle at 10% 20%, rgba(16, 185, 129, 0.22) 0%, transparent 55%),
+        radial-gradient(circle at 90% 80%, rgba(43, 68, 232, 0.28) 0%, transparent 60%),
+        linear-gradient(135deg, rgba(19, 21, 34, 0.92) 0%, rgba(28, 31, 48, 0.88) 100%);
+      backdrop-filter: blur(24px) saturate(190%);
+      -webkit-backdrop-filter: blur(24px) saturate(190%);
+      border: 1.5px solid rgba(255, 255, 255, 0.32);
+      box-shadow:
+        0 12px 26px -6px rgba(15, 17, 28, 0.35),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.40),
+        inset 0 -1px 1.5px 0 rgba(16, 185, 129, 0.25);
+    }
+
+    .liquid-glass-hub-inactive {
+      position: relative;
+      overflow: hidden;
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.68) 0%, rgba(255, 255, 255, 0.40) 100%);
+      backdrop-filter: blur(22px) saturate(180%);
+      -webkit-backdrop-filter: blur(22px) saturate(180%);
+      border: 1.5px solid rgba(255, 255, 255, 0.82);
+      box-shadow:
+        0 4px 14px -3px rgba(20, 23, 38, 0.05),
+        inset 0 1px 1.5px 0 rgba(255, 255, 255, 0.95);
+      transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+    .liquid-glass-hub-inactive:hover {
+      background: linear-gradient(145deg, rgba(255, 255, 255, 0.88) 0%, rgba(255, 255, 255, 0.58) 100%);
+      border-color: rgba(255, 255, 255, 0.95);
+      box-shadow:
+        0 8px 22px -4px rgba(20, 23, 38, 0.09),
+        inset 0 1.5px 2px 0 rgba(255, 255, 255, 0.98);
+      transform: translateY(-1px);
+    }
+
     .obsidian-card {
       background: #131522;
       border: 1px solid rgba(255, 255, 255, 0.1);
@@ -2191,39 +2261,51 @@
   <!-- ===================================================================== -->
   <!-- LOCATION & NEAREST STORE SELECTOR MODAL                               -->
   <!-- ===================================================================== -->
-  <div id="location-selector-modal" class="fixed inset-0 z-[94] bg-[#131522]/90 backdrop-blur-xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
-    <div class="w-full max-w-[370px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-3.5 border border-white/80 animate-in fade-in zoom-in-95 duration-200">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full bg-[#2B44E8]/12 text-[#2B44E8] flex items-center justify-center">
-            <span class="material-symbols-outlined text-[18px]">location_on</span>
+  <div id="location-selector-modal" class="fixed inset-0 z-[94] bg-[#131522]/65 backdrop-blur-2xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
+    <div class="w-full max-w-[370px] rounded-[32px] liquid-glass-modal p-5 text-[#141726] shadow-2xl border border-white/90 animate-in fade-in zoom-in-95 duration-200 relative overflow-hidden">
+      <!-- Subtle Ambient Glass Refraction Orbs -->
+      <div class="absolute -top-14 -right-14 w-44 h-44 rounded-full bg-[#2B44E8]/12 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-14 -left-14 w-44 h-44 rounded-full bg-[#EB7951]/12 blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-3.5">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2.5">
+            <div class="w-9 h-9 rounded-2xl liquid-glass-pill flex items-center justify-center text-[#2B44E8] shrink-0 shadow-xs border border-white/80">
+              <span class="material-symbols-outlined text-[19px]">location_on</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-extrabold text-[#141726] tracking-tight">Where are you shopping?</h3>
+              <p class="text-[10px] font-mono text-[#5A5E72]">Nearest verified stores &amp; tourist tax rules</p>
+            </div>
           </div>
-          <div>
-            <h3 class="text-sm font-extrabold text-[#141726]">Where are you shopping?</h3>
-            <p class="text-[10px] font-mono text-[#5A5E72]">Nearest verified stores &amp; tourist tax rules</p>
-          </div>
+          <button onclick="closeLocationModal()" class="w-8 h-8 rounded-full liquid-glass-pill hover:bg-white flex items-center justify-center text-[#5A5E72] hover:text-[#141726] tactile-press transition-all"><span class="material-symbols-outlined text-[16px] leading-none">close</span></button>
         </div>
-        <button onclick="closeLocationModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
-      </div>
 
-      <!-- Quick GPS Auto-Detect Button -->
-      <button onclick="detectUserGpsLocation()" id="btn-detect-gps" class="w-full py-2.5 px-3 rounded-2xl bg-gradient-to-r from-[#2B44E8] to-[#1F2544] text-white text-xs font-bold flex items-center justify-center gap-2 shadow-md tactile-press">
-        <span class="material-symbols-outlined text-[17px] text-[#EABAA8]">my_location</span>
-        <span id="gps-status-text">Detect My Current Location</span>
-      </button>
+        <!-- Quick GPS Auto-Detect Button with Specular Frosted Glass -->
+        <button onclick="detectUserGpsLocation()" id="btn-detect-gps" class="w-full py-3 px-3.5 rounded-2xl liquid-glass-btn-primary text-white text-xs font-bold flex items-center justify-center gap-2 shadow-lg tactile-press relative overflow-hidden transition-all group">
+          <div class="absolute inset-0 bg-gradient-to-r from-[#2B44E8]/95 via-[#354EE6]/90 to-[#1A2254]/95"></div>
+          <div class="absolute inset-x-0 top-0 h-1/2 bg-gradient-to-b from-white/20 to-transparent pointer-events-none"></div>
+          <span class="material-symbols-outlined text-[17px] text-[#EABAA8] relative z-10 transition-transform group-hover:rotate-45">my_location</span>
+          <span id="gps-status-text" class="relative z-10 tracking-wide">Detect My Current Location</span>
+        </button>
 
-      <div class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#5A5E72] px-1 pt-0.5">
-        Or Select an International Hub:
-      </div>
+        <div class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#5A5E72] px-1 pt-0.5 flex items-center justify-between">
+          <span>Or Select an International Hub:</span>
+          <span class="text-[9px] text-[#2B44E8] font-semibold">6 Hubs</span>
+        </div>
 
-      <!-- 6 Regional Store Hubs -->
-      <div class="space-y-1.5 max-h-[290px] overflow-y-auto pr-0.5" id="location-hubs-list">
-        <!-- Rendered dynamically by renderLocationHubs() -->
-      </div>
+        <!-- 6 Regional Store Hubs -->
+        <div class="space-y-1.5 max-h-[290px] overflow-y-auto pr-0.5" id="location-hubs-list">
+          <!-- Rendered dynamically by renderLocationHubs() -->
+        </div>
 
-      <div class="pt-1 border-t border-black/6 flex items-center justify-between text-[10px] font-mono text-[#5A5E72]">
-        <span>Active Currency: <strong class="text-[#2B44E8]" id="loc-modal-cur">AUD</strong></span>
-        <button onclick="closeLocationModal()" class="text-[#141726] font-bold underline tactile-press">Done</button>
+        <div class="pt-2 border-t border-black/6 flex items-center justify-between text-[10px] font-mono text-[#5A5E72]">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#2B44E8] animate-pulse"></span>
+            <span>Active Currency: <strong class="text-[#2B44E8] font-bold" id="loc-modal-cur">AUD</strong></span>
+          </div>
+          <button onclick="closeLocationModal()" class="px-4 py-1.5 rounded-full liquid-glass-pill hover:bg-white text-[#141726] font-bold text-[10px] font-mono tracking-wide shadow-xs tactile-press transition-all">Done</button>
+        </div>
       </div>
     </div>
   </div>
@@ -2231,10 +2313,14 @@
   <!-- ===================================================================== -->
   <!-- REAL-TIME INTERBANK FX SPOT ORACLE & MARKET RADAR MODAL                -->
   <!-- ===================================================================== -->
-  <div id="fx-radar-modal" class="fixed inset-0 z-[94] bg-[#131522]/90 backdrop-blur-xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
-    <div class="w-full max-w-[370px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-3.5 border border-white/80 animate-in fade-in zoom-in-95 duration-200">
+  <div id="fx-radar-modal" class="fixed inset-0 z-[94] bg-[#131522]/65 backdrop-blur-2xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
+    <div class="w-full max-w-[370px] rounded-[32px] liquid-glass-modal p-5 text-[#141726] shadow-2xl space-y-3.5 border border-white/90 animate-in fade-in zoom-in-95 duration-200 relative overflow-hidden">
+      <!-- Ambient Glass Refraction Orbs -->
+      <div class="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-[#EB7951]/12 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-[#2B44E8]/12 blur-2xl pointer-events-none"></div>
+
       <!-- Header -->
-      <div class="flex items-center justify-between">
+      <div class="flex items-center justify-between relative z-10">
         <div class="flex items-center gap-2">
           <div class="w-8 h-8 rounded-full bg-[#EB7951]/15 text-[#EB7951] flex items-center justify-center">
             <span class="material-symbols-outlined text-[18px]">radar</span>
@@ -2244,11 +2330,11 @@
             <p class="text-[10px] font-mono text-[#5A5E72]" id="fx-modal-provider">Open Exchange Interbank Spot (Live)</p>
           </div>
         </div>
-        <button onclick="closeFxRadarDetails()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
+        <button onclick="closeFxRadarDetails()" class="w-7 h-7 rounded-full liquid-glass-pill hover:bg-white flex items-center justify-center text-[#5A5E72] hover:text-[#141726] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
       </div>
 
       <!-- Active Rate Hero Card with Live Radar Glow -->
-      <div class="p-3.5 rounded-2xl bg-[#131522] text-white space-y-2 relative overflow-hidden">
+      <div class="p-3.5 rounded-2xl bg-[#131522] text-white space-y-2 relative overflow-hidden z-10">
         <div class="absolute -right-6 -bottom-6 w-28 h-28 rounded-full bg-[#EB7951]/20 blur-xl pointer-events-none"></div>
         <div class="flex items-center justify-between text-[10px] font-mono">
           <span class="text-[#EABAA8] font-bold" id="fx-modal-pair">USD · IDR (Interbank Spot)</span>
@@ -2265,17 +2351,17 @@
       </div>
 
       <!-- Currency Switcher Grid -->
-      <div class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#5A5E72] px-1 pt-0.5">
+      <div class="text-[10px] font-mono font-bold uppercase tracking-wider text-[#5A5E72] px-1 pt-0.5 relative z-10">
         Live Cross Rates to Indonesian Rupiah:
       </div>
 
-      <div class="grid grid-cols-3 gap-2" id="fx-modal-cross-grid">
+      <div class="grid grid-cols-3 gap-2 relative z-10" id="fx-modal-cross-grid">
         <!-- Rendered dynamically by updateFxModalGrid() -->
       </div>
 
       <!-- Action Buttons -->
-      <div class="pt-1.5 border-t border-black/6 flex items-center gap-2">
-        <button onclick="refreshLiveFxNow()" id="btn-fx-refresh" class="flex-1 py-2 px-3 rounded-xl bg-black/5 hover:bg-black/10 text-[#141726] text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 tactile-press">
+      <div class="pt-1.5 border-t border-black/6 flex items-center gap-2 relative z-10">
+        <button onclick="refreshLiveFxNow()" id="btn-fx-refresh" class="flex-1 py-2 px-3 rounded-xl liquid-glass-pill text-[#141726] text-[11px] font-mono font-bold flex items-center justify-center gap-1.5 tactile-press">
           <span class="material-symbols-outlined text-[14px]">sync</span>
           <span>Refresh Spot</span>
         </button>
@@ -2290,100 +2376,115 @@
   <!-- ===================================================================== -->
   <!-- OPPORTUNITY GROWTH POT CELEBRATION MODAL                              -->
   <!-- ===================================================================== -->
-  <div id="growth-divert-modal" class="fixed inset-0 z-[97] bg-[#131522]/92 backdrop-blur-xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
-    <div class="w-full max-w-[360px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-4 border border-white/80 text-center animate-in fade-in zoom-in-95 duration-200">
-      <div class="w-14 h-14 rounded-full bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mx-auto shadow-inner">
-        <span class="material-symbols-outlined text-[32px] animate-bounce">savings</span>
-      </div>
-      <div>
-        <span class="text-[9px] font-mono uppercase tracking-widest text-[#10B981] font-bold">Impulse Spending Diverted</span>
-        <h3 class="text-base font-extrabold text-[#141726] mt-0.5">Growth Pot Secured!</h3>
-        <p class="text-xs text-[#5A5E72] mt-1.5 leading-relaxed" id="growth-divert-desc">
-          Rp 15,820,000 diverted from shopping into your Self-Investment Sinking Pot.
-        </p>
-      </div>
+  <div id="growth-divert-modal" class="fixed inset-0 z-[97] bg-[#131522]/65 backdrop-blur-2xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
+    <div class="w-full max-w-[360px] rounded-[32px] liquid-glass-modal p-5 text-[#141726] shadow-2xl space-y-4 border border-white/90 text-center animate-in fade-in zoom-in-95 duration-200 relative overflow-hidden">
+      <!-- Ambient Glass Refraction Orbs -->
+      <div class="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-[#10B981]/12 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-[#2B44E8]/12 blur-2xl pointer-events-none"></div>
 
-      <div class="rounded-2xl bg-black/5 p-3 text-left font-mono text-[10px] space-y-1.5 border border-black/5">
-        <div class="flex justify-between items-center text-[#5A5E72]">
-          <span>Checking Outflow:</span>
-          <span class="font-bold text-[#EB7951]" id="growth-modal-outflow">-Rp 15,820,000</span>
+      <div class="relative z-10 space-y-4">
+        <div class="w-14 h-14 rounded-full bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mx-auto shadow-inner">
+          <span class="material-symbols-outlined text-[32px] animate-bounce">savings</span>
         </div>
-        <div class="flex justify-between items-center text-[#5A5E72]">
-          <span>Growth Pot Inflow:</span>
-          <span class="font-bold text-[#10B981]" id="growth-modal-inflow">+Rp 15,820,000</span>
+        <div>
+          <span class="text-[9px] font-mono uppercase tracking-widest text-[#10B981] font-bold">Impulse Spending Diverted</span>
+          <h3 class="text-base font-extrabold text-[#141726] mt-0.5">Growth Pot Secured!</h3>
+          <p class="text-xs text-[#5A5E72] mt-1.5 leading-relaxed" id="growth-divert-desc">
+            Rp 15,820,000 diverted from shopping into your Self-Investment Sinking Pot.
+          </p>
         </div>
-        <div class="flex justify-between items-center text-[#5A5E72] pt-1 border-t border-black/5">
-          <span>Cryptographic Proof:</span>
-          <span class="font-bold text-[#2B44E8]" id="growth-modal-proof">AP2-MND-GROWTH Verified</span>
-        </div>
-      </div>
 
-      <button onclick="closeGrowthDivertModal()" class="w-full py-2.5 rounded-full bg-[#131522] text-white text-xs font-mono font-bold uppercase tracking-wider tactile-press shadow-md">
-        Back to Dashboard
-      </button>
+        <div class="rounded-2xl liquid-glass-pill p-3 text-left font-mono text-[10px] space-y-1.5 border border-white/80">
+          <div class="flex justify-between items-center text-[#5A5E72]">
+            <span>Checking Outflow:</span>
+            <span class="font-bold text-[#EB7951]" id="growth-modal-outflow">-Rp 15,820,000</span>
+          </div>
+          <div class="flex justify-between items-center text-[#5A5E72]">
+            <span>Growth Pot Inflow:</span>
+            <span class="font-bold text-[#10B981]" id="growth-modal-inflow">+Rp 15,820,000</span>
+          </div>
+          <div class="flex justify-between items-center text-[#5A5E72] pt-1 border-t border-black/5">
+            <span>Cryptographic Proof:</span>
+            <span class="font-bold text-[#2B44E8]" id="growth-modal-proof">AP2-MND-GROWTH Verified</span>
+          </div>
+        </div>
+
+        <button onclick="closeGrowthDivertModal()" class="w-full py-2.5 rounded-full bg-[#131522] text-white text-xs font-mono font-bold uppercase tracking-wider tactile-press shadow-md">
+          Back to Dashboard
+        </button>
+      </div>
     </div>
   </div>
 
   <!-- ===================================================================== -->
   <!-- CONFIRMATION OF APPROVAL MODAL (HITL PURCHASE AUTHORIZATION GATE)      -->
   <!-- ===================================================================== -->
-  <div id="approval-confirm-modal" class="fixed inset-0 z-[95] bg-[#131522]/92 backdrop-blur-xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
-    <div class="w-full max-w-[360px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-4 border border-white/80 animate-in fade-in zoom-in-95 duration-200">
-      <div class="flex items-center justify-between">
-        <div class="flex items-center gap-2">
-          <div class="w-8 h-8 rounded-full bg-[#2B44E8]/12 text-[#2B44E8] flex items-center justify-center">
-            <span class="material-symbols-outlined text-[18px]">verified_user</span>
+  <!-- ===================================================================== -->
+  <!-- CONFIRMATION OF APPROVAL MODAL (HITL PURCHASE AUTHORIZATION GATE)      -->
+  <!-- ===================================================================== -->
+  <div id="approval-confirm-modal" class="fixed inset-0 z-[95] bg-[#131522]/65 backdrop-blur-2xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
+    <div class="w-full max-w-[360px] rounded-[32px] liquid-glass-modal p-5 text-[#141726] shadow-2xl space-y-4 border border-white/90 animate-in fade-in zoom-in-95 duration-200 relative overflow-hidden">
+      <!-- Ambient Glass Refraction Orbs -->
+      <div class="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-[#2B44E8]/12 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-[#EB7951]/12 blur-2xl pointer-events-none"></div>
+
+      <div class="relative z-10 space-y-4">
+        <div class="flex items-center justify-between">
+          <div class="flex items-center gap-2">
+            <div class="w-8 h-8 rounded-full liquid-glass-pill text-[#2B44E8] flex items-center justify-center">
+              <span class="material-symbols-outlined text-[18px]">verified_user</span>
+            </div>
+            <div>
+              <h3 class="text-sm font-extrabold text-[#141726]">Confirm Purchase Approval</h3>
+              <p class="text-[10px] font-mono text-[#5A5E72]">Non-Repudiable Passkey Authorization</p>
+            </div>
           </div>
-          <div>
-            <h3 class="text-sm font-extrabold text-[#141726]">Confirm Purchase Approval</h3>
-            <p class="text-[10px] font-mono text-[#5A5E72]">Non-Repudiable Passkey Authorization</p>
+          <button onclick="closeApprovalModal()" class="w-7 h-7 rounded-full liquid-glass-pill hover:bg-white flex items-center justify-center text-[#5A5E72] hover:text-[#141726] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
+        </div>
+
+        <!-- Approved Item Summary Card -->
+        <div class="rounded-[20px] liquid-glass-pill p-3.5 border border-white/80 space-y-2.5">
+          <div class="flex items-start justify-between gap-2">
+            <div>
+              <span class="text-[9px] font-mono uppercase tracking-wider text-[#5A5E72]">Authorized Item</span>
+              <div class="text-xs font-bold text-[#141726] mt-0.5" id="approval-modal-item">Lenovo ThinkPad T14s Gen 4</div>
+              <div class="text-[10px] text-[#2B44E8] font-medium" id="approval-modal-merchant">Lenovo Official Store Australia</div>
+            </div>
+            <span class="px-2 py-0.5 rounded-full bg-[#10B981]/15 text-[#065F46] text-[9px] font-mono font-bold shrink-0">VERIFIED</span>
+          </div>
+
+          <div class="pt-2 border-t border-black/6 flex items-baseline justify-between">
+            <span class="text-[10px] font-mono text-[#5A5E72]">Approved Spending Ceiling:</span>
+            <span class="text-base font-black font-mono text-[#141726]" id="approval-modal-amount">$1,580.00</span>
           </div>
         </div>
-        <button onclick="closeApprovalModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press"><span class="material-symbols-outlined text-[15px] leading-none">close</span></button>
-      </div>
 
-      <!-- Approved Item Summary Card -->
-      <div class="rounded-[20px] bg-white/80 p-3.5 border border-black/6 space-y-2.5">
-        <div class="flex items-start justify-between gap-2">
-          <div>
-            <span class="text-[9px] font-mono uppercase tracking-wider text-[#5A5E72]">Authorized Item</span>
-            <div class="text-xs font-bold text-[#141726] mt-0.5" id="approval-modal-item">Lenovo ThinkPad T14s Gen 4</div>
-            <div class="text-[10px] text-[#2B44E8] font-medium" id="approval-modal-merchant">Lenovo Official Store Australia</div>
+        <!-- Guardrail Protections Checklist -->
+        <div class="space-y-1.5 text-[10px] font-mono">
+          <div class="flex items-center gap-2 text-[#065F46] bg-[#10B981]/10 px-2.5 py-1.5 rounded-xl border border-[#10B981]/15">
+            <span class="material-symbols-outlined text-[14px]">check_circle</span>
+            <span>Single-use virtual card issued with exact hard cap</span>
           </div>
-          <span class="px-2 py-0.5 rounded-full bg-[#10B981]/15 text-[#065F46] text-[9px] font-mono font-bold shrink-0">VERIFIED</span>
+          <div class="flex items-center gap-2 text-[#1E40AF] bg-[#2B44E8]/10 px-2.5 py-1.5 rounded-xl border border-[#2B44E8]/15">
+            <span class="material-symbols-outlined text-[14px]">lock</span>
+            <span>Funds ringfenced in escrow until merchant delivery</span>
+          </div>
+          <div class="flex items-center gap-2 text-[#9A3412] bg-[#EB7951]/10 px-2.5 py-1.5 rounded-xl border border-[#EB7951]/15">
+            <span class="material-symbols-outlined text-[14px]">security</span>
+            <span>All hidden financing charges and fees blocked</span>
+          </div>
         </div>
 
-        <div class="pt-2 border-t border-black/6 flex items-baseline justify-between">
-          <span class="text-[10px] font-mono text-[#5A5E72]">Approved Spending Ceiling:</span>
-          <span class="text-base font-black font-mono text-[#141726]" id="approval-modal-amount">$1,580.00</span>
+        <!-- User Action Buttons -->
+        <div class="flex items-center gap-2 pt-1">
+          <button onclick="closeApprovalModal()" class="flex-1 py-3 rounded-full liquid-glass-pill hover:bg-white text-xs font-bold text-[#5A5E72] hover:text-[#141726] tactile-press">
+            Cancel
+          </button>
+          <button onclick="confirmAndExecuteApprovedPurchase()" id="btn-confirm-approve" class="flex-1 py-3 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white text-xs font-bold shadow-md tactile-press flex items-center justify-center gap-1.5">
+            <span class="material-symbols-outlined text-[16px]">fingerprint</span>
+            <span>Approve &amp; Lock</span>
+          </button>
         </div>
-      </div>
-
-      <!-- Guardrail Protections Checklist -->
-      <div class="space-y-1.5 text-[10px] font-mono">
-        <div class="flex items-center gap-2 text-[#065F46] bg-[#10B981]/10 px-2.5 py-1.5 rounded-xl">
-          <span class="material-symbols-outlined text-[14px]">check_circle</span>
-          <span>Single-use virtual card issued with exact hard cap</span>
-        </div>
-        <div class="flex items-center gap-2 text-[#1E40AF] bg-[#2B44E8]/10 px-2.5 py-1.5 rounded-xl">
-          <span class="material-symbols-outlined text-[14px]">lock</span>
-          <span>Funds ringfenced in escrow until merchant delivery</span>
-        </div>
-        <div class="flex items-center gap-2 text-[#9A3412] bg-[#EB7951]/10 px-2.5 py-1.5 rounded-xl">
-          <span class="material-symbols-outlined text-[14px]">security</span>
-          <span>All hidden financing charges and fees blocked</span>
-        </div>
-      </div>
-
-      <!-- User Action Buttons -->
-      <div class="flex items-center gap-2 pt-1">
-        <button onclick="closeApprovalModal()" class="flex-1 py-3 rounded-full bg-black/5 hover:bg-black/10 text-xs font-bold text-[#5A5E72] tactile-press">
-          Cancel
-        </button>
-        <button onclick="confirmAndExecuteApprovedPurchase()" id="btn-confirm-approve" class="flex-1 py-3 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white text-xs font-bold shadow-md tactile-press flex items-center justify-center gap-1.5">
-          <span class="material-symbols-outlined text-[16px]">fingerprint</span>
-          <span>Approve &amp; Lock</span>
-        </button>
       </div>
     </div>
   </div>
@@ -2391,27 +2492,33 @@
   <!-- ===================================================================== -->
   <!-- APPROVAL CERTIFICATE & RECEIPT MODAL                                  -->
   <!-- ===================================================================== -->
-  <div id="approval-success-modal" class="fixed inset-0 z-[96] bg-[#131522]/92 backdrop-blur-xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
-    <div class="w-full max-w-[360px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-4 border border-white/80 animate-in fade-in zoom-in-95 duration-200 text-center">
-      <div class="w-12 h-12 rounded-full bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mx-auto shadow-sm">
-        <span class="material-symbols-outlined text-[26px]">verified</span>
-      </div>
-      <div>
-        <span class="text-[10px] font-mono uppercase tracking-widest text-[#065F46] font-bold bg-[#10B981]/15 px-3 py-1 rounded-full">APPROVED &amp; ESCROW LOCKED</span>
-        <h3 class="text-base font-extrabold text-[#141726] mt-2.5" id="success-modal-item">Lenovo ThinkPad T14s Gen 4</h3>
-        <p class="text-xs text-[#5A5E72] mt-0.5" id="success-modal-sub">Single-use virtual card generated with exact spending limit.</p>
-      </div>
+  <div id="approval-success-modal" class="fixed inset-0 z-[96] bg-[#131522]/65 backdrop-blur-2xl hidden flex-col justify-center items-center p-4 select-none overflow-y-auto">
+    <div class="w-full max-w-[360px] rounded-[32px] liquid-glass-modal p-5 text-[#141726] shadow-2xl space-y-4 border border-white/90 animate-in fade-in zoom-in-95 duration-200 text-center relative overflow-hidden">
+      <!-- Ambient Glass Refraction Orbs -->
+      <div class="absolute -top-12 -right-12 w-36 h-36 rounded-full bg-[#10B981]/12 blur-2xl pointer-events-none"></div>
+      <div class="absolute -bottom-12 -left-12 w-36 h-36 rounded-full bg-[#2B44E8]/12 blur-2xl pointer-events-none"></div>
 
-      <div class="rounded-[20px] bg-white/80 p-3.5 border border-black/6 text-left space-y-2 text-[10px] font-mono">
-        <div class="flex justify-between"><span class="text-[#5A5E72]">Authorization Code:</span><span class="font-bold text-[#141726]" id="success-modal-auth">AUTH-PASSKEY-8F9D2A</span></div>
-        <div class="flex justify-between"><span class="text-[#5A5E72]">Virtual Card PAN:</span><span class="font-bold text-[#2B44E8]" id="success-modal-pan">4532 •••• •••• 8841</span></div>
-        <div class="flex justify-between"><span class="text-[#5A5E72]">Escrow Balance:</span><span class="font-bold text-[#10B981]" id="success-modal-escrow">$1,580.00</span></div>
-        <div class="flex justify-between border-t border-black/6 pt-1.5"><span class="text-[#5A5E72]">Security Passkey:</span><span class="text-[#141726]">8f9d2a…4e1b (Verified)</span></div>
-      </div>
+      <div class="relative z-10 space-y-4">
+        <div class="w-12 h-12 rounded-full bg-[#10B981]/15 text-[#10B981] flex items-center justify-center mx-auto shadow-sm">
+          <span class="material-symbols-outlined text-[26px]">verified</span>
+        </div>
+        <div>
+          <span class="text-[10px] font-mono uppercase tracking-widest text-[#065F46] font-bold bg-[#10B981]/15 px-3 py-1 rounded-full">APPROVED &amp; ESCROW LOCKED</span>
+          <h3 class="text-base font-extrabold text-[#141726] mt-2.5" id="success-modal-item">Lenovo ThinkPad T14s Gen 4</h3>
+          <p class="text-xs text-[#5A5E72] mt-0.5" id="success-modal-sub">Single-use virtual card generated with exact spending limit.</p>
+        </div>
 
-      <button onclick="closeSuccessModalAndOpenVault()" class="w-full py-3 rounded-full bg-[#131522] text-white text-xs font-bold tactile-press">
-        View in My Vault →
-      </button>
+        <div class="rounded-[20px] liquid-glass-pill p-3.5 border border-white/80 text-left space-y-2 text-[10px] font-mono">
+          <div class="flex justify-between"><span class="text-[#5A5E72]">Authorization Code:</span><span class="font-bold text-[#141726]" id="success-modal-auth">AUTH-PASSKEY-8F9D2A</span></div>
+          <div class="flex justify-between"><span class="text-[#5A5E72]">Virtual Card PAN:</span><span class="font-bold text-[#2B44E8]" id="success-modal-pan">4532 •••• •••• 8841</span></div>
+          <div class="flex justify-between"><span class="text-[#5A5E72]">Escrow Balance:</span><span class="font-bold text-[#10B981]" id="success-modal-escrow">$1,580.00</span></div>
+          <div class="flex justify-between border-t border-black/6 pt-1.5"><span class="text-[#5A5E72]">Security Passkey:</span><span class="text-[#141726]">8f9d2a…4e1b (Verified)</span></div>
+        </div>
+
+        <button onclick="closeSuccessModalAndOpenVault()" class="w-full py-3 rounded-full bg-[#131522] text-white text-xs font-bold tactile-press">
+          View in My Vault →
+        </button>
+      </div>
     </div>
   </div>
 
@@ -2993,25 +3100,50 @@
       if (!container) return;
       container.innerHTML = Object.values(LOCATION_HUBS).map(hub => {
         const isSelected = hub.id === userLocation;
-        return `
-          <div onclick="setUserLocation('${hub.id}', true)" class="p-3 rounded-2xl ${isSelected ? 'bg-[#131522] text-white' : 'bg-white/85 hover:bg-white text-[#141726]'} border border-black/5 flex items-center justify-between cursor-pointer tactile-press transition">
-            <div class="flex items-center gap-2.5 min-w-0">
-              <div class="w-8 h-8 rounded-full ${isSelected ? 'bg-white/15 text-white' : 'bg-[#2B44E8]/10 text-[#2B44E8]'} flex items-center justify-center font-bold text-xs shrink-0 font-mono">
-                ${hub.flag}
+        if (isSelected) {
+          return `
+            <div onclick="setUserLocation('${hub.id}', true)" class="p-3 rounded-2xl liquid-glass-hub-active flex items-center justify-between cursor-pointer tactile-press transition-all">
+              <div class="flex items-center gap-2.5 min-w-0 relative z-10">
+                <div class="w-9 h-9 rounded-xl bg-white/15 text-white border border-white/25 flex items-center justify-center font-bold text-xs shrink-0 font-mono shadow-xs backdrop-blur-md">
+                  ${hub.flag}
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="text-xs font-bold text-white break-words leading-tight">${hub.city}, ${hub.country}</div>
+                  <div class="text-[10px] text-white/75 font-mono break-words leading-tight mt-0.5">${hub.currency} Currency Zone · ${hub.hubName}</div>
+                  <div class="text-[9px] font-mono text-[#10B981] font-semibold break-words leading-tight mt-0.5 flex items-center gap-1">
+                    <span class="w-1.5 h-1.5 rounded-full bg-[#10B981]"></span>
+                    <span>${hub.ruleTitle}</span>
+                  </div>
+                </div>
               </div>
-              <div class="min-w-0 flex-1">
-                <div class="text-xs font-bold break-words leading-tight">${hub.city}, ${hub.country}</div>
-                <div class="text-[10px] ${isSelected ? 'text-white/70' : 'text-[#5A5E72]'} break-words leading-tight mt-0.5">${hub.currency} Currency Zone · ${hub.hubName}</div>
-                <div class="text-[9px] font-mono ${isSelected ? 'text-[#10B981]' : 'text-[#065F46]'} font-semibold break-words leading-tight mt-0.5">${hub.ruleTitle}</div>
+              <div class="text-right shrink-0 ml-2 relative z-10">
+                <span class="px-2.5 py-1 rounded-full text-[9px] font-mono font-extrabold bg-[#10B981] text-white shadow-sm flex items-center gap-1 tracking-wider">
+                  ● ACTIVE
+                </span>
               </div>
             </div>
-            <div class="text-right shrink-0 ml-2">
-              <span class="px-2 py-0.5 rounded-full text-[9px] font-mono font-bold ${isSelected ? 'bg-[#10B981] text-white' : 'bg-black/5 text-[#5A5E72]'}">
-                ${isSelected ? 'ACTIVE' : hub.currency}
-              </span>
+          `;
+        } else {
+          return `
+            <div onclick="setUserLocation('${hub.id}', true)" class="p-3 rounded-2xl liquid-glass-hub-inactive flex items-center justify-between cursor-pointer tactile-press transition-all">
+              <div class="flex items-center gap-2.5 min-w-0">
+                <div class="w-9 h-9 rounded-xl bg-[#2B44E8]/10 text-[#2B44E8] border border-[#2B44E8]/15 flex items-center justify-center font-bold text-xs shrink-0 font-mono shadow-xs backdrop-blur-md">
+                  ${hub.flag}
+                </div>
+                <div class="min-w-0 flex-1">
+                  <div class="text-xs font-bold text-[#141726] break-words leading-tight">${hub.city}, ${hub.country}</div>
+                  <div class="text-[10px] text-[#5A5E72] font-mono break-words leading-tight mt-0.5">${hub.currency} Currency Zone · ${hub.hubName}</div>
+                  <div class="text-[9px] font-mono text-[#065F46] font-semibold break-words leading-tight mt-0.5">${hub.ruleTitle}</div>
+                </div>
+              </div>
+              <div class="text-right shrink-0 ml-2">
+                <span class="px-2.5 py-0.5 rounded-full text-[9px] font-mono font-bold liquid-glass-pill text-[#5A5E72] border border-white/80">
+                  ${hub.currency}
+                </span>
+              </div>
             </div>
-          </div>
-        `;
+          `;
+        }
       }).join('');
     }
 
