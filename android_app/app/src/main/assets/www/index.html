@@ -674,13 +674,14 @@
         <button onclick="goToOnboardingSlide(1)" id="onb-dot-1" class="w-2 h-2 rounded-full bg-[#141726]/20 transition-all duration-500" aria-label="Page 2"></button>
         <button onclick="goToOnboardingSlide(2)" id="onb-dot-2" class="w-2 h-2 rounded-full bg-[#141726]/20 transition-all duration-500" aria-label="Page 3"></button>
         <button onclick="goToOnboardingSlide(3)" id="onb-dot-3" class="w-2 h-2 rounded-full bg-[#141726]/20 transition-all duration-500" aria-label="Page 4"></button>
+        <button onclick="goToOnboardingSlide(4)" id="onb-dot-4" class="w-2 h-2 rounded-full bg-[#141726]/20 transition-all duration-500" aria-label="Page 5"></button>
       </div>
       <button onclick="finishOnboarding()" id="onb-skip-btn" class="px-3.5 py-1 rounded-full text-[11px] font-semibold text-[#5A5E72] hover:text-[#141726] soma-glass tactile-press transition-all">
         Skip
       </button>
     </div>
 
-    <!-- Minimal Live Balance & Goal Pill (Correlates All 4 Pages) -->
+    <!-- Minimal Live Balance & Goal Pill (Correlates All 5 Pages) -->
     <div class="w-full max-w-[392px] mx-auto px-5 pb-1 z-20 shrink-0">
       <div id="onb-live-ledger" class="w-full px-3.5 py-2 rounded-full soma-glass flex items-center justify-between text-[11px] font-mono transition-all duration-500">
         <div class="flex items-center gap-1.5">
@@ -692,14 +693,14 @@
       </div>
     </div>
 
-    <!-- FLUID HORIZONTAL 4-PAGE TRACK -->
+    <!-- FLUID HORIZONTAL 5-PAGE TRACK -->
     <div class="flex-1 w-full max-w-[392px] mx-auto overflow-hidden relative z-10" id="onb-viewport">
-      <div id="onb-track" class="flex h-full w-[400%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style="transform: translateX(0%);">
+      <div id="onb-track" class="flex h-full w-[500%] transition-transform duration-500 ease-[cubic-bezier(0.22,1,0.36,1)]" style="transform: translateX(0%);">
 
         <!-- =============================================================== -->
         <!-- PAGE 1: SAFE-TO-SPEND & GOAL                                    -->
         <!-- =============================================================== -->
-        <div id="onb-slide-0" class="w-1/4 h-full px-5 pb-6 flex flex-col items-center justify-between shrink-0">
+        <div id="onb-slide-0" class="w-1/5 h-full px-5 pb-6 flex flex-col items-center justify-between shrink-0">
           <div class="my-auto flex flex-col items-center w-full">
             <!-- 3D Liquid Plasma Sphere in App Theme -->
             <div class="p-3 rounded-full soma-glass shadow-lg">
@@ -749,7 +750,7 @@
         <!-- =============================================================== -->
         <!-- PAGE 2: HIDDEN FEE X-RAY                                        -->
         <!-- =============================================================== -->
-        <div id="onb-slide-1" class="w-1/4 h-full px-5 pb-6 flex flex-col items-center justify-between shrink-0">
+        <div id="onb-slide-1" class="w-1/5 h-full px-5 pb-6 flex flex-col items-center justify-between shrink-0">
           <div class="mt-2 flex flex-col items-center">
             <div onclick="flipXrayDecoder()" class="squircle-mesh-jewel flex flex-col items-center justify-center p-5 text-center cursor-pointer relative">
               <div class="grid grid-cols-4 gap-1.5 mb-2.5">
@@ -799,7 +800,7 @@
         <!-- =============================================================== -->
         <!-- PAGE 3: SMART BUY TIMING                                        -->
         <!-- =============================================================== -->
-        <div id="onb-slide-2" class="w-1/4 h-full px-5 pb-6 flex flex-col justify-between shrink-0">
+        <div id="onb-slide-2" class="w-1/5 h-full px-5 pb-6 flex flex-col justify-between shrink-0">
           <div class="flex items-center justify-center pt-1">
             <div class="flex items-center gap-1 soma-glass rounded-full p-1">
               <button onclick="setTopoHorizon(1)" id="topo-btn-1" class="px-3 py-1 rounded-full text-[10px] font-mono font-bold text-[#5A5E72] transition">Day 1</button>
@@ -855,7 +856,7 @@
         <!-- =============================================================== -->
         <!-- PAGE 4: AUTONOMOUS PROTECTION                                   -->
         <!-- =============================================================== -->
-        <div id="onb-slide-3" class="w-1/4 h-full px-5 pb-6 flex flex-col justify-between shrink-0">
+        <div id="onb-slide-3" class="w-1/5 h-full px-5 pb-6 flex flex-col justify-between shrink-0">
           <!-- Floating Tactile Guardians -->
           <div class="relative w-full h-52 mt-1 select-none">
             <div onclick="pokeMascot(1)" id="mascot-1" style="--rot: -16deg;" class="mascot-float absolute left-10 top-1 w-28 h-28 rounded-b-[42px] rounded-t-[18px] bg-white shadow-md border border-[#141726]/8 flex flex-col items-center justify-between p-3 cursor-pointer">
@@ -926,11 +927,149 @@
               </p>
             </div>
 
-            <button onclick="finishOnboarding()" class="mt-4 w-full h-13 rounded-full bg-[#EB7951] hover:bg-[#2B44E8] text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
-              <span id="onb-p4-cta-label">Get Started</span>
+            <button onclick="goToOnboardingSlide(4)" class="mt-4 w-full h-13 rounded-full bg-[#EB7951] hover:bg-[#2B44E8] text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
+              <span id="onb-p4-cta-label">Next: Personalize Profile</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </button>
           </div>
+        </div>
+
+        <!-- =============================================================== -->
+        <!-- PAGE 5: PERSONA & OPPORTUNITY CALIBRATION                       -->
+        <!-- =============================================================== -->
+        <div id="onb-slide-4" class="w-1/5 h-full px-5 pb-5 flex flex-col justify-between shrink-0">
+          
+          <!-- Top Hologram Persona Card -->
+          <div class="mt-1 flex flex-col items-center">
+            <div class="w-full p-3.5 rounded-[28px] soma-glass flex items-center justify-between border border-white/80 shadow-md">
+              <div class="flex items-center gap-2.5">
+                <div id="onb-persona-icon-box" class="w-10 h-10 rounded-2xl bg-[#2B44E8] text-white flex items-center justify-center shadow-xs transition-all duration-300">
+                  <span class="material-symbols-outlined text-[22px]" id="onb-persona-icon">terminal</span>
+                </div>
+                <div class="text-left">
+                  <span class="text-[9px] font-mono uppercase tracking-widest text-[#5A5E72] block" id="onb-persona-stage-tag">EARLY PRO · 23–28 YRS</span>
+                  <span class="text-xs font-black font-mono text-[#141726] tracking-tight block mt-0.5" id="onb-persona-role-tag">Tech &amp; Code Architecture</span>
+                </div>
+              </div>
+              <div class="text-right">
+                <span class="text-[9px] font-mono text-[#5A5E72] block">Discretionary</span>
+                <span class="text-xs font-mono font-bold text-[#10B981] block mt-0.5" id="onb-persona-budget-tag">Rp 8M/mo</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Editorial Heading -->
+          <div class="text-center my-1">
+            <h2 class="text-[22px] font-extrabold text-[#141726] leading-tight tracking-tight">
+              Calibrate your <span class="font-serif italic font-black text-[#2B44E8]">opportunity autopilot</span>
+            </h2>
+            <p class="text-[10.5px] text-[#5A5E72] mt-0.5">
+              Personalized compounding, career alternatives &amp; life energy.
+            </p>
+          </div>
+
+          <!-- Interactive Persona Cards (Clean Compact Grid) -->
+          <div class="space-y-2.5 my-auto overflow-y-auto no-scrollbar max-h-[380px] pr-0.5">
+            
+            <!-- 1. Life Stage & Age -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+                <span>1. Life Stage &amp; Age</span>
+                <span class="text-[#2B44E8]" id="profile-age-badge">Early Career</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+                <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#141726]">🎓 Student</span>
+                  <span class="text-[8px] text-[#5A5E72]">18–22 yrs · 20y Compound</span>
+                </button>
+                <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#2B44E8]">💼 Early Pro</span>
+                  <span class="text-[8px] text-[#5A5E72]">23–28 yrs · Fast Upskill</span>
+                </button>
+                <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#141726]">🚀 Mid Career</span>
+                  <span class="text-[8px] text-[#5A5E72]">29–38 yrs · Specialized</span>
+                </button>
+                <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#141726]">🏛️ Senior / Exec</span>
+                  <span class="text-[8px] text-[#5A5E72]">39+ yrs · Wealth Preserv.</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 2. Profession / Role -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+                <span>2. Profession / Role</span>
+                <span class="text-[#2B44E8]" id="profile-role-badge">Tech &amp; Software</span>
+              </div>
+              <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+                <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#2B44E8]">💻 Tech &amp; Code</span>
+                  <span class="text-[8px] text-[#5A5E72]">AWS, AI/ML, Architecture</span>
+                </button>
+                <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#141726]">🎨 Design &amp; UI</span>
+                  <span class="text-[8px] text-[#5A5E72]">Figma, 3D, Creative Rig</span>
+                </button>
+                <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#141726]">📊 Finance &amp; Biz</span>
+                  <span class="text-[8px] text-[#5A5E72]">CFA, Deals, Modeling</span>
+                </button>
+                <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press">
+                  <span class="font-bold text-[#141726]">🎓 Academic / Uni</span>
+                  <span class="text-[8px] text-[#5A5E72]">GRE, Research, Papers</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- 3. Monthly Discretionary Savings & Primary Focus -->
+            <div class="space-y-1">
+              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
+                <span>3. Monthly Budget &amp; Goal</span>
+                <span class="text-[#10B981]" id="profile-goal-badge">Career Boost</span>
+              </div>
+              <div class="grid grid-cols-4 gap-1 font-mono text-[9.5px]">
+                <button type="button" onclick="selectProfileBudget(3000000)" id="prof-b-3m" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press">
+                  Rp 3M
+                </button>
+                <button type="button" onclick="selectProfileBudget(8000000)" id="prof-b-8m" class="p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press">
+                  Rp 8M
+                </button>
+                <button type="button" onclick="selectProfileBudget(15000000)" id="prof-b-15m" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press">
+                  Rp 15M
+                </button>
+                <button type="button" onclick="selectProfileBudget(25000000)" id="prof-b-25m" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press">
+                  Rp 25M+
+                </button>
+              </div>
+
+              <div class="grid grid-cols-3 gap-1 pt-1 font-mono text-[9px]">
+                <button type="button" onclick="selectProfileGoal('career_mastery')" id="prof-g-career_mastery" class="p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press truncate">
+                  🚀 Career Boost
+                </button>
+                <button type="button" onclick="selectProfileGoal('compound_growth')" id="prof-g-compound_growth" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press truncate">
+                  📈 Compound
+                </button>
+                <button type="button" onclick="selectProfileGoal('buffer_peace')" id="prof-g-buffer_peace" class="p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press truncate">
+                  🛡️ 60d Buffer
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- Bottom Action Button -->
+          <div class="pt-2">
+            <button onclick="finishOnboardingFromPersonaScreen()" class="w-full h-13 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
+              <span id="onb-p5-cta-label">Activate My Autopilot</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
+            </button>
+            <p class="text-[8.5px] text-center text-[#5A5E72] mt-1 font-mono">
+              🔒 Encrypted on-device · Zero cloud tracking
+            </p>
+          </div>
+
         </div>
 
       </div>
@@ -2086,119 +2225,6 @@
     </div>
   </div>
 
-  <!-- ===================================================================== -->
-  <!-- PERSONAL PROFILE & OPPORTUNITY COST CALIBRATION MODAL                 -->
-  <!-- ===================================================================== -->
-  <div id="profile-setup-modal" class="fixed inset-0 z-[96] bg-[#131522]/90 backdrop-blur-xl hidden flex-col justify-center items-center p-3 select-none overflow-y-auto">
-    <div class="w-full max-w-[370px] rounded-[30px] soma-glass p-5 text-[#141726] shadow-2xl space-y-4 border border-white/80 animate-in fade-in zoom-in-95 duration-200">
-      
-      <!-- Top Header -->
-      <div class="flex items-start justify-between">
-        <div class="flex items-center gap-2.5">
-          <div class="w-9 h-9 rounded-2xl bg-[#2B44E8] text-white flex items-center justify-center shadow-xs">
-            <span class="material-symbols-outlined text-[20px]">psychology</span>
-          </div>
-          <div>
-            <h3 class="text-sm font-extrabold text-[#141726]" id="profile-modal-title">Personalize Autopilot</h3>
-            <p class="text-[10px] text-[#5A5E72]" id="profile-modal-sub">Calibrate Opportunity Cost &amp; Upskilling to You</p>
-          </div>
-        </div>
-        <button onclick="closeProfileModal()" class="w-7 h-7 rounded-full bg-black/5 hover:bg-black/10 flex items-center justify-center text-[#5A5E72] tactile-press">
-          <span class="material-symbols-outlined text-[16px]">close</span>
-        </button>
-      </div>
-
-      <!-- Step 1: Life Stage & Age -->
-      <div class="space-y-1.5">
-        <div class="flex items-center justify-between text-[10px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
-          <span>1. Life Stage &amp; Age</span>
-          <span class="text-[#2B44E8]" id="profile-age-badge">Early Career</span>
-        </div>
-        <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-          <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#141726]">🎓 Student</span>
-            <span class="text-[8.5px] text-[#5A5E72]">18–22 yrs · 20y Compound</span>
-          </button>
-          <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#2B44E8]">💼 Early Pro</span>
-            <span class="text-[8.5px] text-[#5A5E72]">23–28 yrs · Fast Upskill</span>
-          </button>
-          <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#141726]">🚀 Mid Career</span>
-            <span class="text-[8.5px] text-[#5A5E72]">29–38 yrs · Specialized</span>
-          </button>
-          <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#141726]">🏛️ Senior / Exec</span>
-            <span class="text-[8.5px] text-[#5A5E72]">39+ yrs · Wealth Preserv.</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Step 2: Role & Profession -->
-      <div class="space-y-1.5">
-        <div class="flex items-center justify-between text-[10px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
-          <span>2. Profession / Role</span>
-          <span class="text-[#2B44E8]" id="profile-role-badge">Tech &amp; Software</span>
-        </div>
-        <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-          <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#2B44E8]">💻 Tech &amp; Code</span>
-            <span class="text-[8.5px] text-[#5A5E72]">AWS, AI/ML, SysArch</span>
-          </button>
-          <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#141726]">🎨 Creative Design</span>
-            <span class="text-[8.5px] text-[#5A5E72]">Figma, 4K, 3D Master</span>
-          </button>
-          <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#141726]">📊 Finance &amp; Biz</span>
-            <span class="text-[8.5px] text-[#5A5E72]">CFA, Modeling, Deals</span>
-          </button>
-          <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between">
-            <span class="font-bold text-[#141726]">🎓 Academic / Uni</span>
-            <span class="text-[8.5px] text-[#5A5E72]">GRE, Flights, Papers</span>
-          </button>
-        </div>
-      </div>
-
-      <!-- Step 3: Discretionary Budget & Primary Goal -->
-      <div class="space-y-1.5">
-        <div class="flex items-center justify-between text-[10px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider">
-          <span>3. Monthly Budget &amp; Target</span>
-          <span class="text-[#2B44E8]">Target Focus</span>
-        </div>
-        <div class="grid grid-cols-2 gap-2">
-          <div>
-            <label class="block text-[8.5px] text-[#5A5E72] font-mono uppercase mb-0.5">Discretionary Budget</label>
-            <select id="profile-budget-select" class="w-full h-8 px-2 rounded-xl bg-white text-[10px] font-mono font-bold text-[#141726] border border-black/10 outline-none">
-              <option value="3000000">Rp 3M (~$200) · Lean</option>
-              <option value="8000000" selected>Rp 8M (~$500) · Moderate</option>
-              <option value="15000000">Rp 15M (~$950) · Strong</option>
-              <option value="25000000">Rp 25M+ · High Velocity</option>
-            </select>
-          </div>
-          <div>
-            <label class="block text-[8.5px] text-[#5A5E72] font-mono uppercase mb-0.5">Primary Focus</label>
-            <select id="profile-goal-select" class="w-full h-8 px-2 rounded-xl bg-white text-[10px] font-mono font-bold text-[#141726] border border-black/10 outline-none">
-              <option value="career_mastery" selected>🚀 Career Mastery</option>
-              <option value="compound_growth">📈 Compounding Wealth</option>
-              <option value="buffer_peace">🛡️ 60d Safe Buffer</option>
-            </select>
-          </div>
-        </div>
-      </div>
-
-      <!-- Action Button -->
-      <div class="pt-2">
-        <button onclick="saveProfileFromModal()" class="w-full py-3 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white text-xs font-mono font-bold uppercase tracking-wider shadow-md tactile-press flex items-center justify-center gap-1.5">
-          <span class="material-symbols-outlined text-[16px]">check_circle</span>
-          <span>Save &amp; Calibrate Autopilot</span>
-        </button>
-        <p class="text-[9px] text-center text-[#5A5E72] mt-1.5 font-mono">
-          🔒 Zero cloud tracking · Calibrated locally on-device
-        </p>
-      </div>
-    </div>
-  </div>
 
   <!-- ===================================================================== -->
   <!-- OPPORTUNITY GROWTH POT CELEBRATION MODAL                              -->
@@ -3426,45 +3452,73 @@
           : `$${USER_PROFILE.monthly_budget}`;
         settingsSub.textContent = `${rInfo.label} · ${aInfo} · ${bFmt} Budget`;
       }
+
+      // Sync Slide 4 controls if elements present
+      const bTag = document.getElementById('onb-persona-budget-tag');
+      if (bTag) {
+        const isDom = userBaseCurrency === 'IDR' || (USER_PROFILE.monthly_budget || 8000000) >= 1000000;
+        bTag.textContent = isDom ? `Rp ${((USER_PROFILE.monthly_budget || 8000000) / 1000000).toFixed(0)}M/mo` : `$${USER_PROFILE.monthly_budget || 500}/mo`;
+      }
+      const stageTag = document.getElementById('onb-persona-stage-tag');
+      if (stageTag) {
+        stageTag.textContent = (AGE_LABELS[USER_PROFILE.age_bracket] || 'EARLY PRO').toUpperCase();
+      }
+      const roleTag = document.getElementById('onb-persona-role-tag');
+      if (roleTag) {
+        roleTag.textContent = `${rInfo.label} Focus`;
+      }
+      const iconSpan = document.getElementById('onb-persona-icon');
+      const iconMap = {
+        tech_software: 'terminal',
+        design_creative: 'palette',
+        business_finance: 'trending_up',
+        student_academic: 'school'
+      };
+      if (iconSpan) {
+        iconSpan.textContent = iconMap[USER_PROFILE.role] || 'terminal';
+      }
     }
 
-    function openProfileModal(isFirstTime) {
-      triggerHaptic('heavy');
-      const modal = document.getElementById('profile-setup-modal');
-      const title = document.getElementById('profile-modal-title');
-      const sub = document.getElementById('profile-modal-sub');
-
-      if (title && sub) {
-        if (isFirstTime) {
-          title.textContent = "Welcome! Let's Calibrate Autopilot";
-          sub.textContent = '15 seconds setup so Opportunity Cost matches your real life';
-        } else {
-          title.textContent = 'Personalize Autopilot';
-          sub.textContent = 'Calibrate Opportunity Cost & Upskilling to You';
+    function selectProfileBudget(amt, silent) {
+      if (!silent) triggerHaptic('click');
+      USER_PROFILE.monthly_budget = Number(amt);
+      const isDom = userBaseCurrency === 'IDR' || amt >= 1000000;
+      const bTag = document.getElementById('onb-persona-budget-tag');
+      const bText = isDom ? `Rp ${(amt / 1000000).toFixed(0)}M/mo` : `$${amt}/mo`;
+      if (bTag) bTag.textContent = bText;
+      
+      [3000000, 8000000, 15000000, 25000000].forEach(a => {
+        const btn = document.getElementById('prof-b-' + (a === 25000000 ? '25m' : (a / 1000000) + 'm'));
+        if (btn) {
+          btn.className = a === amt
+            ? 'p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press'
+            : 'p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press';
         }
-      }
-
-      selectProfilePill('age', USER_PROFILE.age_bracket, true);
-      selectProfilePill('role', USER_PROFILE.role, true);
-
-      const budgetSel = document.getElementById('profile-budget-select');
-      const goalSel = document.getElementById('profile-goal-select');
-      if (budgetSel) budgetSel.value = String(USER_PROFILE.monthly_budget || 8000000);
-      if (goalSel) goalSel.value = USER_PROFILE.goal || 'career_mastery';
-
-      if (modal) {
-        modal.classList.remove('hidden');
-        modal.classList.add('flex');
-      }
+      });
+      localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
+      updateProfileUI();
     }
 
-    function closeProfileModal() {
-      triggerHaptic('click');
-      const modal = document.getElementById('profile-setup-modal');
-      if (modal) {
-        modal.classList.remove('flex');
-        modal.classList.add('hidden');
-      }
+    function selectProfileGoal(goal, silent) {
+      if (!silent) triggerHaptic('click');
+      USER_PROFILE.goal = goal;
+      const gBadge = document.getElementById('profile-goal-badge');
+      const goalLabels = {
+        career_mastery: 'Career Boost',
+        compound_growth: 'Compound',
+        buffer_peace: '60d Buffer'
+      };
+      if (gBadge) gBadge.textContent = goalLabels[goal] || goal;
+      ['career_mastery', 'compound_growth', 'buffer_peace'].forEach(g => {
+        const btn = document.getElementById('prof-g-' + g);
+        if (btn) {
+          btn.className = g === goal
+            ? 'p-1.5 rounded-xl border border-[#2B44E8] bg-[#2B44E8]/10 text-center transition font-bold text-[#2B44E8] tactile-press truncate'
+            : 'p-1.5 rounded-xl border border-black/10 bg-white/70 hover:bg-white text-center transition font-bold text-[#141726] tactile-press truncate';
+        }
+      });
+      localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
+      updateProfileUI();
     }
 
     function selectProfilePill(category, key, silent) {
@@ -3472,13 +3526,15 @@
       if (category === 'age') {
         USER_PROFILE.age_bracket = key;
         const badge = document.getElementById('profile-age-badge');
+        const stageTag = document.getElementById('onb-persona-stage-tag');
         if (badge) badge.textContent = AGE_LABELS[key] || key;
+        if (stageTag) stageTag.textContent = (AGE_LABELS[key] || key).toUpperCase();
         ['student', 'early_career', 'mid_career', 'senior_exec'].forEach(k => {
           const btn = document.getElementById('prof-age-' + k);
           if (btn) {
             btn.className = k === key
-              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between'
-              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between';
+              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press'
+              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press';
             const span = btn.querySelector('span:first-child');
             if (span) span.className = k === key ? 'font-bold text-[#2B44E8]' : 'font-bold text-[#141726]';
           }
@@ -3486,33 +3542,51 @@
       } else if (category === 'role') {
         USER_PROFILE.role = key;
         const badge = document.getElementById('profile-role-badge');
+        const roleTag = document.getElementById('onb-persona-role-tag');
+        const iconSpan = document.getElementById('onb-persona-icon');
         const rInfo = ROLE_LABELS[key] || ROLE_LABELS.tech_software;
+        const iconMap = {
+          tech_software: 'terminal',
+          design_creative: 'palette',
+          business_finance: 'trending_up',
+          student_academic: 'school'
+        };
         if (badge) badge.textContent = rInfo.label;
+        if (roleTag) roleTag.textContent = `${rInfo.label} Focus`;
+        if (iconSpan) iconSpan.textContent = iconMap[key] || 'terminal';
         ['tech_software', 'design_creative', 'business_finance', 'student_academic'].forEach(k => {
           const btn = document.getElementById('prof-role-' + k);
           if (btn) {
             btn.className = k === key
-              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between'
-              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between';
+              ? 'prof-pill p-2 rounded-2xl border border-[#2B44E8] bg-[#2B44E8]/10 text-left transition flex flex-col justify-between tactile-press'
+              : 'prof-pill p-2 rounded-2xl border border-black/10 bg-white/70 hover:bg-white text-left transition flex flex-col justify-between tactile-press';
             const span = btn.querySelector('span:first-child');
             if (span) span.className = k === key ? 'font-bold text-[#2B44E8]' : 'font-bold text-[#141726]';
           }
         });
       }
+      localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
+      updateProfileUI();
     }
 
-    function saveProfileFromModal() {
-      triggerHaptic('success');
-      const budgetSel = document.getElementById('profile-budget-select');
-      const goalSel = document.getElementById('profile-goal-select');
-      if (budgetSel) USER_PROFILE.monthly_budget = Number(budgetSel.value) || 8000000;
-      if (goalSel) USER_PROFILE.goal = goalSel.value;
+    function openProfileModal(fromOnboarding) {
+      triggerHaptic('heavy');
+      openOnboardingTour(4);
+      const cta = document.getElementById('onb-p5-cta-label');
+      if (cta) {
+        cta.textContent = fromOnboarding ? 'Activate My Autopilot' : 'Save & Return to Dashboard';
+      }
+    }
 
+    function closeProfileModal() {
+      finishOnboarding();
+    }
+
+    function finishOnboardingFromPersonaScreen() {
+      triggerHaptic('success');
       localStorage.setItem('tc_user_profile', JSON.stringify(USER_PROFILE));
       localStorage.setItem('tc_user_profile_configured', 'true');
-
       updateProfileUI();
-      closeProfileModal();
 
       if (currentRealCase) {
         fetchOpportunityCostData(currentRealCase);
@@ -3520,6 +3594,7 @@
           switchVerdictSubtab('oppcost', true);
         }
       }
+      finishOnboarding();
     }
 
     function setOppCostView(view) {
@@ -5110,22 +5185,27 @@
 
     function goToOnboardingSlide(idx) {
       triggerHaptic('click');
-      currentOnbSlide = Math.max(0, Math.min(3, idx));
+      currentOnbSlide = Math.max(0, Math.min(4, idx));
       document.body.classList.add('onboarding-active');
       const track = document.getElementById('onb-track');
       const ledgerRight = document.getElementById('onb-ledger-right');
       const c = ONBOARDING_CASES[currentOnbCase];
 
       if (track) {
-        track.style.transform = `translateX(-${currentOnbSlide * 25}%)`;
+        track.style.transform = `translateX(-${currentOnbSlide * 20}%)`;
       }
 
-      if (ledgerRight && c) {
-        const steps = [c.ledgerStep0, c.ledgerStep1, c.ledgerStep2, c.ledgerStep3];
-        ledgerRight.textContent = steps[currentOnbSlide] || c.ledgerStep0;
+      if (ledgerRight) {
+        if (currentOnbSlide === 4) {
+          const rInfo = ROLE_LABELS[USER_PROFILE.role] || ROLE_LABELS.tech_software;
+          ledgerRight.textContent = `${rInfo.icon} ${rInfo.short}`;
+        } else if (c) {
+          const steps = [c.ledgerStep0, c.ledgerStep1, c.ledgerStep2, c.ledgerStep3];
+          ledgerRight.textContent = steps[currentOnbSlide] || c.ledgerStep0;
+        }
       }
 
-      [0, 1, 2, 3].forEach(i => {
+      [0, 1, 2, 3, 4].forEach(i => {
         const dot = document.getElementById('onb-dot-' + i);
         if (dot) {
           dot.className = i === currentOnbSlide
@@ -5138,6 +5218,7 @@
     function finishOnboarding() {
       triggerHaptic('heavy');
       document.body.classList.remove('onboarding-active');
+      localStorage.setItem('tc_user_profile_configured', 'true');
       const overlay = document.getElementById('onboarding-overlay');
       const c = ONBOARDING_CASES[currentOnbCase];
       const inputEl = document.getElementById('url-input');
@@ -5151,21 +5232,16 @@
           overlay.style.display = 'none';
         }, 420);
       }
-      if (!localStorage.getItem('tc_user_profile_configured')) {
-        setTimeout(() => {
-          openProfileModal(true);
-        }, 550);
-      }
     }
 
-    function openOnboardingTour() {
+    function openOnboardingTour(startSlide = 0) {
       triggerHaptic('heavy');
       document.body.classList.add('onboarding-active');
       const overlay = document.getElementById('onboarding-overlay');
       if (overlay) {
         overlay.style.display = 'flex';
         overlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none', 'scale-[0.97]');
-        goToOnboardingSlide(0);
+        goToOnboardingSlide(typeof startSlide === 'number' ? startSlide : 0);
       }
     }
 
@@ -5335,7 +5411,7 @@
         viewport.addEventListener('touchend', (e) => {
           if (e.changedTouches && e.changedTouches.length > 0) {
             const dx = e.changedTouches[0].clientX - touchStartX;
-            if (dx < -45 && currentOnbSlide < 3) {
+            if (dx < -45 && currentOnbSlide < 4) {
               goToOnboardingSlide(currentOnbSlide + 1);
             } else if (dx > 45 && currentOnbSlide > 0) {
               goToOnboardingSlide(currentOnbSlide - 1);
