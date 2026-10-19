@@ -130,54 +130,105 @@ flowchart TD
 
 #### A. Cross-Border Landed Cost & Customs Valuation Engine (`landed_cost.py`)
 Computes the true delivered cost of imported goods, incorporating card foreign exchange spreads, destination import taxes, and tourist tax refunds:
-$$\text{Base Domestic Price} = P_{\text{foreign}} \times S_{\text{spot}} \times (1 + \mu_{\text{spread}})$$
-$$\text{Customs CIF (USD)} = \max\left(0, P_{\text{foreign}} - \text{Exemption}_{\text{de\_minimis}}\right) \times S_{\text{spot\_usd}}$$
-$$\text{Import Duty (Bea Masuk)} = \text{CIF} \times \tau_{\text{duty}} \quad (\tau_{\text{duty}} = 0\% \text{ for computer hardware under WTO ITA})$$
-$$\text{PPN (Import VAT)} = (\text{CIF} + \text{Duty}) \times 11\%$$
-$$\text{PPh (Income Tax)} = (\text{CIF} + \text{Duty}) \times 7.5\% \quad (\text{with verified NPWP tax identity})$$
-$$\text{Final Landed Cost} = \text{Base Domestic Price} + \text{Duty} + \text{PPN} + \text{PPh} - \text{Refund}_{\text{tourist\_tax}}$$
+
+$$
+\begin{aligned}
+\text{Base Domestic Price} &= P_{\text{foreign}} \times S_{\text{spot}} \times (1 + \mu_{\text{spread}}) \\
+\text{Customs CIF (USD)} &= \max\left(0, P_{\text{foreign}} - \text{Exemption}_{\text{de minimis}}\right) \times S_{\text{usd}} \\
+\text{Import Duty} &= \text{CIF} \times \tau_{\text{duty}} \quad (\tau_{\text{duty}} = 0\% \text{ for IT equipment under WTO ITA}) \\
+\text{Import VAT (PPN)} &= (\text{CIF} + \text{Duty}) \times 11\% \\
+\text{Income Tax (PPh)} &= (\text{CIF} + \text{Duty}) \times 7.5\% \\
+\text{Final Landed Cost} &= \text{Base Domestic Price} + \text{Duty} + \text{PPN} + \text{PPh} - \text{Refund}_{\text{tourist}}
+\end{aligned}
+$$
 
 #### B. Deceptive BNPL / Effective APR Lie Detector (`apr_calculator.py`)
 Retail Buy-Now-Pay-Later schemes advertise "0% interest" while imposing upfront administrative charges, recurring maintenance fees, and forfeiting instant-cash discounts. The engine calculates the true periodic monthly interest rate $r$ numerically via the Net Present Value (NPV) root using the Newton-Raphson method:
-$$\text{NPV}(r) = CF_0 + \sum_{t=1}^{T} \frac{CF_t}{(1 + r)^t} = 0$$
-$$\text{Where } CF_0 = (P_{\text{sticker}} - D_{\text{cash}}) - \text{Fee}_{\text{admin}}, \quad CF_t = -(M_{\text{installment}} + \text{Fee}_{\text{recurring}})$$
-$$\text{Nominal APR} = r \times 12, \quad \text{Effective Annual Rate (EAR)} = (1 + r)^{12} - 1$$
+
+$$
+\begin{aligned}
+\text{NPV}(r) &= CF_0 + \sum_{t=1}^{T} \frac{CF_t}{(1 + r)^t} = 0 \\
+CF_0 &= (P_{\text{sticker}} - D_{\text{cash}}) - \text{Fee}_{\text{admin}} \\
+CF_t &= -(M_{\text{installment}} + \text{Fee}_{\text{recurring}}) \\
+\text{Nominal APR} &= r \times 12 \\
+\text{Effective Annual Rate (EAR)} &= (1 + r)^{12} - 1
+\end{aligned}
+$$
+
 If $\text{EAR} > 36.0\%$, the plan is automatically categorized as predatory, escalating the transaction to Tier 3 Scam Intervention.
 
 #### C. Finite-Horizon Optimal Stopping Buy Timing (`optimal_stopping.py`)
 Formulates purchase timing as an optimal stopping problem over a deadline horizon of $N$ days. The reservation price curve $R_t$ is computed via backward induction:
-$$R_N = \mathbb{E}[P_N]$$
-$$R_t = \mathbb{E}\left[\min\left(P_{t+1}, R_{t+1}\right)\right] + c_{\text{holding}}, \quad t = N-1, N-2, \dots, 0$$
-$$\text{Decision Rule at Day } t: \begin{cases} \mathbf{BUY\ NOW} & \text{if } P_t \le R_t \\ \mathbf{WAIT} & \text{if } P_t > R_t \end{cases}$$
+
+$$
+\begin{aligned}
+R_N &= \mathbb{E}[P_N] \\
+R_t &= \mathbb{E}\left[\min(P_{t+1}, R_{t+1})\right] + c_{\text{holding}}, \quad t = N-1, N-2, \dots, 0
+\end{aligned}
+$$
+
+Decision rule at day $t$:
+
+$$
+\text{Decision}(t) = \begin{cases} \text{BUY NOW} & \text{if } P_t \le R_t \\ \text{WAIT} & \text{if } P_t > R_t \end{cases}
+$$
+
 As deadline $N$ approaches, the option value of delay decays, dynamically relaxing $R_t$ toward the median retail price to prevent purchase failure.
 
 #### D. Modified Z-Score Scam Anomaly Detector (`scam_detector.py`)
 E-commerce fraud exploits deep price discounts. Standard standard deviation ($\sigma$) metrics fail because malicious outlier clusters distort the mean. The system applies Boris Iglewicz and David Hoaglin's robust **Median Absolute Deviation (MAD)**:
-$$\text{MAD} = \text{median}\left(|p_i - \tilde{p}|\right)$$
-$$M_i = \frac{0.6745 \times (p_i - \tilde{p})}{\text{MAD}}$$
-$$\text{Scam Threshold}: \quad M_i < -3.5 \implies \mathbf{EXTREME\ FRAUD\ ANOMALY}$$
+
+$$
+\begin{aligned}
+\text{MAD} &= \text{median}\left(|p_i - \tilde{p}|\right) \\
+M_i &= \frac{0.6745 \times (p_i - \tilde{p})}{\text{MAD}}
+\end{aligned}
+$$
+
+$$
+\text{Scam Threshold}: \quad M_i < -3.5 \implies \text{EXTREME FRAUD ANOMALY}
+$$
+
 When $M_i < -3.5$ or when combined with typosquatted domains, new merchant accounts (<30 days), and off-platform payment demands, the listing triggers the **Revolut-Style Scam Intervention Flow**, halting execution.
 
 #### E. Compound Opportunity Cost & Human Capital Growth Engine (`opportunity_cost.py`)
 Calculates the true economic trade-off of consumer discretionary spending by projecting alternative capital growth and labor value:
+
 1. **Compound Investment Growth:**
-   $$A_n = P \times \left(1 + \frac{r}{m}\right)^{m \times n}$$
+
+   $$
+   A_n = P \times \left(1 + \frac{r}{m}\right)^{m \times n}
+   $$
+
    Evaluates future portfolio value across 3-, 5-, and 10-year horizons at realistic benchmark yields (5.0%, 7.0%, 10.0%).
+
 2. **Life Energy Hours Conversion (Vicki Robin Model):**
-   $$H_{\text{work}} = \frac{P_{\text{net}}}{W_{\text{net\_hourly}}}$$
-   Translates price tags into real human work hours required to earn the purchase amount.
+
+   $$
+   H_{\text{work}} = \frac{P_{\text{net}}}{W_{\text{hourly}}}
+   $$
+
+   Translates price tags into real human work hours required to earn the purchase amount based on the user's net hourly wage $W_{\text{hourly}}$.
+
 3. **Human Capital Investment Diversion:**
    Matches the discretionary purchase amount against career-accelerating human capital alternatives (cloud engineering certifications, algorithmic trading academies, UX masterclasses) tailored to the user's calibrated persona.
+
 4. **Automated Growth Pot Inflow:**
    Enables 1-tap diversion of impulse spending from the Checking Account into a dedicated **Self-Investment Sinking Pot** backed by signed AP2 growth receipts.
 
 #### F. Hedonic 36-Month Total Cost of Ownership (`hedonic_tco.py`)
 Evaluates long-term device cost incorporating specification-based hedonic regression, annual maintenance, power consumption, and discounted terminal salvage value:
-$$\text{Net TCO} = P_{\text{purchase}} + \sum_{y=1}^{3} \frac{\text{Maintenance}_y + \text{Energy}_y}{(1 + r)^y} - \frac{\text{Salvage Value}_3}{(1 + r)^3}$$
+
+$$
+\text{Net TCO} = P_{\text{purchase}} + \sum_{y=1}^{3} \frac{\text{Maintenance}_y + \text{Energy}_y}{(1 + r)^y} - \frac{\text{Salvage Value}_3}{(1 + r)^3}
+$$
 
 #### G. TOPSIS Multi-Criteria Decision Analysis (`topsis.py`)
 Ranks product alternatives across vectorized technical metrics (CPU, GPU, RAM, battery life, portability) using Euclidean distance relative to ideal positive ($A^+$) and negative ($A^-$) solutions:
-$$C_i^* = \frac{S_i^-}{S_i^+ + S_i^-}, \quad C_i^* \in [0, 1]$$
+
+$$
+C_i^* = \frac{S_i^-}{S_i^+ + S_i^-}, \quad C_i^* \in [0, 1]
+$$
 
 ---
 
@@ -450,7 +501,7 @@ To prove production readiness beyond emulator environments, the complete TrueCos
 - **APK Target:** `android_app/app/build/outputs/apk/debug/app-debug.apk`
 
 Verified Screen Flows on Physical Device:
-1. **Screen 1: Capture & Budget Canvas (`phone_screen1_capture_final.png`)** — Client-side Web Crypto Ed25519 keypair generation, live currency conversion ($2,450.00 AUD / ≈ Rp 25.400.000 IDR), 42-day cash buffer safety gauge, and interactive price-tag scan trigger.
+1. **Screen 1: Capture & Budget Canvas (`phone_screen1_capture_final.png`)** — Client-side Web Crypto Ed25519 keypair generation, live currency conversion (\$2,450.00 AUD / ≈ Rp 25.400.000 IDR), 42-day cash buffer safety gauge, and interactive price-tag scan trigger.
 2. **Screen 2: Deterministic Quant Verdict (`phone_screen_verdict.png`)** — Effective APR lie detector unmasking hidden fees (43.8% EAR vs advertised 0%), cross-border landed cost calculation (TRS refund -10%, Bea Cukai import taxes +IDR 2.42M), and optimal stopping reservation threshold $R_4$.
 3. **Screen 3: Scam Shield & HITL Execution Gate (`phone_screen_capture.png`)** — Modified Z-score anomaly detector ($M_i < -3.5$), merchant domain validation, and Revolut-style cognitive friction cooldown for Tier 3 scam alerts.
 4. **Screen 4: Sandbox Bank & Vault Audit Ledger (`phone_screen.png`)** — Cryptographic AP2 mandate chain, single-use disposable card issuance (`VCARD_E8941AB9D721`) with atomic burn upon clearance, and double-entry ledger balance updates.
@@ -460,7 +511,7 @@ Verified Screen Flows on Physical Device:
 The complete competition slide deck roadshow and narrated video demonstration are documented in:
 - [`presentation/PRESENTATION_DECK_AND_SCRIPT.md`](presentation/PRESENTATION_DECK_AND_SCRIPT.md)
   - **Part 1:** 10-Minute Presentation Slide Deck Outline (7 high-impact slides covering problem framing, AP2 mandates, AIEP architecture, quant formulas, and sandbox logs).
-  - **Part 2:** $\le 5$-Minute Competition Demo Video Script (step-by-step voiceover, live mobile UI actions, terminal logs, and bank state transitions).
+  - **Part 2:** &le; 5-Minute Competition Demo Video Script (step-by-step voiceover, live mobile UI actions, terminal logs, and bank state transitions).
 
 ---
 
