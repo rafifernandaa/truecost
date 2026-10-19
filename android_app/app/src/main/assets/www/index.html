@@ -736,17 +736,6 @@
       </button>
     </div>
 
-    <!-- Minimal Live Balance & Goal Pill (Correlates All 5 Pages) -->
-    <div class="w-full max-w-[392px] mx-auto px-5 pb-1 z-20 shrink-0">
-      <div id="onb-live-ledger" class="w-full px-3.5 py-2 rounded-full soma-glass flex items-center justify-between text-[11px] font-mono transition-all duration-500">
-        <div class="flex items-center gap-1.5">
-          <span class="w-2 h-2 rounded-full bg-[#10B981]"></span>
-          <span id="onb-ledger-left" class="font-bold text-[#141726]">$2,450 Safe</span>
-        </div>
-        <span id="onb-ledger-arrow" class="text-[#8E8A84]">→</span>
-        <span id="onb-ledger-right" class="font-bold text-[#2B44E8]">$1,200 Laptop</span>
-      </div>
-    </div>
 
     <!-- FLUID HORIZONTAL 5-PAGE TRACK -->
     <div class="flex-1 w-full max-w-[392px] mx-auto overflow-hidden relative z-10" id="onb-viewport">
@@ -896,14 +885,10 @@
             </h2>
           </div>
 
-          <div class="flex items-center gap-2.5">
-            <div onclick="cycleTopoHorizon()" class="flex-1 h-14 rounded-[26px] soma-glass px-4 flex items-center justify-between cursor-pointer tactile-press">
-              <span class="text-xs font-mono font-bold text-[#10B981]" id="topo-pill-left">-$145 Timing</span>
-              <span class="h-4 w-[1.5px] bg-[#141726]/15"></span>
-              <span class="text-xs font-mono font-bold text-[#141726]" id="topo-pill-right">-$120 Fees</span>
-            </div>
-            <button onclick="goToOnboardingSlide(3)" class="w-16 h-14 rounded-[26px] bg-[#131522] text-white flex items-center justify-center shadow-lg transition-all tactile-press">
-              <span class="material-symbols-outlined text-[20px]">arrow_forward</span>
+          <div class="w-full pt-1">
+            <button onclick="goToOnboardingSlide(3)" class="w-full h-13 rounded-full bg-[#131522] hover:bg-[#2B44E8] text-white text-xs font-bold tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
+              <span>Continue to Protection</span>
+              <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
             </button>
           </div>
         </div>
@@ -994,27 +979,8 @@
         <!-- =============================================================== -->
         <div id="onb-slide-4" class="w-1/5 h-full px-5 pb-5 flex flex-col justify-between shrink-0">
           
-          <!-- Top Hologram Persona Card -->
-          <div class="mt-1 flex flex-col items-center">
-            <div class="w-full p-3.5 rounded-[28px] liquid-glass-pane liquid-specular-border flex items-center justify-between shadow-md">
-              <div class="flex items-center gap-2.5">
-                <div id="onb-persona-icon-box" class="w-10 h-10 rounded-2xl bg-[#2B44E8] text-white flex items-center justify-center shadow-xs transition-all duration-300">
-                  <span class="material-symbols-outlined text-[20px]" id="onb-persona-icon">terminal</span>
-                </div>
-                <div class="text-left">
-                  <span class="text-[9px] font-mono uppercase tracking-widest text-[#5A5E72] block" id="onb-persona-stage-tag">EARLY PRO · 23–28 YRS</span>
-                  <span class="text-xs font-black font-mono text-[#141726] tracking-tight block mt-0.5" id="onb-persona-role-tag">Tech &amp; Code Architecture</span>
-                </div>
-              </div>
-              <div class="text-right">
-                <span class="text-[9px] font-mono text-[#5A5E72] block">Discretionary</span>
-                <span class="text-xs font-mono font-bold text-[#10B981] block mt-0.5" id="onb-persona-budget-tag">Rp 8M/mo</span>
-              </div>
-            </div>
-          </div>
-
           <!-- Editorial Heading -->
-          <div class="text-center my-1">
+          <div class="text-center pt-1 pb-1">
             <h2 class="text-[21px] font-extrabold text-[#141726] leading-tight tracking-tight">
               Calibrate your <span class="font-serif italic font-black text-[#2B44E8]">opportunity autopilot</span>
             </h2>
@@ -1023,142 +989,137 @@
             </p>
           </div>
 
-          <!-- Interactive Persona Cards (Liquid Glass Minimalist Grid) -->
-          <div class="space-y-2.5 my-auto overflow-y-auto no-scrollbar max-h-[380px] pr-0.5">
-            
-            <!-- 1. Life Stage & Age -->
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
-                <span>1. Life Stage &amp; Age</span>
-                <span class="text-[#2B44E8]" id="profile-age-badge">Early Career</span>
-              </div>
-              <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-                <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">school</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#141726]">Student</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">18–22 yrs · 20y Compound</span>
-                </button>
-                <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">work</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#2B44E8]">Early Pro</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">23–28 yrs · Fast Upskill</span>
-                </button>
-                <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">trending_up</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#141726]">Mid Career</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">29–38 yrs · Specialized</span>
-                </button>
-                <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">account_balance</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#141726]">Senior / Exec</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">39+ yrs · Wealth Preserv.</span>
-                </button>
-              </div>
+          <!-- 1. Life Stage & Age -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
+              <span>1. Life Stage &amp; Age</span>
+              <span class="text-[#2B44E8]" id="profile-age-badge">Early Career</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+              <button type="button" onclick="selectProfilePill('age', 'student')" id="prof-age-student" class="prof-pill p-2 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">school</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#141726]">Student</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">18–22 yrs · 20y Compound</span>
+              </button>
+              <button type="button" onclick="selectProfilePill('age', 'early_career')" id="prof-age-early_career" class="prof-pill p-2 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">work</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#2B44E8]">Early Pro</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">23–28 yrs · Fast Upskill</span>
+              </button>
+              <button type="button" onclick="selectProfilePill('age', 'mid_career')" id="prof-age-mid_career" class="prof-pill p-2 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">trending_up</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#141726]">Mid Career</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">29–38 yrs · Specialized</span>
+              </button>
+              <button type="button" onclick="selectProfilePill('age', 'senior_exec')" id="prof-age-senior_exec" class="prof-pill p-2 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">account_balance</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#141726]">Senior / Exec</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">39+ yrs · Wealth Preserv.</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 2. Profession / Role -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
+              <span>2. Profession / Role</span>
+              <span class="text-[#2B44E8]" id="profile-role-badge">Tech &amp; Software</span>
+            </div>
+            <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
+              <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">terminal</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#2B44E8]">Tech &amp; Code</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">AI, Cloud, Systems</span>
+              </button>
+              <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">palette</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#141726]">Design &amp; UI</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">Figma, 3D, Creative</span>
+              </button>
+              <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">query_stats</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#141726]">Finance &amp; Biz</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">CFA, Deals, Modeling</span>
+              </button>
+              <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
+                <div class="flex items-center gap-1.5">
+                  <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
+                    <span class="material-symbols-outlined text-[13px]">school</span>
+                  </span>
+                  <span class="pill-title font-bold text-[#141726]">Academic / Uni</span>
+                </div>
+                <span class="text-[8px] text-[#5A5E72] mt-0.5">GRE, Research, Papers</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- 3. Monthly Discretionary Savings & Primary Focus -->
+          <div class="space-y-1">
+            <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
+              <span>3. Monthly Budget &amp; Goal</span>
+              <span class="text-[#10B981]" id="profile-goal-badge">Career Boost</span>
+            </div>
+            <div class="grid grid-cols-4 gap-1 font-mono text-[9.5px]">
+              <button type="button" onclick="selectProfileBudget(3000000)" id="prof-b-3m" class="p-1.5 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
+                Rp 3M
+              </button>
+              <button type="button" onclick="selectProfileBudget(8000000)" id="prof-b-8m" class="p-1.5 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press">
+                Rp 8M
+              </button>
+              <button type="button" onclick="selectProfileBudget(15000000)" id="prof-b-15m" class="p-1.5 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
+                Rp 15M
+              </button>
+              <button type="button" onclick="selectProfileBudget(25000000)" id="prof-b-25m" class="p-1.5 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
+                Rp 25M+
+              </button>
             </div>
 
-            <!-- 2. Profession / Role -->
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
-                <span>2. Profession / Role</span>
-                <span class="text-[#2B44E8]" id="profile-role-badge">Tech &amp; Software</span>
-              </div>
-              <div class="grid grid-cols-2 gap-1.5 font-mono text-[10px]">
-                <button type="button" onclick="selectProfilePill('role', 'tech_software')" id="prof-role-tech_software" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill liquid-glass-pill-active text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-[#2B44E8] text-white shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">terminal</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#2B44E8]">Tech &amp; Code</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">AI, Cloud, Systems</span>
-                </button>
-                <button type="button" onclick="selectProfilePill('role', 'design_creative')" id="prof-role-design_creative" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">palette</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#141726]">Design &amp; UI</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">Figma, 3D, Creative</span>
-                </button>
-                <button type="button" onclick="selectProfilePill('role', 'business_finance')" id="prof-role-business_finance" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">query_stats</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#141726]">Finance &amp; Biz</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">CFA, Deals, Modeling</span>
-                </button>
-                <button type="button" onclick="selectProfilePill('role', 'student_academic')" id="prof-role-student_academic" class="prof-pill p-2.5 rounded-2xl liquid-glass-pill text-left transition flex flex-col justify-between tactile-press">
-                  <div class="flex items-center gap-1.5">
-                    <span class="pill-icon-wrap w-5 h-5 rounded-lg flex items-center justify-center bg-black/5 text-[#5A5E72] shrink-0 transition-colors">
-                      <span class="material-symbols-outlined text-[13px]">school</span>
-                    </span>
-                    <span class="pill-title font-bold text-[#141726]">Academic / Uni</span>
-                  </div>
-                  <span class="text-[8px] text-[#5A5E72] mt-1">GRE, Research, Papers</span>
-                </button>
-              </div>
+            <div class="grid grid-cols-3 gap-1 pt-1 font-mono text-[9px]">
+              <button type="button" onclick="selectProfileGoal('career_mastery')" id="prof-g-career_mastery" class="p-1.5 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press truncate flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-[13px]">bolt</span>
+                <span>Career Boost</span>
+              </button>
+              <button type="button" onclick="selectProfileGoal('compound_growth')" id="prof-g-compound_growth" class="p-1.5 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-[13px]">insights</span>
+                <span>Compound</span>
+              </button>
+              <button type="button" onclick="selectProfileGoal('buffer_peace')" id="prof-g-buffer_peace" class="p-1.5 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1">
+                <span class="material-symbols-outlined text-[13px]">shield</span>
+                <span>60d Buffer</span>
+              </button>
             </div>
-
-            <!-- 3. Monthly Discretionary Savings & Primary Focus -->
-            <div class="space-y-1">
-              <div class="flex items-center justify-between text-[9.5px] font-mono font-bold text-[#5A5E72] uppercase tracking-wider px-0.5">
-                <span>3. Monthly Budget &amp; Goal</span>
-                <span class="text-[#10B981]" id="profile-goal-badge">Career Boost</span>
-              </div>
-              <div class="grid grid-cols-4 gap-1 font-mono text-[9.5px]">
-                <button type="button" onclick="selectProfileBudget(3000000)" id="prof-b-3m" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
-                  Rp 3M
-                </button>
-                <button type="button" onclick="selectProfileBudget(8000000)" id="prof-b-8m" class="p-2 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press">
-                  Rp 8M
-                </button>
-                <button type="button" onclick="selectProfileBudget(15000000)" id="prof-b-15m" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
-                  Rp 15M
-                </button>
-                <button type="button" onclick="selectProfileBudget(25000000)" id="prof-b-25m" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press">
-                  Rp 25M+
-                </button>
-              </div>
-
-              <div class="grid grid-cols-3 gap-1 pt-1 font-mono text-[9px]">
-                <button type="button" onclick="selectProfileGoal('career_mastery')" id="prof-g-career_mastery" class="p-2 rounded-xl liquid-glass-pill liquid-glass-pill-active text-center transition font-bold text-[#2B44E8] tactile-press truncate flex items-center justify-center gap-1">
-                  <span class="material-symbols-outlined text-[13px]">bolt</span>
-                  <span>Career Boost</span>
-                </button>
-                <button type="button" onclick="selectProfileGoal('compound_growth')" id="prof-g-compound_growth" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1">
-                  <span class="material-symbols-outlined text-[13px]">insights</span>
-                  <span>Compound</span>
-                </button>
-                <button type="button" onclick="selectProfileGoal('buffer_peace')" id="prof-g-buffer_peace" class="p-2 rounded-xl liquid-glass-pill text-center transition font-bold text-[#141726] tactile-press truncate flex items-center justify-center gap-1">
-                  <span class="material-symbols-outlined text-[13px]">shield</span>
-                  <span>60d Buffer</span>
-                </button>
-              </div>
-            </div>
-
           </div>
 
           <!-- Bottom Action Button -->
-          <div class="pt-2">
+          <div class="pt-1">
             <button onclick="finishOnboardingFromPersonaScreen()" class="w-full h-12 rounded-full bg-[#2B44E8] hover:bg-[#1f35c4] text-white font-bold text-xs tracking-wide shadow-md flex items-center justify-center gap-2 transition-all tactile-press">
               <span id="onb-p5-cta-label">Activate My Autopilot</span>
               <span class="material-symbols-outlined text-[16px]">arrow_forward</span>
@@ -5316,7 +5277,7 @@
       if (ledgerRight) {
         if (currentOnbSlide === 4) {
           const rInfo = ROLE_LABELS[USER_PROFILE.role] || ROLE_LABELS.tech_software;
-          ledgerRight.textContent = `${rInfo.icon} ${rInfo.short}`;
+          ledgerRight.textContent = rInfo.short;
         } else if (c) {
           const steps = [c.ledgerStep0, c.ledgerStep1, c.ledgerStep2, c.ledgerStep3];
           ledgerRight.textContent = steps[currentOnbSlide] || c.ledgerStep0;
