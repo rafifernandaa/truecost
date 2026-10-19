@@ -5241,6 +5241,7 @@
       if (overlay) {
         overlay.style.display = 'flex';
         overlay.classList.remove('hidden', 'opacity-0', 'pointer-events-none', 'scale-[0.97]');
+        overlay.classList.add('opacity-100', 'pointer-events-auto');
         goToOnboardingSlide(typeof startSlide === 'number' ? startSlide : 0);
       }
     }
@@ -5397,6 +5398,14 @@
       fetchLiveFxRates();
       if (fxPollInterval) clearInterval(fxPollInterval);
       fxPollInterval = setInterval(fetchLiveFxRates, 20000);
+
+      const urlParams = new URLSearchParams(window.location.search);
+      const forceOnb = urlParams.get('onboarding') === '1' || urlParams.get('get_started') === '1';
+      const isUnconfigured = !localStorage.getItem('tc_user_profile_configured');
+      const startSlide = parseInt(urlParams.get('slide') || '0', 10);
+      if (forceOnb || isUnconfigured || isFreshUser) {
+        openOnboardingTour(isNaN(startSlide) ? 0 : startSlide);
+      }
       const analyzeBtn = document.getElementById('analyze-btn');
       const inputEl = document.getElementById('url-input');
       const viewport = document.getElementById('onb-viewport');
