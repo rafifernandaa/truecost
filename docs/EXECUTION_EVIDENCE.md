@@ -264,38 +264,47 @@ To validate production readiness beyond cloud servers and desktop browsers, the 
 
 ---
 
-### 3.1 Screen 1 — Luxury Capture Canvas & Safe Balance Display
+### 3.1 Screen 1 — Luxury Capture Canvas & Active Market Analysis
 
 The entry canvas serves as the student's financial command center, establishing immediate financial awareness before any purchase action is initiated.
 
 ![Screen 1: Luxury Capture Canvas](diagrams/phone1.png)
 
-#### Technical Evidence & Screen Breakdown:
-1. **Safe-to-Spend Liquidity Header:** Prominently displays the student's real-time uncommitted liquidity: **$2,450.00 AUD (≈ Rp 25.400.000 IDR)**, accompanied by the reassuring status indicator: `"42 Days Cash Buffer Safe"`. This eliminates anxiety and informs the user whether an upcoming purchase would jeopardize essential living expenses.
-2. **Floating Status Controls:** The top control bar renders edge-to-edge on a seamless canvas with:
-   - Left: Frosted glass quick-action menu (36×36dp).
-   - Center: Floating live currency conversion capsule (`AUD · IDR 10,360` with a pulsing emerald sync dot).
-   - Right: Notification badge and student profile avatar.
-3. **Live Optical Price Tag Viewfinder:** An interactive camera capture viewfinder with animated breathing corner brackets (`2.4s ease-in-out` loop) that auto-detects barcodes, e-commerce QR codes, and physical retail price tags.
-4. **Interactive Budget Slider:** Enables precise setting of the maximum mandate cap (up to IDR 18.5M) with real-time conversion between AUD and IDR.
-5. **One-Tap Benchmark Scenario Cards:** Quick-load cards (`01 BNPL Trap · MacBook Air`, `02 AU Tax TRS · ThinkPad`, `03 Scam Risk · ROG 4080`) providing instant end-to-end evaluation with zero manual typing required.
-6. **Detached Floating Dynamic Island Dock:** Continuous 360dp frosted glass navigation bar (`backdrop-filter: blur(24px)`) featuring 3 primary tabs (`[Capture]`, `[Verdict]`, `[Shield]`) and a right-anchored session capsule with the `TC Demo` badge.
+#### Technical Evidence & Physical Device Screen Breakdown:
+1. **Asymmetric Interlocking Bento Header:**
+   - Left squircle greeting tile: Displays `"Good evening, Rafif!"` with active category tag `[Tech & Code]`, and immediate status prompt `"Scan bill or search product to begin"`.
+   - Right squircle gauge: Displays vertical thermometer-style `"0% Monthly Goal"` gauge with status `"Ready"`.
+2. **Smoked Glass Hero Liquidity Card:**
+   - Frosted glass container featuring an embedded dynamic search bar: `"ThinkPad T14s Gen 4 · $1,580 AUD with..."` with an instant `[Check]` action button.
+   - Status indicators displaying `"SAFE BALANCE: Rp 0"` and `"60d Buffer: +Rp 9.048.000"` with quick `[Auto-Settle]` shortcut.
+   - Circular tactile 3D coral/cobalt action button: **`[Scan Bill]`** with camera aperture icon for instant physical price tag / invoice capture.
+3. **Active Search Analysis & Price Spectrum Card:**
+   - Verified Store Badge: Officially stamped with emerald `[VERIFIED STORE]` badge for `"Lenovo ThinkPad T14s Gen 4"` from `"Lenovo Official Store Australia"`.
+   - Foreign Sticker & Tax Rebate: Displays `$1,580 AUD` sticker price with computed `"-Rp 1.560.000 Tax Back"` airport refund.
+   - 3-Column Symmetrical Distribution Spectrum:
+     - **Best Valley (Historical Low):** `Rp 12.937.600`
+     - **Current Analyzed Offer:** `Rp 16.432.000`
+     - **Retail High (Overpriced Ceiling):** `Rp 19.385.600`
+   - Non-clipping slider track with interactive floating knob indicating the current market position.
+   - Price Trend Evaluation: Evaluated as `"Optimal buy window: Best market price reached"`.
+4. **Floating Frosted Glass Dock:** Seamless 4-tab island navigation bar (`Home`, `Price Check`, `Scam Shield`, `My Vault`) anchored with active status pill.
 
 ---
 
 ### 3.2 Micro-Context Upward Expansion Modal Sheet
 
-Tapping the top currency status pill or the right session capsule on the floating dock smoothly expands an upward modal card powered by fluid spring physics.
+Tapping the mode selector capsule on the floating dock or top bar smoothly expands an upward modal card powered by fluid spring physics.
 
 ![Micro-Context Upward Expansion Sheet](diagrams/phonesheet.png)
 
-#### Technical Evidence & Screen Breakdown:
-1. **Fluid Spring Animation Physics:** The floating dock smoothly morphs upward into a floating rounded card (radius 28dp, height ~260dp, elevation shadow `0 20px 60px rgba(15,23,42,0.22)`) using native spring curve `cubic-bezier(0.34, 1.56, 0.64, 1)`.
-2. **Contextual Scenario Switcher:** Enables seamless switching between verified test scenarios without clearing user session state:
-   - `01 BNPL Trap (MacBook Air)` — Highlights predatory 18.4% hidden APR vs advertised 0%.
-   - `02 AU Tax TRS (ThinkPad T14s)` — Demonstrates cross-border landed cost and 10% Australian GST refund.
-   - `03 Scam Risk (ROG 4080)` — Showcases 80% price anomaly detection and cognitive friction block.
-3. **Active Liquidity Telemetry:** Real-time summary indicating `$2,450.00 AUD · Safe Horizon +42d`, giving the user continuous grounding during test executions.
+#### Technical Evidence & Physical Device Screen Breakdown:
+1. **Protection Mode Governance Matrix:**
+   - **Auto-Buy Mode · Within Cap (Active):** Automatically executes purchase when price drops to or below user target budget cap.
+   - **Hold Mode · Wait for Price Drop:** Ringfences funds into protected escrow pot until target price drop occurs.
+   - **Ask First · Confirm Every Time:** Demands interactive 1-tap confirmation before issuing any cart mandate.
+   - **Check Only · Read-Only:** Audits fees, taxes, and scam probability without initiating any financial movement.
+2. **Cryptographic Security Invariant Banner:** Prominent verification callout reminding the user that *"Autonomous mandates require valid Ed25519 signatures and bank-side spending caps before any money moves."*
+3. **Fluid Spring Animation:** Native spring physics (`cubic-bezier(0.34, 1.56, 0.64, 1)`) smoothly blurs the background canvas, keeping the student grounded in current transaction context.
 
 ---
 
@@ -305,24 +314,18 @@ The Quant Verdict screen presents the mathematical truth behind the offer, contr
 
 ![Screen 2: Deterministic Deal Analysis & Quant Verdict](diagrams/phone2.png)
 
-#### Technical Evidence & Screen Breakdown:
-1. **The BNPL Effective APR Lie Detector:**
-   - Merchant Advertised Rate: **0.0% APR** ("Pay in 4 easy installments of $280.00").
-   - Hidden Fee Decomposition: Account establishment fee ($15.00) + monthly maintenance fee ($8.00/mo) + payment processing spread (1.5%).
-   - True Effective APR (EAR): **43.8% EAR** (calculated via Newton-Raphson internal rate of return).
-   - Clear visual alert identifying the transaction as an unhedged debt trap.
-2. **Cross-Border Landed Cost Waterfall:**
-   - Australian Base Price: AUD 1,580.00 (IDR 16,842,800.00).
-   - Tourist Refund Scheme (TRS) Rebate: -IDR 1,684,280.00 (10% GST refund deducted at Sydney Kingsford Smith Airport).
-   - Indonesian Customs (Bea Cukai) Import Taxes: +IDR 2,423,728.80 (0% duty under WTO ITA, 11% PPN, 7.5% PPh Pasal 22).
-   - Net True Landed Cost: **IDR 17,582,248.80** (Strictly within the IDR 18.5M mandate cap).
-3. **Dynamic Optimal Stopping Recommendation:**
-   - Current Day: 4 of 14.
-   - Historical Distribution Rank: 16.7th percentile.
-   - Dynamic Reservation Price Threshold: **R₄ = IDR 16,600,000.00**.
-   - Recommendation Badge: **`BUY NOW`** (`IDR 16,400,000 ≤ R₄`).
-4. **Hedonic 36-Month Total Cost of Ownership (TCO):**
-   - Incorporates estimated battery degradation, warranty extensions, and historical secondary market depreciation to compute true monthly usage cost ($48.20/month).
+#### Technical Evidence & Physical Device Screen Breakdown:
+1. **Subtab Filter Navigation:** Edge-to-edge pills for switching analysis lenses: `[Total Cost]` (Active), `[Plan Fees]`, `[Best Timing]`, and `[Opportunity]`.
+2. **Staggered Bento Financial Grid:**
+   - **Left Column (Cost & Savings):** Displays `"Lenovo ThinkPad T14s Gen 4"` with final delivered cost `"$1,580"`, TrueCost savings capsule `"-Rp 1.560.000"`, sticker price `"$1,580"`, typical domestic retail comparison (`Rp 15.776.800`), and duty-free threshold allowance (`$500 USD`).
+   - **Right Top Card (Best Timing):** Circular glowing radial gauge indicating `"Rp 15.8M BEST TIME"` with `"GREAT VALUE"` evaluation, tracking real-time foreign exchange spread and tourist tax rebate.
+   - **Right Bottom Card (Fee Alert):** Terracotta alert card verifying `"+Rp 0"` hidden financing fees (`"Zero hidden financing or installment service fees detected"`).
+3. **Perforated Ticket Stub (Cost & Savings Summary):**
+   - Tactile boarding-pass design with semi-circular side punch-out notches and dashed divider line.
+   - Line 1: Airport Tourist Tax Refund (`-Rp 1.560.000` in emerald green).
+   - Line 2: Indonesian Customs Import Tax & Duty (`0% Active` under WTO Information Technology Agreement).
+   - Line 3: Estimated 3-Year Net Cost (`Rp 13.967.200`).
+   - Bottom Action Row: Direct pay prompt with prominent blue **`[BUY NOW]`** button.
 
 ---
 
@@ -332,22 +335,17 @@ When an anomalous offer or suspicious merchant is encountered, TrueCost Autopilo
 
 ![Screen 3: Scam Shield & Cognitive Friction Intervention](diagrams/phone3.png)
 
-#### Technical Evidence & Screen Breakdown:
-1. **Modified Z-Score Statistical Anomaly Indicator:**
-   - Advertised Price: IDR 7,500,000.00 for a flagship gaming laptop (normally IDR 35,000,000.00).
-   - Robust Modified Z-Score: **`Mᵢ = -5.82`** (Extreme outlier beyond the critical `-3.50` threshold).
-   - Scam Probability Index: **`0.94 / 1.00`** (`HIGH_RISK_FRAUD`).
-2. **Seller Reputation & Domain Diagnostics:**
-   - Newly created domain (`deal-electronics-super.xyz`, age: 4 days).
-   - Unverified merchant lacking SSL certificate pinning; payment routing attempts direct peer-to-peer wire transfer.
-3. **Revolut-Style Cognitive Friction Cooldown:**
-   - Autonomous settlement is **STRICTLY BLOCKED**.
-   - The user is presented with a forced 60-second cognitive cooldown timer and educational probes:
-     - *"Legitimate authorized retailers never request payment via WhatsApp or personal bank transfer."*
-     - *"This discount is 78% below historical manufacturer pricing, characteristic of counterfeit escrow traps."*
-   - Two clear action buttons:
-     - **Keep Blocked (Recommended):** Immediately terminates the mandate, releases reserved sinking funds back to Checking, and logs the incident.
-     - **Override with Token (High Friction):** Requires answering all safety probes correctly and entering the user's secondary PIN before generating a restricted override token.
+#### Technical Evidence & Physical Device Screen Breakdown:
+1. **Hero Safety Alert Banner:**
+   - Shield icon with high-visibility warning container.
+   - Prominent status: `"SAFETY PROTECTION · Suspicious Offer Blocked"` with coral bold badge: **`High Scam Risk`**.
+   - Specific Case Diagnosis: *"This Flash-Sale RTX GPU · Direct Bank Wire Only listing ($640) is priced far below normal retail (Rp 16.640.000) and asks for an unverified direct bank transfer outside escrow."*
+   - Active Escrow Telemetry: Displays `"Escrow Hold: Active · Rp 9.193.600 Safe"`, proving student funds remain untouched in bank vault.
+2. **Bento Diagnostic Anomaly Indicators:**
+   - **Tile 01 — Extreme Price Outlier:** Quantifies that the $640 offer is an extreme negative price outlier compared to typical retail (`Rp 16.640.000 typical`).
+   - **Tile 02 — Direct Wire Asked:** Warns that seller attempts to bypass buyer escrow protection via unverified direct wire.
+3. **Interactive Protective Action:** Full-width action button **`[Block Offer & Keep Funds Safe · PROTECTED]`** ensuring immediate termination of rogue intent and release of escrow.
+4. **Dock Telemetry:** Bottom floating dock highlights tab 3 with `"Scam Shield · Wire Blocked"` badge.
 
 ---
 
@@ -357,21 +355,21 @@ The Audit Ledger screen provides full transparency into the double-entry banking
 
 ![Screen 4: Student Safety Log & Bank Ledger](diagrams/phone4.png)
 
-#### Technical Evidence & Screen Breakdown:
-1. **Cryptographic Mandate Verification Chain:**
-   - User Intent Mandate: `MANDATE-2026-FINTECH-001` (`Ed25519: VALID`).
-   - Agent Cart Mandate: `CART-2026-EXEC-099` (`Ed25519: VALID`).
-   - Core Bank Re-Verification: All budget, rail, and merchant constraints re-evaluated and approved.
-2. **Single-Use Virtual Card Status Tile:**
-   - Token ID: `VCARD_E8941AB9D721`
-   - Hard Limit: IDR 17,582,248.80
-   - Current State: **`CONSUMED_DESTROYED`** (Card permanently incinerated immediately upon clearance).
-3. **Double-Entry General Ledger Balance Updates:**
-   - Transaction ID: `TX-2026-SETTLE-4401`
-   - Primary Checking Account (`ACC_USER_CHECKING`): IDR 25,400,000.00 → IDR 7,817,751.20.
-   - Sinking Reserve Pot (`ACC_USER_SINKING_POT`): IDR 18,500,000.00 → IDR 0.00 (IDR 17.58M debited for purchase, IDR 917.75K surplus returned to Checking).
-   - Net Personal Savings Preserved: **IDR 917,751.20**.
-4. **Machine-Readable Trajectory Export:** One-tap button enabling export of full JSONL trajectory logs (`logs/agent_trajectory.jsonl`) for regulatory compliance and audit replay.
+#### Technical Evidence & Physical Device Screen Breakdown:
+1. **3D Interactive Card Stack (My Accounts Ledger):**
+   - Top Card: **`PRIMARY CHECKING VAULT · ACC_CHECKING`** displaying real-time uncommitted liquidity: **`Rp 9.193.600`** (≈ Rp 9.192.416 IDR).
+   - Card Metadata: On-device passkey fingerprint (`Passkey: 8f9d2a...4e1b`) and 60-day living expense safety buffer (`60d Buffer: Rp 10.004.800 Safe`).
+   - Card Indicator: `"1 / 3 · Checking"` with tap-to-cycle gesture for inspecting Protected Sinking Pot and Disposable Virtual Card.
+2. **Double-Entry Escrow Controls:**
+   - Quick action pill `[1. Reserve Escrow]` for ringfencing target mandate funds.
+   - High-contrast action pill `[2. Settle & Refund]` for atomic settlement and automated surplus refunding.
+3. **Indonesian Payment Rail Compatibility:** Dedicated rails for localized student payments: **`Xendit QRIS`** (instant QR code settlement) and **`Midtrans BCA VA`** (Virtual Account rail).
+4. **Account & Payment Protection Checklist (Vault Ready):**
+   - **01 On-Device Privacy Shield:** Card numbers, government IDs, and emails remain strictly on-device (`PASS`).
+   - **02 Verified Price & Fee Protection:** All taxes, duties, and foreign exchange spreads double-checked deterministically (`VERIFIED`).
+   - **03 Order ORD_991A · +Rp 707.200 Refunded:** Settlement record for Lenovo Official Store Australia with double-entry verification (`SETTLED`).
+5. **Verified Activity History:** Real-time tamper-evident ledger with `[Reconcile Ledger]` link.
+6. **Dock Telemetry:** Active dock tab 4: `"My Vault · Auto-Buy Mode"` with verified green status indicator.
 
 ---
 
