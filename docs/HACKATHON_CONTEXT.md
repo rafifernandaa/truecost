@@ -52,7 +52,7 @@ Nov 20 check-in + WeBank HQ visit → Nov 21–23 Grand Final, Shenzhen (≥1 me
 - **Real financial pain point** with business/commercial value in digital banking; no generic AI.
 - **Multi-agent architecture with clear roles**: Planner → Execution/Tool → Validation/Audit.
 - **AIEP layering**: Data & Infra · Model Matrix · Agentic Workflow/Tools · Application.
-- **Deterministic validation / guardrails** so numbers and tool calls never hallucinate.
+- **Deterministic validation / guardrails** so numbers and tool calls are strictly grounded against verified quant modules.
 - **Trustworthy AI**: PII masking/encryption, explainability, **agent execution trajectory logs**, **human-in-the-loop** above risk/amount thresholds.
 - **Working end-to-end prototype**, live-executable, not hardcoded; Docker; API spec.
 - **Benchmark vs. conventional/baseline method.**

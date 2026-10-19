@@ -1,7 +1,7 @@
 # Implementation Plan: TrueCost — Pre-Purchase & Cross-Border Financial Agent
 
 ## Overview
-Build a containerized, end-to-end Multi-Agent financial system for the FinTechathon 2026 International Track[cite: 1, 2, 3]. The system captures offline price tags/barcodes, online product URLs, or cross-border invoices, redacts PII prior to LLM invocation, fetches comparable international listings and FX/customs rules, computes all financial and statistical metrics inside a deterministic Python `QuantEngine`[cite: 3], enforces 0% numeric hallucination via an `AuditAgent`, and executes permission-tiered banking actions inside a SQLite Sandbox Bank with full trajectory logging[cite: 1, 2, 3].
+Build a containerized, end-to-end Multi-Agent financial system for the FinTechathon 2026 International Track[cite: 1, 2, 3]. The system captures offline price tags/barcodes, online product URLs, or cross-border invoices, redacts PII prior to LLM invocation, fetches comparable international listings and FX/customs rules, computes all financial and statistical metrics inside a deterministic Python `QuantEngine`[cite: 3], enforces deterministic numeric groundedness via an `AuditAgent`, and executes permission-tiered banking actions inside a SQLite Sandbox Bank with full trajectory logging[cite: 1, 2, 3].
 
 ## Dependency Graph
 
@@ -287,7 +287,7 @@ Architecture DecisionsZero LLM Arithmetic: All pricing, econometric regression, 
 
 **Acceptance criteria:**
 - [ ] `PlannerAgent` produces a structured recommendation and narrative explanation strictly referencing numbers from `QuantVerdict`[cite: 3].
-- [ ] `AuditAgent` extracts every float/integer token from the narrative, compares it against `QuantVerdict` within $10^{-2}$ tolerance, and replaces ungrounded prose with a deterministic verified template (0% numeric hallucination)[cite: 2, 3].
+- [ ] `AuditAgent` extracts every float/integer token from the narrative, compares it against `QuantVerdict` within $10^{-2}$ tolerance, and replaces ungrounded prose with a deterministic verified template (deterministic numeric groundedness)[cite: 2, 3].
 - [ ] `AuditAgent` enforces `permission_tier = 3` and `hard_block = True` whenever $S_{\text{scam}} \ge 0.85$[cite: 3].
 
 **Verification:**
@@ -396,7 +396,7 @@ Architecture DecisionsZero LLM Arithmetic: All pricing, econometric regression, 
 **Description:** Create the 30 labeled evaluation scenarios in `data/benchmark_cases.json`, write `scripts/run_benchmarks.py` to measure economic savings vs. naive baseline, numeric hallucination rate ($\pm$ `AuditAgent`), scam precision/recall, and p50/p95 latency, and generate the required submission documents (`docs/TECHNICAL_DOC.md`, `docs/SECURITY_ASSESSMENT.md`, `README.md`, and `docs/execution_evidence/`)[cite: 1, 2, 3].
 
 **Acceptance criteria:**
-- [ ] `python -m scripts.run_benchmarks` executes all 30 cases, writes `docs/benchmark_results.json` demonstrating **0.0% numeric hallucination with `AuditAgent`**, and exports sandbox operation logs to `docs/execution_evidence/`[cite: 1, 3].
+- [ ] `python -m scripts.run_benchmarks` executes all 30 cases, writes `docs/benchmark_results.json` demonstrating **100% numerical groundedness with `AuditAgent`**, and exports sandbox operation logs to `docs/execution_evidence/`[cite: 1, 3].
 - [ ] `docs/TECHNICAL_DOC.md` and `docs/SECURITY_ASSESSMENT.md` cover system architecture, core mathematical formulas, permission-tier implementation, and the known-risk register (Submission Checklist Items 1 & 5)[cite: 1, 3].
 - [ ] `README.md` documents 1-command Docker deployment, environment setup, and test execution (Submission Checklist Item 4)[cite: 1, 3].
 

@@ -2,7 +2,7 @@
 Task 14 (docs/plan.md): 30-Case Deterministic Benchmark Runner for TrueCost Autopilot.
 Evaluates:
 1. Economic savings vs. naive immediate/BNPL baseline across 30 cross-border & local cases
-2. Numeric hallucination rate with AuditAgent enabled (verifying 0.0% ungrounded numbers)
+2. Numeric hallucination rate with AuditAgent enabled (verifying numeric grounding against quant outputs)
 3. Scam outlier detection precision & recall (Modified Z-Score + domain/wire signals)
 4. p50 / p95 deterministic pipeline execution latency
 Outputs: docs/benchmark_results.json

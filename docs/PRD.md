@@ -405,7 +405,7 @@ wire
 6. Security, Compliance & Trustworthy AI Design (30% Rubric Weight)
 Pre-LLM PII Redaction (CaptureAgent): Deterministic regex + Luhn check masks credit/debit card numbers, passport/NIK numbers, phone numbers, emails, and residential addresses before any payload reaches an external LLM[cite: 2, 3].
 
-Zero Numeric Hallucination Gate (AuditAgent): Extracts all numeric values from PlannerAgent prose and verifies exact correspondence (
+Deterministic Numeric Groundedness Gate (AuditAgent): Extracts all numeric values from PlannerAgent prose and verifies exact correspondence (
 ±10 
 −2
   rounding tolerance) against QuantVerdict fields[cite: 2, 3]. Any ungrounded number is blocked and replaced via deterministic template rendering[cite: 2, 3].

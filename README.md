@@ -75,7 +75,7 @@ flowchart TD
         INTAKE["Intake Agent\n(Semantic Specification & Intent Draftsman)"]
         WATCHER["Market Watcher Agent\n(Multi-Store Retail & Interbank FX Oracle)"]
         DECISION["Decision Agent\n(Optimal Timing, Landed Cost & Opportunity Cost)"]
-        AUDIT["Audit Agent: Anti-Hallucination Barrier\n(Strict Zero-Tolerance Number Verifier)"]
+        AUDIT["Audit Agent: Numeric Groundedness Barrier\n(Strict Number Grounding Verifier)"]
         EXEC["Execution Agent\n(Cart Mandate Assembly & Cryptographic Dispatch)"]
 
         CRYPTO -->|"Signed Intent Mandate (Ed25519)"| INTAKE

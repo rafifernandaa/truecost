@@ -50,7 +50,7 @@
 * **Physical Hardware Verification:** Live execution proof on Samsung Galaxy A55 5G (`SM-A556E`) showing all 4 Google Stitch screens operating natively with local cryptographic signing.
 * **Machine-Readable Ledger:** Demonstration of `logs/sandbox_execution.jsonl`.
 * **Adversarial Red-Team Results:** 100% of over-budget or tampered carts rejected by independent bank verification.
-* **Performance:** Sub-50ms deterministic quant execution; 0% hallucinated numbers.
+* **Performance:** Sub-50ms deterministic quant execution; 100% numeric groundedness with Audit Agent verification.
 
 ### Slide 8: Commercial Feasibility & WeBank Ecosystem Alignment (8:45 - 9:30)
 * **Bank-Embeddable Solution:** Helps digital banks (like WeBank) promote responsible lending, curb consumer default on third-party BNPL traps, and eliminate APP fraud liability.

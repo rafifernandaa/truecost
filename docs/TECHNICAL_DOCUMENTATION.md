@@ -34,7 +34,7 @@ flowchart TD
         IA["Intake Agent (Intent Draftsman)"]
         MWA["Market Watcher Agent (API Aggregator)"]
         DA["Decision Agent (Timing & Method Optimizer)"]
-        AA["Audit Agent (Hallucination & Policy Enforcer)"]
+        AA["Audit Agent (Numeric Groundedness & Policy Enforcer)"]
         EA["Execution Agent (Cart Mandate Assembly)"]
         
         SIGN -->|"Signed Intent Mandate"| IA
@@ -74,7 +74,7 @@ flowchart TD
 ### Layer Details:
 1. **Application & Interface Layer:** React 18, TypeScript, and Vite. The user's Ed25519 private key is generated and stored locally in browser storage using standard Web Cryptography; private keys never traverse external networks.
 2. **Agentic Workflow Layer:** Decoupled FastAPI microservices. The LLM serves purely as a semantic translator and natural-language explainer; all numbers are strictly bound to engine outputs.
-3. **Deterministic Quant Engine:** Implemented in pure Python using NumPy and SciPy. The engine guarantees 100% deterministic, mathematically auditable outcomes free from LLM hallucination.
+3. **Deterministic Quant Engine:** Implemented in pure Python using NumPy and SciPy. The engine guarantees 100% deterministic, mathematically auditable outcomes executed entirely independently of the LLM.
 4. **Core Banking Layer:** Manages user checking balances, automated sinking pot reservations, disposable card generation, and independent cryptographic policy checks.
 
 ---
