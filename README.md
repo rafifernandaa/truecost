@@ -516,34 +516,9 @@ To prove production readiness beyond emulator environments, the complete TrueCos
 - **Application Package:** `com.truecost.autopilot` (`.MainActivity`)
 - **APK Target:** `android_app/app/build/outputs/apk/debug/app-debug.apk`
 
-Verified Screen Flows on Physical Device:
-1. **Screen 1: Capture & Budget Canvas (`phone_screen1_capture_final.png`)** — Client-side Web Crypto Ed25519 keypair generation, live currency conversion (\$2,450.00 AUD / ≈ Rp 25.400.000 IDR), 42-day cash buffer safety gauge, and interactive price-tag scan trigger.
-2. **Screen 2: Deterministic Quant Verdict (`phone_screen_verdict.png`)** — Effective APR lie detector unmasking hidden fees (43.8% EAR vs advertised 0%), cross-border landed cost calculation (TRS refund -10%, Bea Cukai import taxes +IDR 2.42M), and optimal stopping reservation threshold $R_4$.
-3. **Screen 3: Scam Shield & HITL Execution Gate (`phone_screen_capture.png`)** — Modified Z-score anomaly detector ($M_i < -3.5$), merchant domain validation, and Revolut-style cognitive friction cooldown for Tier 3 scam alerts.
-4. **Screen 4: Sandbox Bank & Vault Audit Ledger (`phone_screen.png`)** — Cryptographic AP2 mandate chain, single-use disposable card issuance (`VCARD_E8941AB9D721`) with atomic burn upon clearance, and double-entry ledger balance updates.
-
-### 3.4 Presentation Deck & Demo Video Script
-
-The complete competition slide deck roadshow and narrated video demonstration are documented in:
-- [`presentation/PRESENTATION_DECK_AND_SCRIPT.md`](presentation/PRESENTATION_DECK_AND_SCRIPT.md)
-  - **Part 1:** 10-Minute Presentation Slide Deck Outline (7 high-impact slides covering problem framing, AP2 mandates, AIEP architecture, quant formulas, and sandbox logs).
-  - **Part 2:** &le; 5-Minute Competition Demo Video Script (step-by-step voiceover, live mobile UI actions, terminal logs, and bank state transitions).
-
 ---
 
-## 4. Mobile UI & Layout Architecture
-
-The TrueCost Autopilot mobile experience follows a tactile **Bento & Ticket Stub** geometry designed for clarity, instant legibility, and zero visual clutter:
-- **Part 01: Home & Safe Balance Canvas** — Friendly greeting squircle, live monthly goal gauge, live interbank FX spot oracle, and quick scan/search.
-- **Part 02: Price & Fee Breakdown** — Side-by-side delivered price vs. retail sticker comparison badges with overflow protection, circular timing gauge, and hidden installment fee alert.
-- **Part 03: Safety Shield** — Statistical price anomaly detector, suspicious direct-wire blocking, and Revolut-style scam intervention cooldown.
-- **Part 04: My Vault & Core Ledger** — Overlapping 3D card stack (Checking, Ringfenced Sinking Pot, Disposable Virtual Card) and verified double-entry ledger transaction history.
-- **Liquid Frosted Glass System:** Multi-layer translucent linear gradients, Gaussian blur (`blur(36px) saturate(200%)`), specular glass border (`1.5px solid rgba(255, 255, 255, 0.90)`), and dual inner rim highlights inspired by Apple visionOS.
-- **Zero-Emoji Discipline:** Emotes and emojis are eliminated across the entire application interface in favor of clean Google Material Symbols typography.
-
----
-
-## 5. License & Compliance
+## 4. License & Compliance
 
 Submitted for the **FinTechathon 2026 (Shenzhen International FinTech Competition)** under the **International AI Track (Topic A: Personal Finance Assistant)**.
 
