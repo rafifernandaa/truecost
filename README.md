@@ -312,71 +312,9 @@ adb install -r app/build/outputs/apk/debug/app-debug.apk
 
 ---
 
-### 1.5 Comprehensive Deterministic Test Cases (49 Passed / 100% Coverage)
+### 1.5 Comprehensive Deterministic Test Cases
 
 All financial formulas, cryptographic operations, banking state transitions, and security boundaries are validated by a deterministic unit test suite. Every single test asserts an exact mathematical theorem, cryptographic property, or adversarial invariant:
-
-```bash
-backend/.venv/Scripts/pytest backend/tests -v
-```
-
-```
-============================= test session starts =============================
-platform win32 -- Python 3.12.4, pytest-9.1.1 -- rootdir: c:\Users\rafif\fintechathon26\backend
-collected 49 items
-
-backend/tests/test_agent_pipeline.py::test_redact_pii_text_masks_pan_nik_and_email ............. [PASSED]
-backend/tests/test_agent_pipeline.py::test_audit_agent_catches_hallucinated_numbers ............. [PASSED]
-backend/tests/test_agent_pipeline.py::test_run_full_agent_pipeline_end_to_end .................. [PASSED]
-backend/tests/test_agent_pipeline.py::test_parse_real_user_query_multi_currency_and_scam ........ [PASSED]
-backend/tests/test_agent_pipeline.py::test_dynamic_product_pricing_samsung_a57_without_placeholders [PASSED]
-backend/tests/test_agent_pipeline.py::test_dynamic_product_pricing_oppo_find_x9_ultra .......... [PASSED]
-backend/tests/test_agent_pipeline.py::test_dynamic_product_pricing_philips_seri_1000 ........... [PASSED]
-backend/tests/test_apr.py::test_true_zero_percent_installment ................................... [PASSED]
-backend/tests/test_apr.py::test_advertised_zero_percent_with_hidden_fees ........................ [PASSED]
-backend/tests/test_apr.py::test_predatory_bnpl_with_foregone_cash_discount ..................... [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_minor_unit_decimal_precision_no_float_drift [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_schema_migrations_and_state_persistence_across_restarts [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_double_entry_ledger_balancing_and_unbalanced_rejection [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_ledger_entries_and_audit_logs_are_immutable_with_reversing_journal_support [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_atomic_transaction_rollback_on_mid_flight_failure [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_idempotency_key_prevents_duplicate_execution_and_detects_payload_conflict [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_xendit_and_midtrans_payment_lifecycle_webhook_signatures_and_idempotency [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_cross_user_authorization_and_reconciliation [PASSED]
-backend/tests/test_financial_ledger_and_payments.py::test_fastapi_payment_webhook_and_security_endpoints [PASSED]
-backend/tests/test_hedonic_tco.py::test_hedonic_monotonic_spec_scaling .......................... [PASSED]
-backend/tests/test_hedonic_tco.py::test_compute_tco_npv_resale_reduces_net_cost ................. [PASSED]
-backend/tests/test_hedonic_tco.py::test_project_cashflow_60d_breach_detection .................. [PASSED]
-backend/tests/test_landed_cost.py::test_australian_laptop_purchase_with_tourist_refund ......... [PASSED]
-backend/tests/test_mandate_crypto.py::test_intent_mandate_signing_and_tamper_detection ......... [PASSED]
-backend/tests/test_mandate_crypto.py::test_cart_mandate_signing_and_verification ................ [PASSED]
-backend/tests/test_opportunity_cost.py::test_compute_compound_opportunity_cost_precision ........ [PASSED]
-backend/tests/test_opportunity_cost.py::test_compute_compound_opportunity_cost_edge_cases ...... [PASSED]
-backend/tests/test_opportunity_cost.py::test_get_human_capital_alternatives_tech_software ...... [PASSED]
-backend/tests/test_opportunity_cost.py::test_get_human_capital_alternatives_small_budget_fractional [PASSED]
-backend/tests/test_opportunity_cost.py::test_get_human_capital_alternatives_all_roles ........... [PASSED]
-backend/tests/test_opportunity_cost.py::test_calculate_life_energy_hours ........................ [PASSED]
-backend/tests/test_opportunity_cost.py::test_api_quant_opportunity_cost_endpoint ................ [PASSED]
-backend/tests/test_opportunity_cost.py::test_api_bank_divert_to_growth_pot_endpoint ............ [PASSED]
-backend/tests/test_optimal_stopping.py::test_reservation_price_decay ............................ [PASSED]
-backend/tests/test_optimal_stopping.py::test_evaluate_buy_timing_decisions ...................... [PASSED]
-backend/tests/test_replay_simulator.py::test_time_travel_simulation_basic ....................... [PASSED]
-backend/tests/test_sandbox_bank.py::test_sandbox_bank_end_to_end_compliant_flow ................. [PASSED]
-backend/tests/test_sandbox_bank.py::test_bank_blocks_overbudget_cart ............................ [PASSED]
-backend/tests/test_sandbox_bank.py::test_bank_blocks_scam_cart_without_override ................. [PASSED]
-backend/tests/test_sandbox_bank.py::test_bank_deposit_income_splits_buffer_and_checking ......... [PASSED]
-backend/tests/test_sandbox_bank.py::test_bank_blocks_replay_attack_on_intent_mandate ............ [PASSED]
-backend/tests/test_sandbox_bank.py::test_execute_real_case_flow_reserves_settles_and_refunds_savings [PASSED]
-backend/tests/test_scam_detector.py::test_normal_market_price ................................... [PASSED]
-backend/tests/test_scam_detector.py::test_extreme_low_outlier_scam_with_fake_domain ............. [PASSED]
-backend/tests/test_scam_detector.py::test_real_samsung_s23_invoice_authenticity_audit ........... [PASSED]
-backend/tests/test_scam_detector.py::test_fake_counterfeit_samsung_invoice_caught ............... [PASSED]
-backend/tests/test_scam_detector.py::test_australian_invoice_abn_and_indonesian_npwp_audit ...... [PASSED]
-backend/tests/test_scam_detector.py::test_parse_invoice_text_from_raw_ocr_string ................ [PASSED]
-backend/tests/test_topsis.py::test_topsis_ranking ................................................ [PASSED]
-
-======================= 49 passed, 1 warning in 16.36s =======================
-```
 
 #### Detailed Breakdown of Test Invariants by Functional Module:
 
@@ -432,7 +370,7 @@ backend/tests/test_topsis.py::test_topsis_ranking ..............................
 
 ---
 
-## 2. Security Self-Assessment Report (Requirement 5)
+## 2. Security Self-Assessment Report
 
 ### 2.1 Permission-Tier Implementation Matrix
 
@@ -474,7 +412,7 @@ To ensure autonomous agents cannot execute unauthorized or high-risk financial a
 
 ---
 
-## 3. Execution Evidence & Sandbox Operation Logs (Requirement 6)
+## 3. Execution Evidence & Sandbox Operation Logs
 
 Per Section 5 of the Competition Rules (`international-topics-rules-en.docx`), teams submitting under non-on-chain topics must provide **simulated-account / sandbox operation logs** demonstrating that the AI operates as an autonomous financial participant rather than a static chat interface.
 
