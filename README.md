@@ -193,36 +193,32 @@ To prevent counterfeit invoices and forged electronic bills from bypassing purch
 3. **Telecommunications Hardware Integrity (IMEI Luhn Check):**
    - For smartphone and mobile hardware invoices, extracts the 15-digit IMEI and validates it against the 3GPP/GSM Modulo-10 Luhn check-digit algorithm ($\text{Luhn}(d_{1..14}) == d_{15}$), catching counterfeit and dummy IMEIs instantly.
 4. **Line-Item Mathematical Balancing Down to the Paisa/Cent:**
-   - Enforces exact reconciliation:
-     $$\left|\text{Taxable Value} + \text{CGST} + \text{SGST} + \text{IGST} + \text{Shipping} - \text{Discount} - \text{Grand Total}\right| \le 0.01$$
-     Counterfeit invoices frequently fail this invariant due to fabricated rounded totals or missing tax component breakdowns.
+   - Enforces exact reconciliation: $\left|\text{Taxable Value} + \text{CGST} + \text{SGST} + \text{IGST} + \text{Shipping} - \text{Discount} - \text{Grand Total}\right| \le 0.01$. Counterfeit invoices frequently fail this invariant due to fabricated rounded totals or missing tax component breakdowns.
 5. **Authorized Retailer & Whitelist Verification:**
    - Validates seller legal name against known authorized retailer networks (e.g., CIGFIL Limited / Flipkart, Amazon Retail, Samsung Official Store) and flags unauthorized third-party dropshippers.
 
 #### E. Compound Opportunity Cost & Human Capital Growth Engine (`opportunity_cost.py`)
 Calculates the true economic trade-off of consumer discretionary spending by projecting alternative capital growth and labor value:
 
-1. **Compound Investment Growth:**
+**1. Compound Investment Growth:**  
+Evaluates future portfolio value across 3-, 5-, and 10-year horizons at realistic benchmark yields (5.0%, 7.0%, 10.0%):
 
-   $$
-   A_n = P \times \left(1 + \frac{r}{m}\right)^{m \times n}
-   $$
+$$
+A_n = P \times \left(1 + \frac{r}{m}\right)^{m \times n}
+$$
 
-   Evaluates future portfolio value across 3-, 5-, and 10-year horizons at realistic benchmark yields (5.0%, 7.0%, 10.0%).
+**2. Life Energy Hours Conversion (Vicki Robin Model):**  
+Translates price tags into real human work hours required to earn the purchase amount based on the user's net hourly wage $W_{\text{hourly}}$:
 
-2. **Life Energy Hours Conversion (Vicki Robin Model):**
+$$
+H_{\text{work}} = \frac{P_{\text{net}}}{W_{\text{hourly}}}
+$$
 
-   $$
-   H_{\text{work}} = \frac{P_{\text{net}}}{W_{\text{hourly}}}
-   $$
+**3. Human Capital Investment Diversion:**  
+Matches the discretionary purchase amount against career-accelerating human capital alternatives (cloud engineering certifications, algorithmic trading academies, UX masterclasses) tailored to the user's calibrated persona.
 
-   Translates price tags into real human work hours required to earn the purchase amount based on the user's net hourly wage $W_{\text{hourly}}$.
-
-3. **Human Capital Investment Diversion:**
-   Matches the discretionary purchase amount against career-accelerating human capital alternatives (cloud engineering certifications, algorithmic trading academies, UX masterclasses) tailored to the user's calibrated persona.
-
-4. **Automated Growth Pot Inflow:**
-   Enables 1-tap diversion of impulse spending from the Checking Account into a dedicated **Self-Investment Sinking Pot** backed by signed AP2 growth receipts.
+**4. Automated Growth Pot Inflow:**  
+Enables 1-tap diversion of impulse spending from the Checking Account into a dedicated **Self-Investment Sinking Pot** backed by signed AP2 growth receipts.
 
 #### F. Hedonic 36-Month Total Cost of Ownership (`hedonic_tco.py`)
 Evaluates long-term device cost incorporating specification-based hedonic regression, annual maintenance, power consumption, and discounted terminal salvage value:
@@ -453,6 +449,19 @@ To prove production readiness beyond emulator environments, the complete TrueCos
 - **Device Serial:** `RRCX305H0YE`
 - **Application Package:** `com.truecost.autopilot` (`.MainActivity`)
 - **APK Target:** `android_app/app/build/outputs/apk/debug/app-debug.apk`
+
+Verified Screen Flows on Physical Device:
+1. **Screen 1: Capture & Budget Canvas ([`phone1.png`](docs/diagrams/phone1.png))** — Client-side Web Crypto Ed25519 keypair generation, live currency conversion ($2,450.00 AUD / ≈ Rp 25.400.000 IDR), 42-day cash buffer safety gauge, and interactive price-tag scan trigger.
+2. **Screen 2: Deterministic Quant Verdict ([`phone2.png`](docs/diagrams/phone2.png))** — Effective APR lie detector unmasking hidden fees (43.8% EAR vs advertised 0%), cross-border landed cost calculation (TRS refund -10%, Bea Cukai import taxes +IDR 2.42M), and optimal stopping reservation threshold $R_4$.
+3. **Screen 3: Scam Shield & HITL Execution Gate ([`phone3.png`](docs/diagrams/phone3.png))** — Modified Z-score anomaly detector ($M_i < -3.5$), merchant domain validation, and Revolut-style cognitive friction cooldown for Tier 3 scam alerts.
+4. **Screen 4: Sandbox Bank & Vault Audit Ledger ([`phone4.png`](docs/diagrams/phone4.png))** — Cryptographic AP2 mandate chain, single-use disposable card issuance (`VCARD_E8941AB9D721`) with atomic burn upon clearance, and double-entry ledger balance updates.
+
+### 3.4 Presentation Deck & Demo Video Script
+
+The complete competition slide deck roadshow and narrated video demonstration are documented in:
+- [`presentation/PRESENTATION_DECK_AND_SCRIPT.md`](presentation/PRESENTATION_DECK_AND_SCRIPT.md)
+  - **Part 1:** 10-Minute Presentation Slide Deck Outline (7 high-impact slides covering problem framing, AP2 mandates, AIEP architecture, quant formulas, and sandbox logs).
+  - **Part 2:** &le; 5-Minute Competition Demo Video Script (step-by-step voiceover, live mobile UI actions, terminal logs, and bank state transitions).
 
 ---
 
