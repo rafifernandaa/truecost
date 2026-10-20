@@ -242,7 +242,7 @@ $$
 
 ### 1.3 Security Design
 
-1. **he Deterministic Constraint Invariant (Deterministic Math Only):**
+1. **The Deterministic Constraint Invariant:**
    - The LLM never computes financial arithmetic. All calculations are executed by deterministic Python modules with unit test coverage.
    - The **Audit Agent** scans natural-language explanations against exact quant outputs; ungrounded or mismatched numbers trigger immediate response blocking.
 2. **Cryptographic Ed25519 Mandates (AP2 Protocol):**
