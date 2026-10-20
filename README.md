@@ -2,15 +2,6 @@
 
 **FinTechathon 2026 (Shenzhen International FinTech Competition)**  
 *International AI Track · Topic A: Personal Finance Assistant*  
-**Host Organization:** Shenzhen FinTech Competition Committee & WeBank  
-**Theme:** *"AI as a Financial Participant"* (Autonomous execution within cryptographic guardrails, not a passive chat wrapper)  
-**Official Language:** English for all documentation, code, comments, commit messages, and presentation materials.  
-**Submission Deadline:** October 20, 2026, 23:59 Beijing Time (UTC+8) / 22:59 Jakarta Time (WIB).
-
-[![Test Suite](https://img.shields.io/badge/Unit%20Tests-49%2F49%20PASSED%20(100%25)-10B981?style=for-the-badge&logo=pytest)](backend/tests/)
-[![Python](https://img.shields.io/badge/Python-3.11%2B%20%7C%20FastAPI-2B44E8?style=for-the-badge&logo=python)](backend/)
-[![Cryptography](https://img.shields.io/badge/Security-Ed25519%20%7C%20AP2%20Mandates-EB7951?style=for-the-badge&logo=shield)](docs/SECURITY_SELF_ASSESSMENT.md)
-[![Hardware](https://img.shields.io/badge/Tested%20On-Samsung%20Galaxy%20A55%205G-131522?style=for-the-badge&logo=android)](docs/EXECUTION_EVIDENCE.md)
 
 ---
 
