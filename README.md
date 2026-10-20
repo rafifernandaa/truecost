@@ -15,6 +15,118 @@ TrueCost Autopilot solves this paradigm by anchoring all agent behaviors to **cr
 
 ---
 
+## 🚀 How to Launch & Run TrueCost Autopilot
+
+TrueCost Autopilot supports **two execution modes**:
+1. **📱 Physical Android Smartphone (Fastest & Fully Autonomous):** Run the standalone mobile APK directly on any Android smartphone (e.g., Samsung Galaxy A55 5G) with live DeepSeek AI Agent support over Wi-Fi / 4G / 5G — **zero PC or backend setup required**.
+2. **💻 Full-Stack Local Sandbox (Developer / PC / Docker):** Run the complete local FastAPI backend, SQLite double-entry ledger, and web client on your workstation or containerized environment.
+
+---
+
+### 📱 Option 1: Launch on Physical Android Phone (Recommended)
+
+The mobile client is packaged as an optimized, hardware-accelerated Android application with built-in Web Crypto Ed25519 signing, a local deterministic quant engine, and a direct native HTTP bridge to **DeepSeek V3 / R1** (`https://api.deepseek.com`).
+
+#### Method A: Direct APK Installation (Standalone — No PC Needed)
+1. **Download the Pre-Compiled APK**:
+   - Download [`TrueCost-Autopilot-v2.1.apk`](TrueCost-Autopilot-v2.1.apk) from the root of this repository.
+2. **Transfer & Install on Phone**:
+   - Send the `.apk` file to your Android phone via **Quick Share**, **Google Drive**, **WhatsApp**, or **USB cable**.
+   - Tap the APK file on your phone and select **Install** (enable *"Install unknown apps"* in Android Settings if prompted).
+3. **Open & Use Instantly**:
+   - Launch **TrueCost Autopilot** from your phone's app drawer.
+   - The app runs completely standalone on cellular or Wi-Fi.
+   - **DeepSeek AI Agent is pre-configured and live**: In Settings, verify the **DeepSeek V3 / R1 API Hub** shows `ONLINE` (tap **Test** for an instant ping verification).
+
+#### Method B: One-Command Developer Install via ADB (USB)
+If your phone is plugged into your PC with USB debugging enabled:
+```bash
+# 1. Verify your connected physical phone
+adb devices
+
+# 2. Install / Update the TrueCost APK directly
+adb install -r TrueCost-Autopilot-v2.1.apk
+
+# 3. (Optional) Reverse tunnel PC backend port to phone for local ledger testing
+adb reverse tcp:8000 tcp:8000
+```
+
+#### Method C: Compile from Source (Android Studio / Gradle)
+```bash
+cd android_app
+./gradlew assembleDebug
+
+# Output APK is located at:
+# android_app/app/build/outputs/apk/debug/app-debug.apk
+```
+
+---
+
+### 🔍 Quick Phone Walkthrough & Live DeepSeek Verification
+
+To test the live DeepSeek V3 AI Agent and the deterministic quant engine on your phone:
+
+1. **Search Any Real Product**:
+   - Enter **`Macbook Air M5`** (or `Philips Seri 1000 HD3003`, `Samsung Galaxy A57 5G`, `OPPO Find X9 Ultra`, `Sony WH-1000XM5`).
+   - Tap **Check**.
+2. **Observe Real-Time DeepSeek Intelligence**:
+   - The status badge transitions from `DEEPSEEK AI AGENT · RESEARCHING...` to:
+$$\mathbf{DEEPSEEK\ V3\ \cdot\ LIVE\ VERIFIED\ \cdot\ 280ms}$$
+   - DeepSeek extracts real-world retail pricing (`Rp 18.500.000 IDR`), verified authorized merchants (`iBox Indonesia`, `Apple Store`), and 12-month installment terms.
+3. **Explore 3-Lens Opportunity Cost**:
+   - Tap the **Opportunity Cost** tabs:
+     - 📈 **Wealth Pot**: See 1-, 3-, 5-, 10-, and 20-year compound growth at 6% APY if the purchase funds were diverted into an investment pot.
+     - 🚀 **Upskill**: Compare the purchase against human capital certifications (e.g., Full-Stack Cloud Engineering, AI System Architecture).
+     - ⏳ **Life Energy**: View how many actual working hours of your career are required to earn this item.
+4. **Step Through the 4 Core Tabs**:
+   - 💳 **Capture & Mandate**: Sign a client-side Ed25519 Intent Mandate.
+   - 📊 **Quant Verdict**: Review landed cost, customs duties (PPN 11%, PPh), and unmasked BNPL APR.
+   - 🛡️ **Scam Shield**: Audit seller legitimacy, review count, and Modified Z-Score outlier detection.
+   - 🏛️ **Vault & Bank**: Inspect the double-entry general ledger and single-use disposable card burn.
+
+---
+
+### 💻 Option 2: Run Full Stack on PC / Workstation (Backend + Web)
+
+#### Method A: Docker Compose (One-Click)
+```bash
+# Clone the repository
+git clone https://github.com/rafifernandaa/truecost.git
+cd truecost
+
+# Launch backend and web services
+docker-compose up --build
+```
+Access points:
+- **Web Application UI:** `http://localhost:3000`
+- **FastAPI Core Banking & Quant API Docs:** `http://localhost:8000/docs`
+
+#### Method B: Local Python Environment
+```bash
+# 1. Setup Backend
+cd backend
+python -m venv .venv
+
+# Windows
+.venv\Scripts\activate
+# macOS / Linux
+source .venv/bin/activate
+
+# Install dependencies
+pip install -e .
+
+# Run FastAPI Server
+uvicorn app.main:app --host 0.0.0.0 --port 8000 --reload
+```
+
+In another terminal, serve the frontend or open [`android_assets/index.html`](android_assets/index.html) directly in any browser:
+```bash
+# Serve frontend on port 3000
+python -m http.server 3000 --directory android_assets
+```
+
+---
+
 ## 1. Technical Documentation
 
 ### 1.1 System Architecture
