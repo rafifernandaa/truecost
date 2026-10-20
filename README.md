@@ -13,39 +13,6 @@ Conventional personal finance chatbots act as ungrounded language wrappers: they
 
 TrueCost Autopilot solves this paradigm by anchoring all agent behaviors to **cryptographically signed user mandates** (inspired by Google's Agent Payments Protocol / AP2 standard) and routing all economic decisions through **pure deterministic quant modules**. The system is tailored for cross-border consumers, travelers, and international students navigating foreign exchange volatility, deceptive financing, and import tariffs.
 
-```
-+---------------------------------------------------------------------------------------------------+
-|                                  THE FINANCIAL PARTICIPANT PARADIGM                               |
-+---------------------------------------------------------------------------------------------------+
-|  TRADITIONAL CHATBOT:      User asks prompt --> LLM hallucinates arithmetic --> User gets scammed |
-|                                                                                                   |
-|  TRUECOST AUTOPILOT:       User signs Ed25519 Intent Mandate (In-Browser Web Crypto)              |
-|                                     │                                                             |
-|                            Multi-Agent Pipeline (Semantic Extraction & Market Scraping)           |
-|                                     │                                                             |
-|                            Deterministic Quant Engine (100% Deterministic Math - Zero LLM Math)   |
-|                                     │                                                             |
-|                            Core Bank Verification (Signature, Nonce, Budget Cap Validation)       |
-|                                     │                                                             |
-|                            Atomic Execution (Single-Use Disposable Card & Double-Entry Ledger)    |
-+---------------------------------------------------------------------------------------------------+
-```
-
----
-
-## 📋 Competition Rule Alignment & Deliverables Matrix
-
-This repository satisfies all required deliverables under Section 5 of the Official Competition Rules (`international-topics-rules-en.docx`):
-
-| # | Official Competition Deliverable | Primary Repository Location | Scope & Coverage in This Repository |
-| :-: | :--- | :--- | :--- |
-| **1** | **Technical Documentation** | [`docs/TECHNICAL_DOCUMENTATION.md`](docs/TECHNICAL_DOCUMENTATION.md) & [Section 1](#1-technical-documentation) | Complete system architecture, AIEP 4-layer design, 7 core quant algorithm formulas, security boundary proofs, and setup guides. |
-| **2** | **Source Code & Test Cases** | [`backend/`](backend/), [`frontend/`](frontend/), [`android_app/`](android_app/) & [Section 1.5](#15-comprehensive-deterministic-test-cases-49-passed--100-coverage) | Full production source code: deterministic Python quant modules, FastAPI endpoints, React 18 UI, and 49 passing deterministic test cases. |
-| **3** | **Security Self-Assessment Report** | [`docs/SECURITY_SELF_ASSESSMENT.md`](docs/SECURITY_SELF_ASSESSMENT.md) & [Section 2](#2-security-self-assessment-report-requirement-5) | 4-tier permission matrix (Tiers 0–3), STRIDE threat model, and comprehensive 7-point Known-Risk Ledger (`RSK-01` to `RSK-07`). |
-| **4** | **Execution Evidence (Non-On-Chain Topic A)** | [`docs/EXECUTION_EVIDENCE.md`](docs/EXECUTION_EVIDENCE.md), [`logs/`](logs/) & [Section 3](#3-execution-evidence--sandbox-operation-logs-requirement-6) | Full simulated core bank operation logs (`logs/sandbox_execution.jsonl`, `logs/agent_trajectory.jsonl`), double-entry ledger trails, and physical Samsung Galaxy A55 5G execution proof. |
-| **5** | **Presentation Deck & Demo Video Script** | [`presentation/PRESENTATION_DECK_AND_SCRIPT.md`](presentation/PRESENTATION_DECK_AND_SCRIPT.md) | 10-minute competition slide deck outline and $\le 5$-minute narrated product demonstration video script. |
-| **6** | **One-Click Reproducibility** | [`docker-compose.yml`](docker-compose.yml) & [`backend/Dockerfile`](backend/Dockerfile) | Production Docker Compose environment containerizing backend, SQLite ledger, and web client. |
-
 ---
 
 ## 1. Technical Documentation
